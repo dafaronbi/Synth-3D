@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <JUCERPROJECT id="DyliU0" name="Plugin Synth" projectType="audioplug" useAppConfig="0"
-              addUsingNamespaceToJuceHeader="0" displaySplashScreen="1" jucerFormatVersion="1">
+              addUsingNamespaceToJuceHeader="0" displaySplashScreen="1" jucerFormatVersion="1"
+              pluginCharacteristicsValue="pluginIsSynth,pluginProducesMidiOut,pluginWantsMidiIn"
+              pluginName="Binaural Synthesizer" pluginManufacturer="3D Audio Group">
   <MAINGROUP id="ECYH89" name="Plugin Synth">
     <GROUP id="{3C9C8077-9041-ECCE-669B-016B9F7AF9B2}" name="Source">
+      <FILE id="QrPfYY" name="synth.h" compile="0" resource="0" file="Source/synth.h"/>
       <FILE id="ZfGsCI" name="sliders.h" compile="0" resource="0" file="Source/sliders.h"/>
       <FILE id="nXcGom" name="extraComponents.h" compile="0" resource="0"
             file="Source/extraComponents.h"/>

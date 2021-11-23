@@ -29,7 +29,7 @@
     <array>
       <dict>
         <key>name</key>
-        <string>yourcompany: Plugin Synth</string>
+        <string>3D Audio Group: Binaural Synthesizer</string>
         <key>description</key>
         <string>Plugin Synth</string>
         <key>factoryFunction</key>
@@ -37,7 +37,7 @@
         <key>manufacturer</key>
         <string>Manu</string>
         <key>type</key>
-        <string>aufx</string>
+        <string>aumu</string>
         <key>subtype</key>
         <string>Dyli</string>
         <key>version</key>

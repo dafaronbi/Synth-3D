@@ -13,48 +13,47 @@
 PluginSynthAudioProcessorEditor::PluginSynthAudioProcessorEditor (PluginSynthAudioProcessor& p)
     : AudioProcessorEditor (&p), audioProcessor (p)
 {
-    // Make sure that before the constructor has finished, you've set the
-    // editor's size to whatever you need it to be.
+
     
     //add child components
     addChildComponent(oMenu);
     addChildComponent(fMenu);
     addChildComponent(aMenu);
-    
+
     addAndMakeVisible(nBar);
     addAndMakeVisible(save_button);
     addAndMakeVisible(test_audio);
-    
+
     //only oscilattior menu is on by default
     oMenu.setVisible(true);
-    
+
     //add listeners to sub-components
     nBar.addChangeListener(this);
     oMenu.addChangeListener(this);
     fMenu.addChangeListener(this);
     aMenu.addChangeListener(this);
-    
+
     //configure button text
     save_button.setButtonText ("Save Sample");
     test_audio.setButtonText("Test Audio");
-    
+
     //add listener for button
     save_button.addListener(this);
     test_audio.addListener(this);
-    
+
     //set default window size
     setSize(800, 600);
-    
+
     //current Angle at begining of phase
     currentAngle1 = 0;
     currentAngle2 = 0;
     currentAngle3 = 0;
-    
+
     //current Sample at begining
     currentSample1 = 0;
     currentSample2 = 0;
     currentSample3 = 0;
-    
+
 
     //initialize filter variables
     cutoff_freq1 = fMenu.filter1_cuttoff_freq.getValue();
@@ -65,7 +64,7 @@ PluginSynthAudioProcessorEditor::PluginSynthAudioProcessorEditor (PluginSynthAud
     f_decay = fMenu.filter_decay.getValue();
     f_sustain = fMenu.filter_sustain.getValue();
     f_release = fMenu.filter_release.getValue();
-        
+
     //silent at first
     audible = false;
 
@@ -89,16 +88,16 @@ void PluginSynthAudioProcessorEditor::paint (juce::Graphics& g)
 
     g.setColour (juce::Colours::white);
     g.setFont (15.0f);
-    g.drawFittedText ("Hello World!", getLocalBounds(), juce::Justification::centred, 1);
+    g.drawFittedText ("", getLocalBounds(), juce::Justification::centred, 1);
 }
 
 void PluginSynthAudioProcessorEditor::resized()
 {
     //get the local area
     auto area = getLocalBounds();
-    
+
     auto nav_width = getWidth() < 160 ? getWidth() /3 : 160;
-    
+
     //set areas of things
     nBar.setBounds(area.removeFromLeft(nav_width));
     auto button_area = area.removeFromBottom(getHeight()/15);
@@ -107,9 +106,6 @@ void PluginSynthAudioProcessorEditor::resized()
     fMenu.setBounds(area);
     oMenu.setBounds(area);
     aMenu.setBounds(area);
-    // This is called when the MainContentComponent is resized.
-    // If you add any child components, this is where you should
-    // update their positions.
 }
 
 void PluginSynthAudioProcessorEditor::changeListenerCallback(juce::ChangeBroadcaster* source)
@@ -134,13 +130,13 @@ void PluginSynthAudioProcessorEditor::changeListenerCallback(juce::ChangeBroadca
         }
         
         if(source == &oMenu){
-            currentFrequency1 = oMenu.osc1_frequency.getValue();
-            currentFrequency2 = oMenu.osc2_frequency.getValue();
-            currentFrequency3 = oMenu.osc3_frequency.getValue();
+//            currentFrequency1 = oMenu.osc1_frequency.getValue();
+//            currentFrequency2 = oMenu.osc2_frequency.getValue();
+//            currentFrequency3 = oMenu.osc3_frequency.getValue();
             
-            updateAngle1Delta();
-            updateAngle2Delta();
-            updateAngle3Delta();
+//            updateAngle1Delta();
+//            updateAngle2Delta();
+//            updateAngle3Delta();
             
             
         }

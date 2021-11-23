@@ -9,8 +9,9 @@
 #pragma once
 
 #include <JuceHeader.h>
-#include "extraComponents.h"
 #include "PluginProcessor.h"
+#include "extraComponents.h"
+
 
 //==============================================================================
 /**
@@ -38,8 +39,7 @@ public:
     float osc();
 
 private:
-    // This reference is provided as a quick way for your editor to
-    // access the processor object that created it.
+    //access the processor object that created it.
     PluginSynthAudioProcessor& audioProcessor;
     
     // gui segments
