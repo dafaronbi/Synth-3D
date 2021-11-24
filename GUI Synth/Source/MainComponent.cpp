@@ -250,12 +250,12 @@ void MainComponent::buttonClicked (juce::Button* button)
         if(button == &save_button)
         {
             
-            juce::FileChooser myChooser ("Select an output file",
-                           juce::File::getSpecialLocation (juce::File::userHomeDirectory),
-                           "*.wav");
+//             juce::FileChooser myChooser ("Select an output file",
+//                            juce::File::getSpecialLocation (juce::File::userHomeDirectory),
+//                            "*.wav");
             
-            if (myChooser.browseForFileToSave(true))
-                {
+//             if (myChooser.browseForFileToSave(true))
+//                 {
                     
 //                     save_directory = myChooser.getResult();
                     
