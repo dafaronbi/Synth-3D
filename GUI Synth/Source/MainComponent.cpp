@@ -257,48 +257,48 @@ void MainComponent::buttonClicked (juce::Button* button)
             if (myChooser.browseForFileToSave(true))
                 {
                     
-                    save_directory = myChooser.getResult();
+//                     save_directory = myChooser.getResult();
                     
                     
-                    //10 second buffer initialize
-                    juce::AudioBuffer<float> write_buffer;
-                    write_buffer.setSize(2,sample_rate*10);
+//                     //10 second buffer initialize
+//                     juce::AudioBuffer<float> write_buffer;
+//                     write_buffer.setSize(2,sample_rate*10);
                     
-                    // Get a pointer to the start sample in the buffer for this audio output channel
-                    auto* leftBuffer  = write_buffer.getWritePointer (0, 0);
-                    auto* rightBuffer = write_buffer.getWritePointer (1, 0);
+//                     // Get a pointer to the start sample in the buffer for this audio output channel
+//                     auto* leftBuffer  = write_buffer.getWritePointer (0, 0);
+//                     auto* rightBuffer = write_buffer.getWritePointer (1, 0);
                     
-                    //start envelope attack
-                    f_adsr.noteOn();
-                    a_adsr.noteOn();
+//                     //start envelope attack
+//                     f_adsr.noteOn();
+//                     a_adsr.noteOn();
 
-                    // Fill the required number of samples with noise between -0.125 and +0.125
-                    for (auto sample = 0; sample < write_buffer.getNumSamples()/2; ++sample){
-                        auto currentSample = synth();
-                        leftBuffer[sample] = currentSample;
-                        rightBuffer[sample] = currentSample;
-                    }
+//                     // Fill the required number of samples with noise between -0.125 and +0.125
+//                     for (auto sample = 0; sample < write_buffer.getNumSamples()/2; ++sample){
+//                         auto currentSample = synth();
+//                         leftBuffer[sample] = currentSample;
+//                         rightBuffer[sample] = currentSample;
+//                     }
                     
-                    //start envelope release
-                    f_adsr.noteOff();
-                    a_adsr.noteOff();
+//                     //start envelope release
+//                     f_adsr.noteOff();
+//                     a_adsr.noteOff();
                     
-                    for (auto sample = write_buffer.getNumSamples()/2; sample < write_buffer.getNumSamples(); ++sample){
-                        auto currentSample = synth();
-                        leftBuffer[sample] = currentSample;
-                        rightBuffer[sample] = currentSample;
-                    }
+//                     for (auto sample = write_buffer.getNumSamples()/2; sample < write_buffer.getNumSamples(); ++sample){
+//                         auto currentSample = synth();
+//                         leftBuffer[sample] = currentSample;
+//                         rightBuffer[sample] = currentSample;
+//                     }
         
-                    juce::WavAudioFormat format;
-                    std::unique_ptr<juce::AudioFormatWriter> writer;
-                    writer.reset (format.createWriterFor (new juce::FileOutputStream (save_directory),
-                                                          (int)sample_rate,
-                                                          write_buffer.getNumChannels(),
-                                                          24,
-                                                          {},
-                                                          0));
-                    if (writer != nullptr)
-                        writer->writeFromAudioSampleBuffer (write_buffer, 0, write_buffer.getNumSamples());
+//                     juce::WavAudioFormat format;
+//                     std::unique_ptr<juce::AudioFormatWriter> writer;
+//                     writer.reset (format.createWriterFor (new juce::FileOutputStream (save_directory),
+//                                                           (int)sample_rate,
+//                                                           write_buffer.getNumChannels(),
+//                                                           24,
+//                                                           {},
+//                                                           0));
+//                     if (writer != nullptr)
+//                         writer->writeFromAudioSampleBuffer (write_buffer, 0, write_buffer.getNumSamples());
                     
                 }
             
