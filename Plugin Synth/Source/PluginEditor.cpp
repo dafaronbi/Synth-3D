@@ -42,7 +42,7 @@ PluginSynthAudioProcessorEditor::PluginSynthAudioProcessorEditor (PluginSynthAud
     test_audio.addListener(this);
 
     //set default window size
-    setSize(800, 600);
+    setSize(500, 500);
 
     //current Angle at begining of phase
     currentAngle1 = 0;
@@ -128,49 +128,50 @@ void PluginSynthAudioProcessorEditor::changeListenerCallback(juce::ChangeBroadca
             };
             repaint();
         }
-        
+    
+
+        //set parameters to be passed into synth
         if(source == &oMenu){
-//            currentFrequency1 = oMenu.osc1_frequency.getValue();
-//            currentFrequency2 = oMenu.osc2_frequency.getValue();
-//            currentFrequency3 = oMenu.osc3_frequency.getValue();
             
-//            updateAngle1Delta();
-//            updateAngle2Delta();
-//            updateAngle3Delta();
+            param.osc1_wavShape = oMenu.osc1_wav_shape.getSelectedId();
+            param.osc2_wavShape = oMenu.osc2_wav_shape.getSelectedId();
+            param.osc3_wavShape = oMenu.osc3_wav_shape.getSelectedId();
+            
+            param.osc1_gain = oMenu.osc1_gain.getValue();
+            param.osc2_gain = oMenu.osc2_gain.getValue();
+            param.osc3_gain =  oMenu.osc3_gain.getValue();
             
             
         }
         
         if(source == &fMenu){
-            //update variables of synth parameters
-            cutoff_freq1 = fMenu.filter1_cuttoff_freq.getValue();
-            cutoff_freq2 =  fMenu.filter2_cuttoff_freq.getValue();
-            resonance1 =  fMenu.filter1_resonance.getValue();
-            resonance2 = fMenu.filter2_resonance.getValue();
-            f_attack = fMenu.filter_attack.getValue();
-            f_decay = fMenu.filter_decay.getValue();
-            f_sustain = fMenu.filter_sustain.getValue();
-            f_release = fMenu.filter_release.getValue();
-            filter1_type = fMenu.filter1_type.getSelectedId();
-            filter2_type = fMenu.filter2_type.getSelectedId();
+        
+            param.filter1_type = fMenu.filter1_type.getSelectedId();
+            param.filter2_type = fMenu.filter2_type.getSelectedId();
             
-            //update dsp values
-            updateFilter1Values();
-            updateFilter2Values();
-            updateEnvelopes();
+            param.filter1_cuttoff = fMenu.filter1_cuttoff_freq.getValue();
+            param.filter2_cuttoff = fMenu.filter2_cuttoff_freq.getValue();
+            
+            param.filter1_resonance = fMenu.filter1_resonance.getValue();
+            param.filter2_resonance  = fMenu.filter2_resonance.getValue();
+            
+            param.filter_attack = fMenu.filter_attack.getValue();
+            param.filter_decay = fMenu.filter_decay.getValue();
+            param.filter_sustain = fMenu.filter_sustain.getValue();
+            param.filter_release = fMenu.filter_release.getValue();
         }
         
         if(source == &aMenu){
-            //update variables of synth parameters
-            a_total_gain = aMenu.amp_total_gain.getValue();
-            a_attack = aMenu.amp_attack.getValue();
-            a_decay = aMenu.amp_decay.getValue();
-            a_sustain = aMenu.amp_sustain.getValue();
-            a_release = aMenu.amp_release.getValue();
             
-            //update dsp values
-            updateEnvelopes();
+            param.total_gain  = aMenu.amp_total_gain.getValue();
+            
+            param.amp_attack = aMenu.amp_attack.getValue();
+            param.amp_decay = aMenu.amp_decay.getValue();
+            param.amp_sustain = aMenu.amp_sustain.getValue();
+            param.amp_release = aMenu.amp_release.getValue();
         }
+    
+    audioProcessor.updateSyntheParameters(param);
         
     }
 

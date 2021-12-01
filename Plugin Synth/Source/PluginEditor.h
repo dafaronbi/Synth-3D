@@ -11,6 +11,7 @@
 #include <JuceHeader.h>
 #include "PluginProcessor.h"
 #include "extraComponents.h"
+#include "personalDS.h"
 
 
 //==============================================================================
@@ -100,6 +101,9 @@ private:
     //ASDRs
     juce::ADSR f_adsr;
     juce::ADSR a_adsr;
+    
+    //synth parameter values
+    synth_parameters param;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PluginSynthAudioProcessorEditor)
 };

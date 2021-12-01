@@ -22,8 +22,10 @@ PluginSynthAudioProcessor::PluginSynthAudioProcessor()
                        )
                 #endif
 {
+    synth_parameters param;
+    
     for (auto i = 0; i < 4; ++i)                // [1]
-        synth.addVoice (new synthVoice());
+        synth.addVoice (new synthVoice(param));
 
     synth.addSound (new synthSound());
     
@@ -195,6 +197,16 @@ void PluginSynthAudioProcessor::setStateInformation (const void* data, int sizeI
     // You should use this method to restore your parameters from this memory block,
     // whose contents will have been created by the getStateInformation() call.
 }
+
+void PluginSynthAudioProcessor::updateSyntheParameters(synth_parameters param)
+{
+    //clear old synth voices
+    synth.clearVoices();
+    
+    for (auto i = 0; i < 4; ++i)                // [1]
+        synth.addVoice(new synthVoice(param));
+}
+
 
 //==============================================================================
 // This creates new instances of the plugin..

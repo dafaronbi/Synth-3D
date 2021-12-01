@@ -6,6 +6,7 @@
               pluginName="Binaural Synthesizer" pluginManufacturer="3D Audio Group">
   <MAINGROUP id="ECYH89" name="Plugin Synth">
     <GROUP id="{3C9C8077-9041-ECCE-669B-016B9F7AF9B2}" name="Source">
+      <FILE id="TKtaiq" name="personalDS.h" compile="0" resource="0" file="Source/personalDS.h"/>
       <FILE id="QrPfYY" name="synth.h" compile="0" resource="0" file="Source/synth.h"/>
       <FILE id="ZfGsCI" name="sliders.h" compile="0" resource="0" file="Source/sliders.h"/>
       <FILE id="nXcGom" name="extraComponents.h" compile="0" resource="0"

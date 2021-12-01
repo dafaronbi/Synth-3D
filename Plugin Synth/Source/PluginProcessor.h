@@ -10,6 +10,8 @@
 
 #include <JuceHeader.h>
 #include "synth.h"
+#include "personalDS.h"
+
 //==============================================================================
 /**
 */
@@ -52,6 +54,10 @@ public:
     //==============================================================================
     void getStateInformation (juce::MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
+    
+    //==============================================================================
+    //Update synth paramters from gui thread
+    void updateSyntheParameters(synth_parameters);
     
 
 private:

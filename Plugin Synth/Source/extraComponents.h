@@ -126,7 +126,7 @@ private:
 };
 
 //gui for oscillator menu
-class Oscillator_Menu : public juce::AnimatedAppComponent, public juce::ChangeBroadcaster, public juce::Slider::Listener
+class Oscillator_Menu : public juce::AnimatedAppComponent, public juce::ChangeBroadcaster, public juce::Slider::Listener, public juce::ComboBox::Listener
 {
 public:
     //create components for oscillator 1
@@ -180,34 +180,34 @@ public:
         //set freq slider settings
         osc1_frequency.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
         osc1_frequency.setTextBoxStyle (juce::Slider::TextEntryBoxPosition::TextBoxBelow, true, 100, 50);
-        osc1_frequency.setTextValueSuffix (" Frequency (Hz)");
-        osc1_frequency.setRange(20, 20000);
+        osc1_frequency.setTextValueSuffix (" Frequency Offset (Cents)");
+        osc1_frequency.setRange(-100, 100);
         
         osc2_frequency.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
         osc2_frequency.setTextBoxStyle (juce::Slider::TextEntryBoxPosition::TextBoxBelow, true, 100, 50);
-        osc2_frequency.setTextValueSuffix (" Frequency (Hz)");
-        osc2_frequency.setRange(20, 20000);
+        osc2_frequency.setTextValueSuffix (" Frequency Offset (Cents)");
+        osc2_frequency.setRange(-100, 100);
         
         osc3_frequency.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
         osc3_frequency.setTextBoxStyle (juce::Slider::TextEntryBoxPosition::TextBoxBelow, true, 100, 50);
-        osc3_frequency.setTextValueSuffix (" Frequency (Hz)");
-        osc3_frequency.setRange(20, 20000);
+        osc3_frequency.setTextValueSuffix (" Frequency Offset (Cents)");
+        osc3_frequency.setRange(-100, 100);
         
         //set gain slider settings
         osc1_gain.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
         osc1_gain.setTextBoxStyle (juce::Slider::TextEntryBoxPosition::TextBoxBelow, true, 100, 50);
         osc1_gain.setTextValueSuffix (" gain (dB)");
-        osc1_gain.setRange(-100, 50);
+        osc1_gain.setRange(-100, 10);
         
         osc2_gain.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
         osc2_gain.setTextBoxStyle (juce::Slider::TextEntryBoxPosition::TextBoxBelow, true, 100, 50);
         osc2_gain.setTextValueSuffix (" gain (dB)");
-        osc2_gain.setRange(-100, 50);
+        osc2_gain.setRange(-100, 10);
         
         osc3_gain.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
         osc3_gain.setTextBoxStyle (juce::Slider::TextEntryBoxPosition::TextBoxBelow, true, 100, 50);
         osc3_gain.setTextValueSuffix (" gain (dB)");
-        osc3_gain.setRange(-100, 50);
+        osc3_gain.setRange(-100, 10);
         
         
         //add child components
@@ -226,18 +226,30 @@ public:
         addAndMakeVisible(osc3_frequency);
         addAndMakeVisible(osc3_gain);
         
-        //add slider listeners to object
+        //add listeners to object
+        osc1_wav_shape.addListener(this);
+        osc2_wav_shape.addListener(this);
+        osc3_wav_shape.addListener(this);
         osc1_frequency.addListener(this);
         osc2_frequency.addListener(this);
         osc3_frequency.addListener(this);
+        osc1_gain.addListener(this);
+        osc2_gain.addListener(this);
+        osc3_gain.addListener(this);
         
     }
     
     ~Oscillator_Menu(){
-        //remove sliderlisteneres
+        //remove listeneres
+        osc1_wav_shape.removeListener(this);
+        osc2_wav_shape.removeListener(this);
+        osc3_wav_shape.removeListener(this);
         osc1_frequency.removeListener(this);
         osc2_frequency.removeListener(this);
         osc3_frequency.removeListener(this);
+        osc1_gain.removeListener(this);
+        osc2_gain.removeListener(this);
+        osc3_gain.removeListener(this);
     }
 
     void update() override
@@ -291,8 +303,8 @@ public:
         
         auto osc_label_height = area.getHeight()/10;
         auto osc_type_height = area.getHeight()/10;
-        auto osc_slider_height = 5*area.getHeight()/10;
-        auto osc_knob_height = 3*area.getHeight()/10;
+        auto osc_slider_height = 4*area.getHeight()/10;
+        auto osc_knob_height = 4*area.getHeight()/10;
         
         //add items to row1
         row1.items.add(juce::FlexItem(osc1_wav_shape_label).withMinWidth(area.getWidth()/3).withMinHeight(osc_label_height));
@@ -327,6 +339,12 @@ public:
         //send a message  that slider value is changed
         sendChangeMessage();
         
+    }
+    
+    void comboBoxChanged(juce::ComboBox* cBox) override {
+        
+        //send a message  that slider value is changed
+        sendChangeMessage();
     }
     
     
@@ -595,7 +613,7 @@ public:
         amp_total_gain.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
         amp_total_gain.setTextBoxStyle (juce::Slider::TextEntryBoxPosition::TextBoxBelow, true, 100, 50);
         amp_total_gain.setTextValueSuffix (" Total Gain (dB)");
-        amp_total_gain.setRange(-100, 50);
+        amp_total_gain.setRange(-100, 10);
         
         //set asdr slider settings
         amp_attack.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);

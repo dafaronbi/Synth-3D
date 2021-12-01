@@ -10,6 +10,7 @@
 */
 
 #include <JuceHeader.h>
+#include "personalDS.h"
 
 
 struct synthSound   : public juce::SynthesiserSound
@@ -24,6 +25,11 @@ struct synthSound   : public juce::SynthesiserSound
 class synthVoice : public juce::SamplerVoice
 {
 public:
+    synthVoice(synth_parameters param){
+        
+        synth_param = param;
+    }
+    
     bool canPlaySound (juce::SynthesiserSound* sound) override
         {
             return dynamic_cast<synthSound*> (sound) != nullptr;
@@ -36,10 +42,8 @@ public:
             level = velocity * 0.15;
             tailOff = 0.0;
      
-            auto cyclesPerSecond = juce::MidiMessage::getMidiNoteInHertz (midiNoteNumber);
-            auto cyclesPerSample = cyclesPerSecond / getSampleRate();
-            
-            std::cout << midiNoteNumber << std::endl;
+            currentFrequency = juce::MidiMessage::getMidiNoteInHertz (midiNoteNumber);
+            auto cyclesPerSample = currentFrequency / getSampleRate();
      
             angleDelta = cyclesPerSample * 2.0 * juce::MathConstants<double>::pi;
             updateFilter1Values();
@@ -55,7 +59,7 @@ public:
                 {
                     while (--numSamples >= 0)
                     {
-                        auto currentSample = (float) (std::sin (currentAngle) * level * tailOff);
+                        auto currentSample = (synth(currentAngle,startSample) * level * tailOff);
      
                         for (auto i = outputBuffer.getNumChannels(); --i >= 0;)
                             outputBuffer.addSample (i, startSample, currentSample);
@@ -78,7 +82,7 @@ public:
                 {
                     while (--numSamples >= 0) // [6]
                     {
-                        auto currentSample = (float) (std::sin (currentAngle) * level);
+                        auto currentSample = (synth(currentAngle,startSample) * level);
      
                         for (auto i = outputBuffer.getNumChannels(); --i >= 0;)
                             outputBuffer.addSample (i, startSample, currentSample);
@@ -189,46 +193,45 @@ public:
         
     }
 
-    float synth(double currentAngle){
+    float synth(double currentAngle,int currentSample){
         
         //calculate gain from final gain  slider
         auto gain_total = juce::Decibels::decibelsToGain(a_total_gain);
         
         //generate audio  from oscillator
-        auto audio = osc(currentAngle);
+        auto audio = osc(currentAngle,currentSample);
         
         //apply filter1
-        audio = filter1.processSingleSampleRaw(audio);
+//        audio = filter1.processSingleSampleRaw(audio);
         
         //apply filter2
-        audio = filter2.processSingleSampleRaw(audio);
+//        audio = filter2.processSingleSampleRaw(audio);
         
         //add adsr
-        audio *= a_adsr.getNextSample();
+//        audio *= a_adsr.getNextSample();
         
         return (float) audio * gain_total;
 
     }
 
-    float osc(double currentAngle){
+    float osc(double currentAngle,int currentSample){
         
 //        auto gain1 = juce::Decibels::decibelsToGain(oMenu.osc1_gain.getValue());
 //        auto gain2 = juce::Decibels::decibelsToGain(oMenu.osc2_gain.getValue());
 //        auto gain3 = juce::Decibels::decibelsToGain(oMenu.osc3_gain.getValue());
         
-        auto gain1 = 1;
-        auto gain2 = 1;
-        auto gain3 = 1;
+        auto gain1 = juce::Decibels::decibelsToGain(synth_param.osc1_gain);
+        auto gain2 = juce::Decibels::decibelsToGain(synth_param.osc2_gain);
+        auto gain3 = juce::Decibels::decibelsToGain(synth_param.osc3_gain);
         
         float audio = 0;
         //add oscilator 1
-        switch(1){
+        switch(synth_param.osc1_wavShape){
             case 1:
                 audio += std::sin (currentAngle)*gain1;
                 break;
             case 2:
-//                audio += (-2 / juce::MathConstants<double>::pi * std::atan(1 / std::tan(currentFrequency1 *juce::MathConstants<double>::pi* currentAngle)))*gain1;
-                audio += std::sin (currentAngle)*gain1;
+                audio += (-2 / juce::MathConstants<double>::pi * std::atan(1 / std::tan(currentFrequency *juce::MathConstants<double>::pi* currentSample/ getSampleRate())))*gain1;
                 break;
             case 3:
                 audio += std::sin (currentAngle) > 0 ? 1*gain1 : -1*gain1;
@@ -237,19 +240,17 @@ public:
                 audio += (2 / juce::MathConstants<double>::pi * std::asin(std::sin(currentAngle)))*gain1;
                 break;
             case 5:
-//                audio += (2*random.nextFloat()-1)*gain1;
-                audio = 0;
+                audio += (2*random.nextFloat()-1)*gain1;
         }
         
         
         //add oscilator 2
-        switch(1){
+        switch(synth_param.osc2_wavShape){
             case 1:
                 audio += std::sin (currentAngle)*gain2;
                 break;
             case 2:
-//                audio += (-2 / juce::MathConstants<double>::pi * std::atan(1 / std::tan(currentFrequency2 *juce::MathConstants<double>::pi* currentAngle)))*gain2;
-                audio += std::sin (currentAngle)*gain2;
+                audio += (-2 / juce::MathConstants<double>::pi * std::atan(1 / std::tan(currentFrequency *juce::MathConstants<double>::pi* currentSample/ getSampleRate())))*gain2;
                 break;
             case 3:
                 audio += std::sin (currentAngle) > 0 ? 1*gain2 : -1*gain2;
@@ -258,18 +259,16 @@ public:
                 audio += (2 / juce::MathConstants<double>::pi * std::asin(std::sin(currentAngle)))*gain2;
                 break;
             case 5:
-//                audio += (2*random.nextFloat()-1)*gain2;
-                audio = 0;
+                audio += (2*random.nextFloat()-1)*gain2;
         }
         
         //add oscilator 3
-        switch(1){
+        switch(synth_param.osc3_wavShape){
             case 1:
                 audio += std::sin (currentAngle)*gain3;
                 break;
             case 2:
-//                audio += (-2 / juce::MathConstants<double>::pi * std::atan(1 / std::tan(currentFrequency3 *juce::MathConstants<double>::pi* currentAngle3)))*gain3;
-                audio += std::sin (currentAngle)*gain3;
+                audio += (-2 / juce::MathConstants<double>::pi * std::atan(1 / std::tan(currentFrequency *juce::MathConstants<double>::pi* currentSample/ getSampleRate())))*gain3;
                 break;
             case 3:
                 audio += std::sin (currentAngle) > 0 ? 1*gain3 : -1*gain3;
@@ -278,8 +277,7 @@ public:
                 audio += (2 / juce::MathConstants<double>::pi * std::asin(std::sin(currentAngle)))*gain3;
                 break;
             case 5:
-//                audio += (2*random.nextFloat()-1)*gain3;
-                audio = 0;
+                audio += (2*random.nextFloat()-1)*gain3;
         }
         return audio;
         
@@ -289,7 +287,10 @@ public:
     
 private:
     //frequency variabls
-    double currentAngle = 0.0, angleDelta = 0.0, level = 0.0, tailOff = 0.0;
+    double currentAngle = 0.0, angleDelta = 0.0, level = 0.0, tailOff = 0.0, currentFrequency = 0.0;
+    
+    //loaded in synth parameters
+    synth_parameters synth_param;
     
     //filter variables
     double cutoff_freq1 = 4000;
@@ -308,7 +309,7 @@ private:
     juce::IIRFilter filter2;
     
     //amplifier variables
-    double a_total_gain = 1;
+    double a_total_gain = 0;
     double a_attack = 0;
     double a_decay = 0;
     double a_sustain = 1;
@@ -317,56 +318,10 @@ private:
     //ASDRs
     juce::ADSR f_adsr;
     juce::ADSR a_adsr;
-
-};
-
-class SynthAudioSource   : public juce::AudioSource
-{
-public:
-    SynthAudioSource (juce::MidiKeyboardState& keyState)
-        : keyboardState (keyState)
-    {
-        for (auto i = 0; i < 4; ++i)                // [1]
-            synth.addVoice (new synthVoice());
- 
-        synth.addSound (new synthSound());       // [2]
-    }
- 
-    void setUsingSynthSound()
-    {
-        synth.clearSounds();
-    }
- 
-    void prepareToPlay (int /*samplesPerBlockExpected*/, double sampleRate) override
-    {
-        synth.setCurrentPlaybackSampleRate (sampleRate); // [3]
-        midiCollector.reset (sampleRate);
-    }
- 
-    void releaseResources() override {}
- 
-    void getNextAudioBlock (const juce::AudioSourceChannelInfo& bufferToFill) override
-    {
-        bufferToFill.clearActiveBufferRegion();
- 
-        juce::MidiBuffer incomingMidi;
-        midiCollector.removeNextBlockOfMessages (incomingMidi, bufferToFill.numSamples);
-        keyboardState.processNextMidiBuffer (incomingMidi, bufferToFill.startSample,
-                                             bufferToFill.numSamples, true);       // [4]
- 
-        synth.renderNextBlock (*bufferToFill.buffer, incomingMidi,
-                               bufferToFill.startSample, bufferToFill.numSamples); // [5]
-    }
     
-    juce::MidiMessageCollector* getMidiCollector()
-        {
-            return &midiCollector;
-        }
- 
-private:
-    juce::MidiKeyboardState& keyboardState;
-    juce::MidiMessageCollector midiCollector;
-    juce::Synthesiser synth;
+    //random from juce
+    juce::Random random;
+
 };
 
 #pragma once

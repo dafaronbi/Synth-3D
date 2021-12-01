@@ -90,6 +90,7 @@
 		3DB1FA407E8190310B2D8322 /* include_juce_audio_plugin_client_VST3.cpp */ /* include_juce_audio_plugin_client_VST3.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = include_juce_audio_plugin_client_VST3.cpp; path = ../../JuceLibraryCode/include_juce_audio_plugin_client_VST3.cpp; sourceTree = SOURCE_ROOT; };
 		43EC297168149CC8AEFB97CD /* CoreAudioKit.framework */ /* CoreAudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudioKit.framework; path = System/Library/Frameworks/CoreAudioKit.framework; sourceTree = SDKROOT; };
 		45D930B979163815FDADBABF /* filt.png */ /* filt.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = filt.png; path = ../../img/filt.png; sourceTree = SOURCE_ROOT; };
+		4A4766F60A4ED2B088E49E21 /* personalDS.h */ /* personalDS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = personalDS.h; path = ../../Source/personalDS.h; sourceTree = SOURCE_ROOT; };
 		4C291AB4AA82932FCDC7B818 /* Info-AU.plist */ /* Info-AU.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Info-AU.plist"; path = "Info-AU.plist"; sourceTree = SOURCE_ROOT; };
 		4E1C63739D9B6C8C98C35A31 /* wave.jpeg */ /* wave.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = wave.jpeg; path = ../../img/wave.jpeg; sourceTree = SOURCE_ROOT; };
 		4F2EFAB06F1055B7D95E4D4A /* RecentFilesMenuTemplate.nib */ /* RecentFilesMenuTemplate.nib */ = {isa = PBXFileReference; lastKnownFileType = file.nib; name = RecentFilesMenuTemplate.nib; path = RecentFilesMenuTemplate.nib; sourceTree = SOURCE_ROOT; };
@@ -284,6 +285,7 @@
 		6F242CB8FB953EC87BDAB65B /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				4A4766F60A4ED2B088E49E21,
 				85986E57201AC0962C213CCC,
 				EF863E4A15C6CD52630EED62,
 				78CBFC876D7FD2B67E57844D,
