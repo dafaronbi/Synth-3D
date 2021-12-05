@@ -17,6 +17,12 @@ struct synth_parameters {
     float osc1_gain = 0;
     float osc2_gain = 0;
     float osc3_gain = 0;
+    int osc1_az = 0;
+    int osc2_az = 0;
+    int osc3_az = 0;
+    float osc1_distance = 0;
+    float osc2_distance = 0;
+    float osc3_distance = 0;
     int filter1_type = 1;
     int filter2_type = 1;
     float filter1_cuttoff = 20000;
