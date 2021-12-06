@@ -13,7 +13,6 @@
 PluginSynthAudioProcessorEditor::PluginSynthAudioProcessorEditor (PluginSynthAudioProcessor& p)
     : AudioProcessorEditor (&p), audioProcessor (p)
 {
-
     
     //add child components
     addChildComponent(oMenu);
@@ -136,13 +135,6 @@ void PluginSynthAudioProcessorEditor::changeListenerCallback(juce::ChangeBroadca
             param.osc2_distance = oMenu.osc2_pan.getDistance();
             param.osc3_distance = oMenu.osc3_pan.getDistance();
             
-            DBG("o1 az "<< param.osc1_az);
-            DBG("o2 az "<< param.osc2_az);
-            DBG("o3 az "<< param.osc3_az);
-            DBG("o1 dist "<< param.osc1_distance);
-            DBG("o2 dist "<< param.osc2_distance);
-            DBG("o3 dist "<< param.osc3_distance);
-            
             
         }
         
@@ -171,6 +163,7 @@ void PluginSynthAudioProcessorEditor::changeListenerCallback(juce::ChangeBroadca
             param.amp_decay = aMenu.amp_decay.getValue();
             param.amp_sustain = aMenu.amp_sustain.getValue();
             param.amp_release = aMenu.amp_release.getValue();
+            
         }
     
     audioProcessor.updateSyntheParameters(param);

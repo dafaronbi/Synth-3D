@@ -746,12 +746,12 @@ public:
         amp_attack.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
         amp_attack.setTextBoxStyle (juce::Slider::TextEntryBoxPosition::TextBoxBelow, true, 100, 50);
         amp_attack.setTextValueSuffix (" Attack Time (s)");
-        amp_attack.setRange(0, 0.5);
+        amp_attack.setRange(0, 5);
         
         amp_decay.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
         amp_decay.setTextBoxStyle (juce::Slider::TextEntryBoxPosition::TextBoxBelow, true, 100,50);
         amp_decay.setTextValueSuffix (" Decay Time (s)");
-        amp_decay.setRange(0, 0.5);
+        amp_decay.setRange(0, 5);
         
         amp_sustain.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
         amp_sustain.setTextBoxStyle (juce::Slider::TextEntryBoxPosition::TextBoxBelow, true, 100, 50);
@@ -761,7 +761,7 @@ public:
         amp_release.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
         amp_release.setTextBoxStyle (juce::Slider::TextEntryBoxPosition::TextBoxBelow, true, 100, 50);
         amp_release.setTextValueSuffix (" Release Time (s)");
-        amp_release.setRange(0, 1);
+        amp_release.setRange(0, 5);
         
         //set sustain level to be 1
         amp_sustain.setValue(1);
