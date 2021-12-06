@@ -13,6 +13,110 @@
 #include <JuceHeader.h>
 #include "sliders.h"
 
+//Gui for 3d panner
+class pan_3d : public juce::AnimatedAppComponent, public juce::ChangeBroadcaster{
+public:
+    pan_3d(){
+    }
+    
+    ~pan_3d(){
+        
+    }
+    
+    void update() override
+    {
+        // This function is called at the frequency specified by the setFramesPerSecond() call
+        // in the constructor. You can use it to update counters, animate values, etc.
+    }
+
+    void paint (juce::Graphics& g) override
+    {
+        //clear background
+        g.fillAll (juce::Colours::darkgrey);
+        
+        // fill component with circular background
+        g.setColour (juce::Colours::black);
+        g.fillEllipse((getWidth()-getHeight())/2,getHeight()/10,getHeight()-getHeight()/5,getHeight()-getHeight()/5);
+        
+        //fill pan location
+        g.setColour (juce::Colours::lightcyan);
+        g.fillEllipse(pan_x-5,pan_y-5,10,10);
+    }
+
+    void resized() override
+    {
+        center_x = (getWidth()-getHeight())/2 + (getHeight()-getHeight()/5)/2;
+        center_y = getHeight()/10 + (getHeight()-getHeight()/5)/2;
+        
+        //move cursor to center
+        pan_x = center_x;
+        pan_y = center_y;
+    }
+    
+    void mouseDrag (const juce::MouseEvent& event) override
+        {
+            //get mouse position
+            auto pos = event.getPosition();
+            auto x = pos.getX();
+            auto y =pos.getY();
+            
+            //calculate distance from center
+            auto d_from_center = std::sqrt(std::pow(x-center_x,2) + std::pow(y-center_y,2));
+            
+            //only edit pan if within circle
+            if(d_from_center < (getHeight()-getHeight()/5)/2){
+                //set position values
+                pan_x = x;
+                pan_y = y;
+                repaint();
+            }
+            
+            sendChangeMessage();
+            
+        }
+    
+    //get distance (in pixels) from center of cirlcle
+    float getDistance(){
+        return std::sqrt(std::pow(pan_x-center_x,2) + std::pow(pan_y-center_y,2));
+    }
+    
+    int getAzimuth(){
+        
+        //get distances from center
+        float d_x = pan_x -center_x;
+        float d_y = pan_y - center_y;
+        
+        auto angle = std::atan(d_y/d_x);
+        
+        //add 180 if in the lower two quadrants
+        if(d_x < 0){
+            angle += juce::MathConstants<double>::pi;
+        }
+        
+        //add 90 phase increase to fit the scale we want
+        angle += juce::MathConstants<double>::pi/2;
+        
+        //return degree version of angle
+        return toDegrees(angle);
+    }
+    
+    //convert radians to degrees
+    int toDegrees(float rad){
+        int degrees = (int)(rad * 180 / juce::MathConstants<double>::pi);
+        return degrees;
+    }
+    
+private:
+    //variable to store mouse click position
+    int pan_x;
+    int pan_y;
+    
+    //location of center of circle
+    int center_x;
+    int center_y;
+    
+};
+
 //Gui for nav bar
 class Nav_Bar : public juce::AnimatedAppComponent, public juce::ChangeBroadcaster, public juce::Button::Listener
 {
@@ -91,9 +195,6 @@ public:
         
         
     }
-    juce::ImageButton select_osc;
-    juce::ImageButton select_filt;
-    juce::ImageButton select_amp;
     
     void buttonClicked (juce::Button* button) override
     {
@@ -121,12 +222,15 @@ public:
 
 private:
     int selected_screen = 0;
+    juce::ImageButton select_osc;
+    juce::ImageButton select_filt;
+    juce::ImageButton select_amp;
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Nav_Bar)
 };
 
 //gui for oscillator menu
-class Oscillator_Menu : public juce::AnimatedAppComponent, public juce::ChangeBroadcaster, public juce::Slider::Listener, public juce::ComboBox::Listener
+class Oscillator_Menu : public juce::AnimatedAppComponent, public juce::ChangeBroadcaster, public juce::Slider::Listener, public juce::ComboBox::Listener, public juce::ChangeListener
 {
 public:
     //create components for oscillator 1
@@ -134,18 +238,21 @@ public:
     juce::ComboBox osc1_wav_shape;
     juce::Slider osc1_frequency;
     gain_slider osc1_gain;
+    pan_3d osc1_pan;
     
     //create components for oscillator 2
     juce::Label osc2_wav_shape_label;
     juce::ComboBox osc2_wav_shape;
     juce::Slider osc2_frequency;
     gain_slider  osc2_gain;
+    pan_3d osc2_pan;
     
     //create components for oscillator 3
     juce::Label osc3_wav_shape_label;
     juce::ComboBox osc3_wav_shape;
     juce::Slider osc3_frequency;
     gain_slider  osc3_gain;
+    pan_3d osc3_pan;
     
     //==============================================================================
     Oscillator_Menu()
@@ -215,16 +322,20 @@ public:
         addAndMakeVisible(osc1_wav_shape);
         addAndMakeVisible(osc1_frequency);
         addAndMakeVisible(osc1_gain);
+        addAndMakeVisible(osc1_pan);
         
         addAndMakeVisible(osc2_wav_shape_label);
         addAndMakeVisible(osc2_wav_shape);
         addAndMakeVisible(osc2_frequency);
         addAndMakeVisible(osc2_gain);
+        addAndMakeVisible(osc2_pan);
         
         addAndMakeVisible(osc3_wav_shape_label);
         addAndMakeVisible(osc3_wav_shape);
         addAndMakeVisible(osc3_frequency);
         addAndMakeVisible(osc3_gain);
+        addAndMakeVisible(osc3_pan);
+        
         
         //add listeners to object
         osc1_wav_shape.addListener(this);
@@ -236,6 +347,9 @@ public:
         osc1_gain.addListener(this);
         osc2_gain.addListener(this);
         osc3_gain.addListener(this);
+        osc1_pan.addChangeListener(this);
+        osc2_pan.addChangeListener(this);
+        osc3_pan.addChangeListener(this);
         
     }
     
@@ -250,6 +364,9 @@ public:
         osc1_gain.removeListener(this);
         osc2_gain.removeListener(this);
         osc3_gain.removeListener(this);
+        osc1_pan.removeChangeListener(this);
+        osc2_pan.removeChangeListener(this);
+        osc3_pan.removeChangeListener(this);
     }
 
     void update() override
@@ -303,26 +420,30 @@ public:
         
         auto osc_label_height = area.getHeight()/10;
         auto osc_type_height = area.getHeight()/10;
-        auto osc_slider_height = 4*area.getHeight()/10;
-        auto osc_knob_height = 4*area.getHeight()/10;
+        auto osc_slider_height = 3*area.getHeight()/10;
+        auto osc_knob_height = 3*area.getHeight()/10;
+        auto osc_pan_height = 2*area.getHeight()/10;
         
         //add items to row1
         row1.items.add(juce::FlexItem(osc1_wav_shape_label).withMinWidth(area.getWidth()/3).withMinHeight(osc_label_height));
         row1.items.add(juce::FlexItem(osc1_wav_shape).withMinWidth(area.getWidth()/3).withMinHeight(osc_type_height));
         row1.items.add(juce::FlexItem(osc1_frequency).withMinWidth(area.getWidth()/3 ).withMinHeight(osc_slider_height));
         row1.items.add(juce::FlexItem(osc1_gain).withMinWidth(area.getWidth()/3 ).withMinHeight(osc_knob_height));
+        row1.items.add(juce::FlexItem(osc1_pan).withMinWidth(area.getWidth()/3 ).withMinHeight(osc_pan_height));
         
         //add items to row2
         row2.items.add(juce::FlexItem(osc2_wav_shape_label).withMinWidth(area.getWidth()/3).withMinHeight(osc_label_height));
         row2.items.add(juce::FlexItem(osc2_wav_shape).withMinWidth(area.getWidth()/3).withMinHeight(osc_type_height));
         row2.items.add(juce::FlexItem(osc2_frequency).withMinWidth(area.getWidth()/3 ).withMinHeight(osc_slider_height));
         row2.items.add(juce::FlexItem(osc2_gain).withMinWidth(area.getWidth()/3 ).withMinHeight(osc_knob_height));
+        row2.items.add(juce::FlexItem(osc2_pan).withMinWidth(area.getWidth()/3 ).withMinHeight(osc_pan_height));
         
         //add items to rown3
         row3.items.add(juce::FlexItem(osc3_wav_shape_label).withMinWidth(area.getWidth()/3).withMinHeight(osc_label_height));
         row3.items.add(juce::FlexItem(osc3_wav_shape).withMinWidth(area.getWidth()/3).withMinHeight(osc_type_height));
         row3.items.add(juce::FlexItem(osc3_frequency).withMinWidth(area.getWidth()/3 ).withMinHeight(osc_slider_height));
         row3.items.add(juce::FlexItem(osc3_gain).withMinWidth(area.getWidth()/3 ).withMinHeight(osc_knob_height));
+        row3.items.add(juce::FlexItem(osc3_pan).withMinWidth(area.getWidth()/3 ).withMinHeight(osc_pan_height));
         
         
         //add items to main flex box
@@ -346,6 +467,12 @@ public:
         //send a message  that slider value is changed
         sendChangeMessage();
     }
+    
+    void changeListenerCallback(juce::ChangeBroadcaster* source) override
+        {
+            //send a mesage that pan has changed
+            sendChangeMessage();
+        }
     
     
 
@@ -619,12 +746,12 @@ public:
         amp_attack.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
         amp_attack.setTextBoxStyle (juce::Slider::TextEntryBoxPosition::TextBoxBelow, true, 100, 50);
         amp_attack.setTextValueSuffix (" Attack Time (s)");
-        amp_attack.setRange(0, 0.5);
+        amp_attack.setRange(0, 5);
         
         amp_decay.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
         amp_decay.setTextBoxStyle (juce::Slider::TextEntryBoxPosition::TextBoxBelow, true, 100,50);
         amp_decay.setTextValueSuffix (" Decay Time (s)");
-        amp_decay.setRange(0, 0.5);
+        amp_decay.setRange(0, 5);
         
         amp_sustain.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
         amp_sustain.setTextBoxStyle (juce::Slider::TextEntryBoxPosition::TextBoxBelow, true, 100, 50);
@@ -634,7 +761,7 @@ public:
         amp_release.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
         amp_release.setTextBoxStyle (juce::Slider::TextEntryBoxPosition::TextBoxBelow, true, 100, 50);
         amp_release.setTextValueSuffix (" Release Time (s)");
-        amp_release.setRange(0, 1);
+        amp_release.setRange(0, 5);
         
         //set sustain level to be 1
         amp_sustain.setValue(1);

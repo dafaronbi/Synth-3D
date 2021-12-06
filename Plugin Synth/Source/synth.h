@@ -28,7 +28,17 @@ public:
     synthVoice(synth_parameters param){
         
         synth_param = param;
-    }
+        
+        //set sample rate of ADSR
+        f_adsr.setSampleRate(getSampleRate());
+        a_adsr.setSampleRate(getSampleRate());
+        
+        //update parameters
+        updateFilter1Values();
+        updateFilter2Values();
+        updateEnvelopes();
+        
+        }
     
     bool canPlaySound (juce::SynthesiserSound* sound) override
         {
@@ -46,66 +56,53 @@ public:
             auto cyclesPerSample = currentFrequency / getSampleRate();
      
             angleDelta = cyclesPerSample * 2.0 * juce::MathConstants<double>::pi;
-            updateFilter1Values();
-            updateFilter2Values();
-            updateEnvelopes();
+            
+            //start ADSRs
+            f_adsr.noteOn();
+            a_adsr.noteOn();
+            
         }
     
     void renderNextBlock (juce::AudioSampleBuffer& outputBuffer, int startSample, int numSamples) override
         {
-            if (angleDelta != 0.0)
-            {
-                if (tailOff > 0.0) // [7]
-                {
-                    while (--numSamples >= 0)
-                    {
-                        auto currentSample = (synth(currentAngle,startSample) * level * tailOff);
-     
-                        for (auto i = outputBuffer.getNumChannels(); --i >= 0;)
-                            outputBuffer.addSample (i, startSample, currentSample);
-     
-                        currentAngle += angleDelta;
-                        ++startSample;
-     
-                        tailOff *= 0.99; // [8]
-     
-                        if (tailOff <= 0.005)
-                        {
-                            clearCurrentNote(); // [9]
-     
-                            angleDelta = 0.0;
-                            break;
-                        }
-                    }
+            
+            juce::AudioBuffer<float> osc1(1, numSamples);
+            juce::AudioBuffer<float> osc2(1, numSamples);
+            juce::AudioBuffer<float> osc3(1, numSamples);
+            
+            
+            for(auto samp = 0; samp < numSamples; samp++){
+                osc1.setSample(0,samp,osc(currentAngle,samp,1));
+                osc2.setSample(0,samp,osc(currentAngle,samp,2));
+                osc3.setSample(0,samp,osc(currentAngle,samp,3));
+                currentAngle += angleDelta;
+            }
+            
+            for(auto samp = 0; samp < numSamples; samp++){
+                //get current cample from synth
+                auto currentSample= osc1.getSample(0,samp) + osc2.getSample(0,samp) + osc3.getSample(0,samp);
+                
+                //get next adsr sample
+                auto next_adsr = a_adsr.getNextSample();
+                
+                //add sample for each channel
+                for (auto chan = outputBuffer.getNumChannels(); --chan >= 0;){
+                    //apply adsr
+                    currentSample *= next_adsr;
+                    
+                    //add to output buffer
+                    outputBuffer.addSample (chan, samp, currentSample);
                 }
-                else
-                {
-                    while (--numSamples >= 0) // [6]
-                    {
-                        auto currentSample = (synth(currentAngle,startSample) * level);
-     
-                        for (auto i = outputBuffer.getNumChannels(); --i >= 0;)
-                            outputBuffer.addSample (i, startSample, currentSample);
-     
-                        currentAngle += angleDelta;
-                        ++startSample;
-                    }
-                }
+                
             }
         }
     
     void stopNote (float velocity, bool allowTailOff) override
         {
-            if (allowTailOff)
-            {
-                if (tailOff == 0.0)
-                    tailOff = 1.0;
-            }
-            else
-            {
-                clearCurrentNote();
-                angleDelta = 0.0;
-            }
+            //turn off ADSRs
+            f_adsr.noteOff();
+            a_adsr.noteOff();
+
         }
     
     void updateFilter1Values(){
@@ -165,15 +162,17 @@ public:
         juce::ADSR::Parameters fParams;
         juce::ADSR::Parameters aParams;
         
-        fParams.attack = f_attack;
-        fParams.decay = f_decay;
-        fParams.sustain = f_sustain;
-        fParams.release = f_release;
+        fParams.attack = synth_param.amp_attack;
+        fParams.decay = synth_param.amp_decay;
+        fParams.sustain = synth_param.amp_sustain;
+        fParams.release = synth_param.amp_release;
         
-        aParams.attack = a_attack;
-        aParams.decay = a_decay;
-        aParams.sustain = a_sustain;
-        aParams.release = a_release;
+        aParams.attack = synth_param.filter_attack;
+        aParams.decay = synth_param.filter_decay;
+        aParams.sustain = synth_param.filter_sustain;
+        aParams.release = synth_param.filter_release;
+        
+        DBG("param: " << a_adsr.getParameters().attack);
         
         f_adsr.setParameters(fParams);
         a_adsr.setParameters(aParams);
@@ -199,7 +198,7 @@ public:
         auto gain_total = juce::Decibels::decibelsToGain(a_total_gain);
         
         //generate audio  from oscillator
-        auto audio = osc(currentAngle,currentSample);
+        auto audio = osc(currentAngle,currentSample,1);
         
         //apply filter1
 //        audio = filter1.processSingleSampleRaw(audio);
@@ -210,11 +209,11 @@ public:
         //add adsr
 //        audio *= a_adsr.getNextSample();
         
-        return (float) audio * gain_total;
+        return (float) audio;
 
     }
 
-    float osc(double currentAngle,int currentSample){
+    float osc(double currentAngle,int currentSample, int osc_sel){
         
 //        auto gain1 = juce::Decibels::decibelsToGain(oMenu.osc1_gain.getValue());
 //        auto gain2 = juce::Decibels::decibelsToGain(oMenu.osc2_gain.getValue());
@@ -225,62 +224,68 @@ public:
         auto gain3 = juce::Decibels::decibelsToGain(synth_param.osc3_gain);
         
         float audio = 0;
-        //add oscilator 1
-        switch(synth_param.osc1_wavShape){
+        
+        switch(osc_sel){
             case 1:
-                audio += std::sin (currentAngle)*gain1;
-                break;
+                //add oscilator 1
+                switch(synth_param.osc1_wavShape){
+                    case 1:
+                        audio += std::sin (currentAngle)*gain1;
+                        break;
+                    case 2:
+                        audio += (-2 / juce::MathConstants<double>::pi * std::atan(1 / std::tan(currentFrequency *juce::MathConstants<double>::pi* currentSample/ getSampleRate())))*gain1;
+                        break;
+                    case 3:
+                        audio += std::sin (currentAngle) > 0 ? 1*gain1 : -1*gain1;
+                        break;
+                    case 4:
+                        audio += (2 / juce::MathConstants<double>::pi * std::asin(std::sin(currentAngle)))*gain1;
+                        break;
+                    case 5:
+                        audio += (2*random.nextFloat()-1)*gain1;
+                }
+                return audio;
             case 2:
-                audio += (-2 / juce::MathConstants<double>::pi * std::atan(1 / std::tan(currentFrequency *juce::MathConstants<double>::pi* currentSample/ getSampleRate())))*gain1;
-                break;
+                //add oscilator 2
+                switch(synth_param.osc2_wavShape){
+                    case 1:
+                        audio += std::sin (currentAngle)*gain2;
+                        break;
+                    case 2:
+                        audio += (-2 / juce::MathConstants<double>::pi * std::atan(1 / std::tan(currentFrequency *juce::MathConstants<double>::pi* currentSample/ getSampleRate())))*gain2;
+                        break;
+                    case 3:
+                        audio += std::sin (currentAngle) > 0 ? 1*gain2 : -1*gain2;
+                        break;
+                    case 4:
+                        audio += (2 / juce::MathConstants<double>::pi * std::asin(std::sin(currentAngle)))*gain2;
+                        break;
+                    case 5:
+                        audio += (2*random.nextFloat()-1)*gain2;
+                }
+                return audio;
             case 3:
-                audio += std::sin (currentAngle) > 0 ? 1*gain1 : -1*gain1;
-                break;
-            case 4:
-                audio += (2 / juce::MathConstants<double>::pi * std::asin(std::sin(currentAngle)))*gain1;
-                break;
-            case 5:
-                audio += (2*random.nextFloat()-1)*gain1;
+                //add oscilator 3
+                switch(synth_param.osc3_wavShape){
+                    case 1:
+                        audio += std::sin (currentAngle)*gain3;
+                        break;
+                    case 2:
+                        audio += (-2 / juce::MathConstants<double>::pi * std::atan(1 / std::tan(currentFrequency *juce::MathConstants<double>::pi* currentSample/ getSampleRate())))*gain3;
+                        break;
+                    case 3:
+                        audio += std::sin (currentAngle) > 0 ? 1*gain3 : -1*gain3;
+                        break;
+                    case 4:
+                        audio += (2 / juce::MathConstants<double>::pi * std::asin(std::sin(currentAngle)))*gain3;
+                        break;
+                    case 5:
+                        audio += (2*random.nextFloat()-1)*gain3;
+                }
+                return audio;
         }
         
-        
-        //add oscilator 2
-        switch(synth_param.osc2_wavShape){
-            case 1:
-                audio += std::sin (currentAngle)*gain2;
-                break;
-            case 2:
-                audio += (-2 / juce::MathConstants<double>::pi * std::atan(1 / std::tan(currentFrequency *juce::MathConstants<double>::pi* currentSample/ getSampleRate())))*gain2;
-                break;
-            case 3:
-                audio += std::sin (currentAngle) > 0 ? 1*gain2 : -1*gain2;
-                break;
-            case 4:
-                audio += (2 / juce::MathConstants<double>::pi * std::asin(std::sin(currentAngle)))*gain2;
-                break;
-            case 5:
-                audio += (2*random.nextFloat()-1)*gain2;
-        }
-        
-        //add oscilator 3
-        switch(synth_param.osc3_wavShape){
-            case 1:
-                audio += std::sin (currentAngle)*gain3;
-                break;
-            case 2:
-                audio += (-2 / juce::MathConstants<double>::pi * std::atan(1 / std::tan(currentFrequency *juce::MathConstants<double>::pi* currentSample/ getSampleRate())))*gain3;
-                break;
-            case 3:
-                audio += std::sin (currentAngle) > 0 ? 1*gain3 : -1*gain3;
-                break;
-            case 4:
-                audio += (2 / juce::MathConstants<double>::pi * std::asin(std::sin(currentAngle)))*gain3;
-                break;
-            case 5:
-                audio += (2*random.nextFloat()-1)*gain3;
-        }
-        return audio;
-        
+        return 0;
     }
     
 

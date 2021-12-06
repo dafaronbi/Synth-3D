@@ -13,16 +13,15 @@
 PluginSynthAudioProcessorEditor::PluginSynthAudioProcessorEditor (PluginSynthAudioProcessor& p)
     : AudioProcessorEditor (&p), audioProcessor (p)
 {
-
     
     //add child components
     addChildComponent(oMenu);
     addChildComponent(fMenu);
     addChildComponent(aMenu);
+    
+    //initialize ceenters
 
     addAndMakeVisible(nBar);
-    addAndMakeVisible(save_button);
-    addAndMakeVisible(test_audio);
 
     //only oscilattior menu is on by default
     oMenu.setVisible(true);
@@ -33,16 +32,9 @@ PluginSynthAudioProcessorEditor::PluginSynthAudioProcessorEditor (PluginSynthAud
     fMenu.addChangeListener(this);
     aMenu.addChangeListener(this);
 
-    //configure button text
-    save_button.setButtonText ("Save Sample");
-    test_audio.setButtonText("Test Audio");
-
-    //add listener for button
-    save_button.addListener(this);
-    test_audio.addListener(this);
-
     //set default window size
     setSize(500, 500);
+    setResizable(false, false);
 
     //current Angle at begining of phase
     currentAngle1 = 0;
@@ -73,8 +65,6 @@ PluginSynthAudioProcessorEditor::PluginSynthAudioProcessorEditor (PluginSynthAud
 PluginSynthAudioProcessorEditor::~PluginSynthAudioProcessorEditor()
 {
     nBar.removeChangeListener(this);
-    save_button.removeListener(this);
-    test_audio.removeListener(this);
     oMenu.removeChangeListener(this);
     fMenu.removeChangeListener(this);
     aMenu.removeChangeListener(this);
@@ -99,11 +89,7 @@ void PluginSynthAudioProcessorEditor::resized()
     auto nav_width = getWidth() < 160 ? getWidth() /3 : 160;
 
     //set areas of things
-    nBar.setBounds(area.removeFromLeft(nav_width));
-    auto button_area = area.removeFromBottom(getHeight()/15);
-    save_button.setBounds(button_area.removeFromRight(button_area.getWidth()/2));
-    test_audio.setBounds(button_area);
-    fMenu.setBounds(area);
+    nBar.setBounds(area.removeFromLeft(nav_width));    fMenu.setBounds(area);
     oMenu.setBounds(area);
     aMenu.setBounds(area);
 }
@@ -141,6 +127,14 @@ void PluginSynthAudioProcessorEditor::changeListenerCallback(juce::ChangeBroadca
             param.osc2_gain = oMenu.osc2_gain.getValue();
             param.osc3_gain =  oMenu.osc3_gain.getValue();
             
+            param.osc1_az = oMenu.osc1_pan.getAzimuth();
+            param.osc2_az = oMenu.osc2_pan.getAzimuth();
+            param.osc3_az = oMenu.osc3_pan.getAzimuth();
+            
+            param.osc1_distance = oMenu.osc1_pan.getDistance();
+            param.osc2_distance = oMenu.osc2_pan.getDistance();
+            param.osc3_distance = oMenu.osc3_pan.getDistance();
+            
             
         }
         
@@ -169,6 +163,7 @@ void PluginSynthAudioProcessorEditor::changeListenerCallback(juce::ChangeBroadca
             param.amp_decay = aMenu.amp_decay.getValue();
             param.amp_sustain = aMenu.amp_sustain.getValue();
             param.amp_release = aMenu.amp_release.getValue();
+            
         }
     
     audioProcessor.updateSyntheParameters(param);
