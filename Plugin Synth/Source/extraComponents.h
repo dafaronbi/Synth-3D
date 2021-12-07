@@ -92,7 +92,7 @@ public:
         float d_x = pan_x -center_x;
         float d_y = pan_y - center_y;
         
-        auto angle = std::atan(d_y/d_x);
+        auto angle = std::atan(-d_y/d_x);
         
         //special case when divide by zero
         if(d_x == 0) {
@@ -100,7 +100,7 @@ public:
         }
         
         //add 180 if in the lower two quadrants
-        if(d_x < 0){
+        if(d_x > 0){
             angle += juce::MathConstants<double>::pi;
         }
         

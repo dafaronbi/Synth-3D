@@ -55,7 +55,7 @@ public:
         updateFilter2Values();
         updateEnvelopes();
         
-        auto azi = loadHRTF(synth_param.osc1_az,1);
+        loadHRTF(synth_param.osc1_az,1);
         loadHRTF(synth_param.osc2_az,2);
         loadHRTF(synth_param.osc3_az,3);
         
@@ -92,7 +92,7 @@ public:
             
         }
     
-    int loadHRTF(int p, int osc) // p is parameter for HRTF, osc is choosing which osc
+    void loadHRTF(int p, int osc) // p is parameter for HRTF, osc is choosing which osc
         {
             int dataSize1;
             const char * data1;
@@ -125,9 +125,7 @@ public:
                 azi = azi3;
             }
             
-         
-            return azi; // This value can be stored to display the current azimuth that is being used
-        }
+    }
     
     void renderNextBlock (juce::AudioSampleBuffer& outputBuffer, int startSample, int numSamples) override
             {
