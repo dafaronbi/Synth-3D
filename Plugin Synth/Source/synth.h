@@ -25,9 +25,26 @@ struct synthSound   : public juce::SynthesiserSound
 class synthVoice : public juce::SamplerVoice
 {
 public:
-    synthVoice(synth_parameters param){
+    synthVoice(synth_parameters param,int samplesPerBlock, int numChannels){
         
         synth_param = param;
+        
+        juce::dsp::ProcessSpec spec; // Delivers information to the DSP algorithm.
+        
+        // Three methods we need to implement to pass onto the DSP module
+        spec.sampleRate = getSampleRate();
+        spec.maximumBlockSize = samplesPerBlock;
+        spec.numChannels = numChannels;
+        
+        
+        convolve1.reset();
+        convolve1.prepare(spec);
+        
+        convolve2.reset();
+        convolve2.prepare(spec);
+        
+        convolve3.reset();
+        convolve3.prepare(spec);
         
         //set sample rate of ADSR
         f_adsr.setSampleRate(getSampleRate());
@@ -37,6 +54,18 @@ public:
         updateFilter1Values();
         updateFilter2Values();
         updateEnvelopes();
+        
+        auto azi = loadHRTF(synth_param.osc1_az,1);
+        loadHRTF(synth_param.osc2_az,2);
+        loadHRTF(synth_param.osc3_az,3);
+        
+        DBG("azi 1: " << synth_param.osc1_az);
+        DBG("dist 1: " << synth_param.osc1_distance);
+        DBG("azi 2: " << synth_param.osc2_az);
+        DBG("dist 2: " << synth_param.osc2_distance);
+        DBG("azi 3: " << synth_param.osc3_az);
+        DBG("dist 3: " << synth_param.osc3_distance);
+
         
         }
     
@@ -63,39 +92,96 @@ public:
             
         }
     
-    void renderNextBlock (juce::AudioSampleBuffer& outputBuffer, int startSample, int numSamples) override
+    int loadHRTF(int p, int osc) // p is parameter for HRTF, osc is choosing which osc
         {
+            int dataSize1;
+            const char * data1;
+            int dataSize2;
+            const char * data2;
+            int dataSize3;
+            const char * data3;
             
-            juce::AudioBuffer<float> osc1(1, numSamples);
-            juce::AudioBuffer<float> osc2(1, numSamples);
-            juce::AudioBuffer<float> osc3(1, numSamples);
+            // Comment:  We should ensure that p doesn't go above 359 by indexing
+            int azi;
             
-            
-            for(auto samp = 0; samp < numSamples; samp++){
-                osc1.setSample(0,samp,osc(currentAngle,samp,1));
-                osc2.setSample(0,samp,osc(currentAngle,samp,2));
-                osc3.setSample(0,samp,osc(currentAngle,samp,3));
-                currentAngle += angleDelta;
+            if (osc == 1) {
+                int azi1 = p; // Giving the value to a separate variable (in case you want to change values on another osc right after?)
+                data1 = BinaryData::getNamedResource(BinaryData::namedResourceList[azi1], dataSize1);
+                convolve1.loadImpulseResponse(data1, dataSize1, juce::dsp::Convolution::Stereo::yes, juce::dsp::Convolution::Trim::yes, 0);
+                azi = azi1; // azi is returned to store the azimuth value for display
             }
             
-            for(auto samp = 0; samp < numSamples; samp++){
-                //get current cample from synth
-                auto currentSample= osc1.getSample(0,samp) + osc2.getSample(0,samp) + osc3.getSample(0,samp);
+            if (osc == 2) {
+                int azi2 = p;
+                data2 = BinaryData::getNamedResource(BinaryData::namedResourceList[azi2], dataSize2);
+                convolve2.loadImpulseResponse(data2, dataSize2, juce::dsp::Convolution::Stereo::yes, juce::dsp::Convolution::Trim::yes, 0);
+                azi = azi2;
+            }
+            
+            if (osc == 3) {
+                int azi3 = p;
+                data3 = BinaryData::getNamedResource(BinaryData::namedResourceList[azi3], dataSize3);
+                convolve3.loadImpulseResponse(data3, dataSize3, juce::dsp::Convolution::Stereo::yes, juce::dsp::Convolution::Trim::yes, 0);
+                azi = azi3;
+            }
+            
+         
+            return azi; // This value can be stored to display the current azimuth that is being used
+        }
+    
+    void renderNextBlock (juce::AudioSampleBuffer& outputBuffer, int startSample, int numSamples) override
+            {
                 
-                //get next adsr sample
-                auto next_adsr = a_adsr.getNextSample();
+                juce::AudioBuffer<float> osc1(outputBuffer.getNumChannels(), numSamples);
+                juce::AudioBuffer<float> osc2(outputBuffer.getNumChannels(), numSamples);
+                juce::AudioBuffer<float> osc3(outputBuffer.getNumChannels(), numSamples);
                 
-                //add sample for each channel
-                for (auto chan = outputBuffer.getNumChannels(); --chan >= 0;){
-                    //apply adsr
-                    currentSample *= next_adsr;
+                
+                
+                for(auto samp = 0; samp < numSamples; samp++){
+                    for (auto chan = outputBuffer.getNumChannels(); --chan >= 0;){
+                        osc1.setSample(chan,samp,osc(currentAngle,samp,1));
+                        osc2.setSample(chan,samp,osc(currentAngle,samp,2));
+                        osc3.setSample(chan,samp,osc(currentAngle,samp,3));
+                        
+                    }
+                    currentAngle += angleDelta;
                     
-                    //add to output buffer
-                    outputBuffer.addSample (chan, samp, currentSample);
                 }
                 
+                
+                juce::dsp::AudioBlock<float> block1(osc1);
+                juce::dsp::ProcessContextReplacing<float> context1 (block1);
+                convolve1.process(context1);
+                
+                juce::dsp::AudioBlock<float> block2(osc2);
+                juce::dsp::ProcessContextReplacing<float> context2 (block2);
+                convolve2.process(context2);
+                
+                juce::dsp::AudioBlock<float> block3(osc3);
+                juce::dsp::ProcessContextReplacing<float> context3 (block3);
+                convolve3.process(context3);
+                
+                for(auto samp = 0; samp < numSamples; samp++){
+                    
+                    //get next adsr sample
+                    auto next_adsr = a_adsr.getNextSample();
+                    
+                    //add sample for each channel
+                    for (auto chan = outputBuffer.getNumChannels(); --chan >= 0;){
+                        
+                        //get current cample from synth
+                        auto currentSample= osc1.getSample(chan,samp) + osc2.getSample(chan,samp) + osc3.getSample(chan,samp);
+                        
+                        //apply adsr
+                        currentSample *= next_adsr;
+                        
+                        //add to output buffer
+                        outputBuffer.addSample (chan, samp, currentSample);
+                    }
+                    
+                }
             }
-        }
     
     void stopNote (float velocity, bool allowTailOff) override
         {
@@ -172,24 +258,8 @@ public:
         aParams.sustain = synth_param.filter_sustain;
         aParams.release = synth_param.filter_release;
         
-        DBG("param: " << a_adsr.getParameters().attack);
-        
         f_adsr.setParameters(fParams);
         a_adsr.setParameters(aParams);
-    }
-
-    void start_adsr(){
-        //start attack
-        f_adsr.noteOn();
-        a_adsr.noteOn();
-        
-        //wait 100ms
-        juce::Time::waitForMillisecondCounter(juce::Time::getMillisecondCounter() + 1000);
-        
-        //start release
-        f_adsr.noteOff();
-        a_adsr.noteOff();
-        
     }
 
     float synth(double currentAngle,int currentSample){
@@ -326,6 +396,11 @@ private:
     
     //random from juce
     juce::Random random;
+    
+    // Convolution
+    juce::dsp::Convolution convolve1;
+    juce::dsp::Convolution convolve2;
+    juce::dsp::Convolution convolve3;
 
 };
 

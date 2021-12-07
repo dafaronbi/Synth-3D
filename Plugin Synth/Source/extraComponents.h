@@ -77,7 +77,13 @@ public:
     
     //get distance (in pixels) from center of cirlcle
     float getDistance(){
-        return std::sqrt(std::pow(pan_x-center_x,2) + std::pow(pan_y-center_y,2));
+        //get distance from center
+        auto dist = std::sqrt(std::pow(pan_x-center_x,2) + std::pow(pan_y-center_y,2));
+        
+        //normalize from greeatest distance
+        dist = dist / ((getHeight()-getHeight()/5)/2);
+        
+        return dist;
     }
     
     int getAzimuth(){
@@ -87,6 +93,11 @@ public:
         float d_y = pan_y - center_y;
         
         auto angle = std::atan(d_y/d_x);
+        
+        //special case when divide by zero
+        if(d_x == 0) {
+            angle = -juce::MathConstants<double>::pi/2;
+        }
         
         //add 180 if in the lower two quadrants
         if(d_x < 0){

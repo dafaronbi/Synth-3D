@@ -22,12 +22,6 @@ PluginSynthAudioProcessor::PluginSynthAudioProcessor()
                        )
                 #endif
 {
-    synth_parameters param;
-    
-    for (auto i = 0; i < 4; ++i)                // [1]
-        synth.addVoice (new synthVoice(param));
-
-    synth.addSound (new synthSound());
     
 }
 
@@ -103,7 +97,17 @@ void PluginSynthAudioProcessor::prepareToPlay (double sampleRate, int samplesPer
     synth.setCurrentPlaybackSampleRate (sampleRate);
     // Use this method as the place to do any pre-playback
     // initialisation that you need..
+    // Three methods we need to implement to pass onto the DSP module
+    
+    synth_parameters param;
+    
+    for (auto i = 0; i < 4; ++i)                // [1]
+        synth.addVoice (new synthVoice(param,samplesPerBlock,getTotalNumOutputChannels()));
+
+    synth.addSound (new synthSound());
+        
 }
+
 
 void PluginSynthAudioProcessor::releaseResources()
 {
@@ -155,6 +159,8 @@ void PluginSynthAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, 
     
     synth.renderNextBlock (buffer, midiMessages,
                            0, buffer.getNumSamples());
+    
+    
 
     
     // This is the place where you'd normally do the guts of your plugin's
@@ -204,7 +210,7 @@ void PluginSynthAudioProcessor::updateSyntheParameters(synth_parameters param)
     synth.clearVoices();
     
     for (auto i = 0; i < 4; ++i)                // [1]
-        synth.addVoice(new synthVoice(param));
+        synth.addVoice(new synthVoice(param,getBlockSize(),getTotalNumOutputChannels()));
 }
 
 
