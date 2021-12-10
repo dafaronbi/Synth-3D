@@ -312,7 +312,7 @@ public:
                     case 5:
                         audio += (2*random.nextFloat()-1)*gain1;
                 }
-                return audio;
+                return audio* (1-synth_param.osc1_distance);
             case 2:
                 //add oscilator 2
                 switch(synth_param.osc2_wavShape){
@@ -331,7 +331,7 @@ public:
                     case 5:
                         audio += (2*random.nextFloat()-1)*gain2;
                 }
-                return audio;
+                return audio * (1-synth_param.osc2_distance);
             case 3:
                 //add oscilator 3
                 switch(synth_param.osc3_wavShape){
@@ -350,7 +350,7 @@ public:
                     case 5:
                         audio += (2*random.nextFloat()-1)*gain3;
                 }
-                return audio;
+                return audio * (1-synth_param.osc3_distance);
         }
         
         return 0;
