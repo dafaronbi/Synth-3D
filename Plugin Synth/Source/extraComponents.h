@@ -53,6 +53,7 @@ public:
         pan_y = center_y;
     }
     
+    //mouse drage event
     void mouseDrag (const juce::MouseEvent& event) override
         {
             //get mouse position
@@ -86,6 +87,7 @@ public:
         return dist;
     }
     
+    //get azimuth rotation value in integer degrees
     int getAzimuth(){
         
         //get distances from center
@@ -107,14 +109,45 @@ public:
         //add 90 phase increase to fit the scale we want
         angle += juce::MathConstants<double>::pi/2;
         
+        //radian angle to degree integers
+        auto angle_i =toDegrees(angle);
+        
         //return degree version of angle
-        return toDegrees(angle);
+        return angle_i;
+    }
+    
+    void setPosition(int angle, float distance){
+        
+        //subtract 90 degrees phase to decrease back to regular phase
+        angle -= 90;
+        
+        //convert anlge to radians
+        float r_angle = toRad(angle);
+        
+        //convert distance back to pixel values
+        distance *= ((getHeight()-getHeight()/5)/2);
+        
+        //get  displacement from center
+        float d_x = -distance*std::cos(r_angle);
+        float d_y = distance*std::sin(r_angle);
+        
+        //set pan_x and pan_y
+        pan_x = d_x + center_x;
+        pan_y = d_y + center_y;
+        repaint();
+        
     }
     
     //convert radians to degrees
     int toDegrees(float rad){
         int degrees = (int)(rad * 180 / juce::MathConstants<double>::pi);
         return degrees;
+    }
+    
+    //convert degresse to radian
+    float toRad(int deg){
+        float rad = (deg * juce::MathConstants<double>::pi)/180;
+        return rad;
     }
     
 private:

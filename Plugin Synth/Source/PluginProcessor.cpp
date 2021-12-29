@@ -22,6 +22,10 @@ PluginSynthAudioProcessor::PluginSynthAudioProcessor()
                        )
                 #endif
 {
+    for (auto i = 0; i < 4; ++i)                // [1]
+        synth.addVoice (new synthVoice());
+
+    synth.addSound (new synthSound());
     
 }
 
@@ -94,17 +98,14 @@ void PluginSynthAudioProcessor::changeProgramName (int index, const juce::String
 //==============================================================================
 void PluginSynthAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
+    //set synth sample rate
     synth.setCurrentPlaybackSampleRate (sampleRate);
-    // Use this method as the place to do any pre-playback
-    // initialisation that you need..
-    // Three methods we need to implement to pass onto the DSP module
     
-    synth_parameters param;
-    
-    for (auto i = 0; i < 4; ++i)                // [1]
-        synth.addVoice (new synthVoice(param,samplesPerBlock,getTotalNumOutputChannels()));
-
-    synth.addSound (new synthSound());
+    //set sample rate and number of channels for each synthesizer voice
+    for (auto i = 0; i < 4; ++i){                // [1]
+        auto voice = (synthVoice*)synth.getVoice(i);
+        voice->prepaterToPlay(samplesPerBlock,getTotalNumOutputChannels());
+    }
         
 }
 
@@ -204,13 +205,21 @@ void PluginSynthAudioProcessor::setStateInformation (const void* data, int sizeI
     // whose contents will have been created by the getStateInformation() call.
 }
 
-void PluginSynthAudioProcessor::updateSyntheParameters(synth_parameters param)
+void PluginSynthAudioProcessor::updateSyntheParameters(synth_parameters p)
 {
-    //clear old synth voices
-    synth.clearVoices();
+    //set synth parameters
+    param  = p;
     
-    for (auto i = 0; i < 4; ++i)                // [1]
-        synth.addVoice(new synthVoice(param,getBlockSize(),getTotalNumOutputChannels()));
+    //update parameters for each synthesizer voice
+    for (auto i = 0; i < 4; ++i){
+        auto voice = (synthVoice*)synth.getVoice(i);
+        voice->updateParameters(param);
+    }
+}
+
+synth_parameters PluginSynthAudioProcessor::getParams()
+{
+    return param;
 }
 
 

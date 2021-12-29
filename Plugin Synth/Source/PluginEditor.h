@@ -24,6 +24,7 @@ public:
     ~PluginSynthAudioProcessorEditor() override;
 
     //==============================================================================
+    void updateParameters(synth_parameters param);
     void paint (juce::Graphics&) override;
     void resized() override;
     void changeListenerCallback(juce::ChangeBroadcaster* source) override;

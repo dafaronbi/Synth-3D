@@ -25,9 +25,8 @@ struct synthSound   : public juce::SynthesiserSound
 class synthVoice : public juce::SamplerVoice
 {
 public:
-    synthVoice(synth_parameters param,int samplesPerBlock, int numChannels){
-        
-        synth_param = param;
+    
+    void prepaterToPlay(int samplesPerBlock, int numChannels){
         
         juce::dsp::ProcessSpec spec; // Delivers information to the DSP algorithm.
         
@@ -49,6 +48,12 @@ public:
         //set sample rate of ADSR
         f_adsr.setSampleRate(getSampleRate());
         a_adsr.setSampleRate(getSampleRate());
+    }
+    
+    void updateParameters(synth_parameters param){
+        
+        //set  class parameter variable
+        synth_param = param;
         
         //update parameters
         updateFilter1Values();
@@ -59,15 +64,7 @@ public:
         loadHRTF(synth_param.osc2_az,2);
         loadHRTF(synth_param.osc3_az,3);
         
-        DBG("azi 1: " << synth_param.osc1_az);
-        DBG("dist 1: " << synth_param.osc1_distance);
-        DBG("azi 2: " << synth_param.osc2_az);
-        DBG("dist 2: " << synth_param.osc2_distance);
-        DBG("azi 3: " << synth_param.osc3_az);
-        DBG("dist 3: " << synth_param.osc3_distance);
-
-        
-        }
+    }
     
     bool canPlaySound (juce::SynthesiserSound* sound) override
         {
