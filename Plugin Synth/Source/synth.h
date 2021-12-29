@@ -75,6 +75,7 @@ public:
                         juce::SynthesiserSound*, int currentPitchWheelPosition) override
         {
             currentAngle = 0.0;
+            currentSample = 0.0;
             level = velocity * 0.15;
             tailOff = 0.0;
      
@@ -140,7 +141,9 @@ public:
                         osc3.setSample(chan,samp,osc(currentAngle,samp,3));
                         
                     }
+                    //incremeent samplee and angle
                     currentAngle += angleDelta;
+                    currentSample++;
                     
                 }
                 
@@ -166,13 +169,13 @@ public:
                     for (auto chan = outputBuffer.getNumChannels(); --chan >= 0;){
                         
                         //get current cample from synth
-                        auto currentSample= osc1.getSample(chan,samp) + osc2.getSample(chan,samp) + osc3.getSample(chan,samp);
+                        auto cSample= osc1.getSample(chan,samp) + osc2.getSample(chan,samp) + osc3.getSample(chan,samp);
                         
                         //apply adsr
-                        currentSample *= next_adsr;
+                        cSample *= next_adsr;
                         
                         //add to output buffer
-                        outputBuffer.addSample (chan, samp, currentSample);
+                        outputBuffer.addSample (chan, samp, cSample);
                     }
                     
                 }
@@ -357,7 +360,7 @@ public:
     
 private:
     //frequency variabls
-    double currentAngle = 0.0, angleDelta = 0.0, level = 0.0, tailOff = 0.0, currentFrequency = 0.0;
+    double currentAngle = 0.0, angleDelta = 0.0, level = 0.0, tailOff = 0.0, currentFrequency = 0.0, currentSample =0.0;
     
     //loaded in synth parameters
     synth_parameters synth_param;

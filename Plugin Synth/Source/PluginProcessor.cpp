@@ -27,10 +27,18 @@ PluginSynthAudioProcessor::PluginSynthAudioProcessor()
 
     synth.addSound (new synthSound());
     
+    //add all parameters as available for vst
+    addVSTParam();
+    
 }
 
 PluginSynthAudioProcessor::~PluginSynthAudioProcessor()
 {
+}
+
+void PluginSynthAudioProcessor::addVSTParam()
+{
+//    addParameter(<#AudioProcessorParameter *#>)
 }
 
 //==============================================================================
