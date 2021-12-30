@@ -34,8 +34,8 @@ struct synth_parameters {
     float filter_sustain = 1;
     float filter_release = 0;
     float amp_attack = 0;
-    float amp_decay = 1;
-    float amp_sustain = 0;
+    float amp_decay = 0;
+    float amp_sustain = 1;
     float amp_release = 0;
     float total_gain = 0;
 };

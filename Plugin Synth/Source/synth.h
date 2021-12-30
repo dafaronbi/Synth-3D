@@ -22,28 +22,68 @@ struct synthSound   : public juce::SynthesiserSound
 };
 
 
+
+
 class synthVoice : public juce::SamplerVoice
 {
 public:
     
+    synthVoice(){
+        
+        //set default waveshape
+        auto& osc_ob1 = osc1.template get<oscIndex>();
+        auto& osc_ob2 = osc2.template get<oscIndex>();
+        auto& osc_ob3 = osc3.template get<oscIndex>();
+        
+        osc_ob1.initialise(osc_sin, 128);
+        osc_ob2.initialise(osc_sin, 128);
+        osc_ob3.initialise(osc_sin, 128);
+        
+        //set default values
+        updateParameters(synth_param);
+        
+    }
+    
+    //oscillator functions
+    static float osc_sin(float x){
+        return std::sin (x);
+    }
+
+    static float osc_saw(float x){
+        return juce::jmap<float>(x, (-juce::MathConstants<double>::pi), (juce::MathConstants<double>::pi), -1, 1);
+    }
+
+    static float osc_square(float x){
+        return std::sin (x) > 0 ? 1 : -1;
+    }
+
+    static float osc_triangle(float x){
+        return (2 / juce::MathConstants<double>::pi * std::asin(std::sin(x)));
+    }
+
+    static float osc_noise(float x){
+        //random generator
+        juce::Random random;
+        return (2*random.nextFloat()-1);
+    }
+    
     void prepaterToPlay(int samplesPerBlock, int numChannels){
-        
-        juce::dsp::ProcessSpec spec; // Delivers information to the DSP algorithm.
-        
-        // Three methods we need to implement to pass onto the DSP module
+        //spec for using dsp
+        juce::dsp::ProcessSpec spec;
         spec.sampleRate = getSampleRate();
         spec.maximumBlockSize = samplesPerBlock;
         spec.numChannels = numChannels;
         
+        //initilize dsp  devices
+        osc1.reset();
+        osc1.prepare(spec);
+        osc2.reset();
+        osc2.prepare(spec);
+        osc3.reset();
+        osc3.prepare(spec);
         
-        convolve1.reset();
-        convolve1.prepare(spec);
-        
-        convolve2.reset();
-        convolve2.prepare(spec);
-        
-        convolve3.reset();
-        convolve3.prepare(spec);
+        filter_gain.reset();
+        filter_gain.prepare(spec);
         
         //set sample rate of ADSR
         f_adsr.setSampleRate(getSampleRate());
@@ -56,13 +96,118 @@ public:
         synth_param = param;
         
         //update parameters
+        updateGain();
         updateFilter1Values();
         updateFilter2Values();
         updateEnvelopes();
         
+        //only update oscillator if waveshape changed
+        if(prevShape1 != synth_param.osc1_wavShape || prevShape2 != synth_param.osc2_wavShape ||   prevShape3 != synth_param.osc3_wavShape ){
+            
+            //set new previous shapes
+            prevShape1 = synth_param.osc1_wavShape;
+            prevShape2 = synth_param.osc2_wavShape;
+            prevShape3 = synth_param.osc3_wavShape;
+            
+            //update oscillator shapes
+            updateOscillators();
+        }
+        
         loadHRTF(synth_param.osc1_az,1);
         loadHRTF(synth_param.osc2_az,2);
         loadHRTF(synth_param.osc3_az,3);
+        
+    }
+    
+    void updateOscillators(){
+        
+        auto& osc_ob1 = osc1.template get<oscIndex>();
+        auto& osc_ob2 = osc2.template get<oscIndex>();
+        auto& osc_ob3 = osc3.template get<oscIndex>();
+        
+        switch(synth_param.osc1_wavShape){
+            case 1:
+                osc_ob1.initialise(osc_sin, 128);
+                break;
+            case 2:
+                osc_ob1.initialise(osc_saw, 128);
+                break;
+            case 3:
+                osc_ob1.initialise(osc_square, 128);
+                break;
+            case 4:
+                osc_ob1.initialise(osc_triangle, 128);
+                break;
+            case 5:
+                osc_ob1.initialise(osc_noise, 0);
+                break;
+        }
+    
+        switch(synth_param.osc2_wavShape){
+            case 1:
+                osc_ob2.initialise(osc_sin, 128);
+                break;
+            case 2:
+                osc_ob2.initialise(osc_saw, 128);
+                break;
+            case 3:
+                osc_ob2.initialise(osc_square, 128);
+                break;
+            case 4:
+                osc_ob2.initialise(osc_triangle, 128);
+                break;
+            case 5:
+                osc_ob2.initialise(osc_noise, 0);
+                break;
+        }
+    
+        switch(synth_param.osc3_wavShape){
+            case 1:
+                osc_ob3.initialise(osc_sin, 128);
+                break;
+            case 2:
+                osc_ob3.initialise(osc_saw, 128);
+                break;
+            case 3:
+                osc_ob3.initialise(osc_square, 128);
+                break;
+            case 4:
+                osc_ob3.initialise(osc_triangle, 128);
+                break;
+            case 5:
+                osc_ob3.initialise(osc_noise, 0);
+                break;
+        }
+        
+    }
+    
+    void updateGain(){
+
+        //get knob gain
+        auto& gain_ob1 = osc1.template get<gainIndex>();
+        auto& gain_ob2 = osc2.template get<gainIndex>();
+        auto& gain_ob3 = osc3.template get<gainIndex>();
+
+        //get distance gain
+        auto& dis_ob1 = osc1.template get<disIndex>();
+        auto& dis_ob2 = osc2.template get<disIndex>();
+        auto& dis_ob3 = osc3.template get<disIndex>();
+
+        //set knob gain
+        gain_ob1.setGainDecibels(synth_param.osc1_gain);
+        gain_ob2.setGainDecibels(synth_param.osc2_gain);
+        gain_ob3.setGainDecibels(synth_param.osc3_gain);
+
+        //set distance gain
+        dis_ob1.setGainLinear((1-synth_param.osc1_distance)/2 + 0.5);
+        dis_ob2.setGainLinear((1-synth_param.osc1_distance)/2 + 0.5);
+        dis_ob3.setGainLinear((1-synth_param.osc1_distance)/2 + 0.5);
+        
+        //get totalgain from processor chain
+        auto& totalGain_ob = filter_gain.template get<totalGainIndex>();
+        
+        //set total gain
+        totalGain_ob.setGainDecibels(synth_param.total_gain);
         
     }
     
@@ -74,15 +219,17 @@ public:
     void startNote (int midiNoteNumber, float velocity,
                         juce::SynthesiserSound*, int currentPitchWheelPosition) override
         {
-            currentAngle = 0.0;
-            currentSample = 0.0;
-            level = velocity * 0.15;
-            tailOff = 0.0;
      
             currentFrequency = juce::MidiMessage::getMidiNoteInHertz (midiNoteNumber);
-            auto cyclesPerSample = currentFrequency / getSampleRate();
-     
-            angleDelta = cyclesPerSample * 2.0 * juce::MathConstants<double>::pi;
+            
+            //set oscilator frequency
+            auto& osc_ob1 = osc1.template get<oscIndex>();
+            auto& osc_ob2 = osc2.template get<oscIndex>();
+            auto& osc_ob3 = osc3.template get<oscIndex>();
+            
+            osc_ob1.setFrequency(currentFrequency, false);
+            osc_ob2.setFrequency(currentFrequency, false);
+            osc_ob3.setFrequency(currentFrequency, false);
             
             //start ADSRs
             f_adsr.noteOn();
@@ -99,27 +246,31 @@ public:
             int dataSize3;
             const char * data3;
             
+            auto& conv_ob1 = osc1.template get<convIndex>();
+            auto& conv_ob2 = osc2.template get<convIndex>();
+            auto& conv_ob3 = osc3.template get<convIndex>();
+            
             // Comment:  We should ensure that p doesn't go above 359 by indexing
             int azi;
             
             if (osc == 1) {
                 int azi1 = p; // Giving the value to a separate variable (in case you want to change values on another osc right after?)
                 data1 = BinaryData::getNamedResource(BinaryData::namedResourceList[azi1], dataSize1);
-                convolve1.loadImpulseResponse(data1, dataSize1, juce::dsp::Convolution::Stereo::yes, juce::dsp::Convolution::Trim::yes, 0);
+                conv_ob1.loadImpulseResponse(data1, dataSize1, juce::dsp::Convolution::Stereo::yes, juce::dsp::Convolution::Trim::yes, 0);
                 azi = azi1; // azi is returned to store the azimuth value for display
             }
             
             if (osc == 2) {
                 int azi2 = p;
                 data2 = BinaryData::getNamedResource(BinaryData::namedResourceList[azi2], dataSize2);
-                convolve2.loadImpulseResponse(data2, dataSize2, juce::dsp::Convolution::Stereo::yes, juce::dsp::Convolution::Trim::yes, 0);
+                conv_ob2.loadImpulseResponse(data2, dataSize2, juce::dsp::Convolution::Stereo::yes, juce::dsp::Convolution::Trim::yes, 0);
                 azi = azi2;
             }
             
             if (osc == 3) {
                 int azi3 = p;
                 data3 = BinaryData::getNamedResource(BinaryData::namedResourceList[azi3], dataSize3);
-                convolve3.loadImpulseResponse(data3, dataSize3, juce::dsp::Convolution::Stereo::yes, juce::dsp::Convolution::Trim::yes, 0);
+                conv_ob3.loadImpulseResponse(data3, dataSize3, juce::dsp::Convolution::Stereo::yes, juce::dsp::Convolution::Trim::yes, 0);
                 azi = azi3;
             }
             
@@ -127,57 +278,53 @@ public:
     
     void renderNextBlock (juce::AudioSampleBuffer& outputBuffer, int startSample, int numSamples) override
             {
+                //make new buffer for each oscillator
+                juce::AudioBuffer<float> osc1_buf(outputBuffer.getNumChannels(), numSamples);
+                juce::AudioBuffer<float> osc2_buf(outputBuffer.getNumChannels(), numSamples);
+                juce::AudioBuffer<float> osc3_buf(outputBuffer.getNumChannels(), numSamples);
                 
-                juce::AudioBuffer<float> osc1(outputBuffer.getNumChannels(), numSamples);
-                juce::AudioBuffer<float> osc2(outputBuffer.getNumChannels(), numSamples);
-                juce::AudioBuffer<float> osc3(outputBuffer.getNumChannels(), numSamples);
+                //make a buffer for combined audio
+                juce::AudioBuffer<float> combined(outputBuffer.getNumChannels(), numSamples);
                 
+                //clear new buffers
+                osc1_buf.clear();
+                osc2_buf.clear();
+                osc3_buf.clear();
                 
-                
-                for(auto samp = 0; samp < numSamples; samp++){
-                    for (auto chan = outputBuffer.getNumChannels(); --chan >= 0;){
-                        osc1.setSample(chan,samp,osc(currentAngle,samp,1));
-                        osc2.setSample(chan,samp,osc(currentAngle,samp,2));
-                        osc3.setSample(chan,samp,osc(currentAngle,samp,3));
-                        
-                    }
-                    //incremeent samplee and angle
-                    currentAngle += angleDelta;
-                    currentSample++;
-                    
-                }
+                combined.clear();
                 
                 
-                juce::dsp::AudioBlock<float> block1(osc1);
+                juce::dsp::AudioBlock<float> block1(osc1_buf);
                 juce::dsp::ProcessContextReplacing<float> context1 (block1);
-                convolve1.process(context1);
+                osc1.process(context1);
                 
-                juce::dsp::AudioBlock<float> block2(osc2);
+                juce::dsp::AudioBlock<float> block2(osc2_buf);
                 juce::dsp::ProcessContextReplacing<float> context2 (block2);
-                convolve2.process(context2);
+                osc2.process(context2);
                 
-                juce::dsp::AudioBlock<float> block3(osc3);
+                juce::dsp::AudioBlock<float> block3(osc3_buf);
                 juce::dsp::ProcessContextReplacing<float> context3 (block3);
-                convolve3.process(context3);
+                osc3.process(context3);
+                
+                //add sample for each channel
+                for (auto chan = outputBuffer.getNumChannels(); --chan >= 0;){
+                    combined.addFrom(chan, 0, osc1_buf, chan, 0, numSamples);
+                    combined.addFrom(chan, 0, osc2_buf, chan, 0, numSamples);
+                    combined.addFrom(chan, 0, osc3_buf, chan, 0, numSamples);
+                }
+
+                //apply adsr
+                a_adsr.applyEnvelopeToBuffer(combined, 0, numSamples);
                 
                 for(auto samp = 0; samp < numSamples; samp++){
-                    
-                    //get next adsr sample
-                    auto next_adsr = a_adsr.getNextSample();
-                    
+
                     //add sample for each channel
                     for (auto chan = outputBuffer.getNumChannels(); --chan >= 0;){
-                        
-                        //get current cample from synth
-                        auto cSample= osc1.getSample(chan,samp) + osc2.getSample(chan,samp) + osc3.getSample(chan,samp);
-                        
-                        //apply adsr
-                        cSample *= next_adsr;
-                        
+
                         //add to output buffer
-                        outputBuffer.addSample (chan, samp, cSample);
+                        outputBuffer.addSample (chan, samp, combined.getSample(chan,samp));
                     }
-                    
+
                 }
             }
     
@@ -191,169 +338,84 @@ public:
     
     void updateFilter1Values(){
         
-        //get cuttoff frequency from envelope
-        double cutoff = cutoff_freq1;
+        //get filter from processor chain
+        auto& filter1_ob = filter_gain.template get<filter1Index>();
+        
         
         //select filter type and get coefficients
-        switch(filter1_type){
+        switch(synth_param.filter1_type){
             case 1:
-                filter1.setCoefficients(juce::IIRCoefficients::makeLowPass(getSampleRate(), cutoff));
+                filter1_ob.setMode(juce::dsp::LadderFilterMode::LPF12);
+                filter1.setCoefficients(juce::IIRCoefficients::makeLowPass(getSampleRate(), synth_param.filter1_cuttoff));
                 break;
             case 2:
-                filter1.setCoefficients(juce::IIRCoefficients::makeHighPass(getSampleRate(), cutoff));
+                filter1_ob.setMode(juce::dsp::LadderFilterMode::HPF12);
+                filter1.setCoefficients(juce::IIRCoefficients::makeHighPass(getSampleRate(), synth_param.filter1_cuttoff));
                 break;
             case 3:
-                filter1.setCoefficients(juce::IIRCoefficients::makeBandPass(getSampleRate(), cutoff));
+                filter1_ob.setMode(juce::dsp::LadderFilterMode::BPF12);
+                filter1.setCoefficients(juce::IIRCoefficients::makeBandPass(getSampleRate(), synth_param.filter1_cuttoff));
                 break;
             case 4:
-                filter1.setCoefficients(juce::IIRCoefficients::makeNotchFilter(getSampleRate(), cutoff));
+                filter1_ob.setMode(juce::dsp::LadderFilterMode::BPF12);
+                filter1.setCoefficients(juce::IIRCoefficients::makeNotchFilter(getSampleRate(), synth_param.filter1_cuttoff));
                 break;
             default:
-                filter1.setCoefficients(juce::IIRCoefficients::makeLowPass(getSampleRate(), cutoff));
+                filter1_ob.setMode(juce::dsp::LadderFilterMode::LPF12);
+                filter1.setCoefficients(juce::IIRCoefficients::makeLowPass(getSampleRate(), synth_param.filter1_cuttoff));
             
         }
+        
+        //set cuttoff frequency and resonance
+        filter1_ob.setCutoffFrequencyHz(synth_param.filter1_cuttoff);
+        filter1_ob.setResonance(synth_param.filter1_resonance);
         
         filter1.reset();
     }
 
     void updateFilter2Values(){
         
-        //get cuttoff frequency from envelope
-        double cutoff = cutoff_freq2;
+        //get filter from processor chain
+        auto& filter2_ob = filter_gain.template get<filter1Index>();
         
         //select filter type and get coefficients
-        switch(filter2_type){
+        switch(synth_param.filter2_type){
             case 1:
-                filter2.setCoefficients(juce::IIRCoefficients::makeLowPass(getSampleRate(), cutoff));
+                filter2_ob.setMode(juce::dsp::LadderFilterMode::LPF12);
+                filter2.setCoefficients(juce::IIRCoefficients::makeLowPass(getSampleRate(), synth_param.filter2_cuttoff));
                 break;
             case 2:
-                filter2.setCoefficients(juce::IIRCoefficients::makeHighPass(getSampleRate(), cutoff));
+                filter2_ob.setMode(juce::dsp::LadderFilterMode::HPF12);
+                filter2.setCoefficients(juce::IIRCoefficients::makeHighPass(getSampleRate(), synth_param.filter2_cuttoff));
                 break;
             case 3:
-                filter2.setCoefficients(juce::IIRCoefficients::makeBandPass(getSampleRate(), cutoff));
+                filter2_ob.setMode(juce::dsp::LadderFilterMode::BPF12);
+                filter2.setCoefficients(juce::IIRCoefficients::makeBandPass(getSampleRate(), synth_param.filter2_cuttoff));
                 break;
             case 4:
-                filter2.setCoefficients(juce::IIRCoefficients::makeNotchFilter(getSampleRate(), cutoff));
+                filter2_ob.setMode(juce::dsp::LadderFilterMode::LPF12);
+                filter2.setCoefficients(juce::IIRCoefficients::makeNotchFilter(getSampleRate(), synth_param.filter2_cuttoff));
                 break;
             default:
-                filter2.setCoefficients(juce::IIRCoefficients::makeLowPass(getSampleRate(), cutoff));
+                filter2_ob.setMode(juce::dsp::LadderFilterMode::LPF12);
+                filter2.setCoefficients(juce::IIRCoefficients::makeLowPass(getSampleRate(), synth_param.filter2_cuttoff));
         }
+        
+        //set cuttoff frequency and resonance
+        filter2_ob.setCutoffFrequencyHz(synth_param.filter2_cuttoff);
+        filter2_ob.setResonance(synth_param.filter2_resonance);
             
         filter2.reset();
     }
 
     void updateEnvelopes(){
-        juce::ADSR::Parameters fParams;
-        juce::ADSR::Parameters aParams;
         
-        fParams.attack = synth_param.amp_attack;
-        fParams.decay = synth_param.amp_decay;
-        fParams.sustain = synth_param.amp_sustain;
-        fParams.release = synth_param.amp_release;
-        
-        aParams.attack = synth_param.filter_attack;
-        aParams.decay = synth_param.filter_decay;
-        aParams.sustain = synth_param.filter_sustain;
-        aParams.release = synth_param.filter_release;
+        //make parameter objects  with new parameter values
+        juce::ADSR::Parameters fParams(synth_param.amp_attack,synth_param.amp_decay, synth_param.amp_sustain,synth_param.amp_release);
+        juce::ADSR::Parameters aParams(synth_param.amp_attack,synth_param.amp_decay, synth_param.amp_sustain,synth_param.amp_release);
         
         f_adsr.setParameters(fParams);
         a_adsr.setParameters(aParams);
-    }
-
-    float synth(double currentAngle,int currentSample){
-        
-        //calculate gain from final gain  slider
-        auto gain_total = juce::Decibels::decibelsToGain(a_total_gain);
-        
-        //generate audio  from oscillator
-        auto audio = osc(currentAngle,currentSample,1);
-        
-        //apply filter1
-//        audio = filter1.processSingleSampleRaw(audio);
-        
-        //apply filter2
-//        audio = filter2.processSingleSampleRaw(audio);
-        
-        //add adsr
-//        audio *= a_adsr.getNextSample();
-        
-        return (float) audio;
-
-    }
-
-    float osc(double currentAngle,int currentSample, int osc_sel){
-        
-//        auto gain1 = juce::Decibels::decibelsToGain(oMenu.osc1_gain.getValue());
-//        auto gain2 = juce::Decibels::decibelsToGain(oMenu.osc2_gain.getValue());
-//        auto gain3 = juce::Decibels::decibelsToGain(oMenu.osc3_gain.getValue());
-        
-        auto gain1 = juce::Decibels::decibelsToGain(synth_param.osc1_gain);
-        auto gain2 = juce::Decibels::decibelsToGain(synth_param.osc2_gain);
-        auto gain3 = juce::Decibels::decibelsToGain(synth_param.osc3_gain);
-        
-        float audio = 0;
-        
-        switch(osc_sel){
-            case 1:
-                //add oscilator 1
-                switch(synth_param.osc1_wavShape){
-                    case 1:
-                        audio += std::sin (currentAngle)*gain1;
-                        break;
-                    case 2:
-                        audio += (-2 / juce::MathConstants<double>::pi * std::atan(1 / std::tan(currentFrequency *juce::MathConstants<double>::pi* currentSample/ getSampleRate())))*gain1;
-                        break;
-                    case 3:
-                        audio += std::sin (currentAngle) > 0 ? 1*gain1 : -1*gain1;
-                        break;
-                    case 4:
-                        audio += (2 / juce::MathConstants<double>::pi * std::asin(std::sin(currentAngle)))*gain1;
-                        break;
-                    case 5:
-                        audio += (2*random.nextFloat()-1)*gain1;
-                }
-                return audio* (1-synth_param.osc1_distance);
-            case 2:
-                //add oscilator 2
-                switch(synth_param.osc2_wavShape){
-                    case 1:
-                        audio += std::sin (currentAngle)*gain2;
-                        break;
-                    case 2:
-                        audio += (-2 / juce::MathConstants<double>::pi * std::atan(1 / std::tan(currentFrequency *juce::MathConstants<double>::pi* currentSample/ getSampleRate())))*gain2;
-                        break;
-                    case 3:
-                        audio += std::sin (currentAngle) > 0 ? 1*gain2 : -1*gain2;
-                        break;
-                    case 4:
-                        audio += (2 / juce::MathConstants<double>::pi * std::asin(std::sin(currentAngle)))*gain2;
-                        break;
-                    case 5:
-                        audio += (2*random.nextFloat()-1)*gain2;
-                }
-                return audio * (1-synth_param.osc2_distance);
-            case 3:
-                //add oscilator 3
-                switch(synth_param.osc3_wavShape){
-                    case 1:
-                        audio += std::sin (currentAngle)*gain3;
-                        break;
-                    case 2:
-                        audio += (-2 / juce::MathConstants<double>::pi * std::atan(1 / std::tan(currentFrequency *juce::MathConstants<double>::pi* currentSample/ getSampleRate())))*gain3;
-                        break;
-                    case 3:
-                        audio += std::sin (currentAngle) > 0 ? 1*gain3 : -1*gain3;
-                        break;
-                    case 4:
-                        audio += (2 / juce::MathConstants<double>::pi * std::asin(std::sin(currentAngle)))*gain3;
-                        break;
-                    case 5:
-                        audio += (2*random.nextFloat()-1)*gain3;
-                }
-                return audio * (1-synth_param.osc3_distance);
-        }
-        
-        return 0;
     }
     
 
@@ -364,18 +426,6 @@ private:
     
     //loaded in synth parameters
     synth_parameters synth_param;
-    
-    //filter variables
-    double cutoff_freq1 = 4000;
-    double cutoff_freq2 = 4000;
-    double resonance1 = 0;
-    double resonance2 = 0;
-    double f_attack = 0;
-    double f_decay = 0;
-    double f_sustain = 0;
-    double f_release = 0;
-    int filter1_type = 0;
-    int filter2_type = 0;
     
     //IIR filter variables
     juce::IIRFilter filter1;
@@ -392,14 +442,34 @@ private:
     juce::ADSR f_adsr;
     juce::ADSR a_adsr;
     
-    //random from juce
-    juce::Random random;
+    //previous osc values
+    int prevShape1 = 1;
+    int prevShape2 = 1;
+    int prevShape3 = 1;
     
-    // Convolution
-    juce::dsp::Convolution convolve1;
-    juce::dsp::Convolution convolve2;
-    juce::dsp::Convolution convolve3;
-
+    //Oscillator Process chains
+    juce::dsp::ProcessorChain<juce::dsp::Oscillator<float>, juce::dsp::Convolution, juce::dsp::Gain<float>, juce::dsp::Gain<float>> osc1;
+    juce::dsp::ProcessorChain<juce::dsp::Oscillator<float>, juce::dsp::Convolution, juce::dsp::Gain<float>, juce::dsp::Gain<float>> osc2;
+    juce::dsp::ProcessorChain<juce::dsp::Oscillator<float>, juce::dsp::Convolution, juce::dsp::Gain<float>, juce::dsp::Gain<float>> osc3;
+    
+    //enum to get each processor chain value
+    enum{
+        oscIndex,
+        convIndex,
+        gainIndex,
+        disIndex,
+    };
+    
+    //Filter and gain processing
+    juce::dsp::ProcessorChain<juce::dsp::LadderFilter<float>, juce::dsp::LadderFilter<float>, juce::dsp::Gain<float>> filter_gain;
+    
+    //enum to get each processor chain value
+    enum{
+        filter1Index,
+        filter12Index,
+        totalGainIndex
+    };
+    
 };
 
 #pragma once
