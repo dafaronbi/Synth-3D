@@ -349,16 +349,19 @@ public:
         osc1_gain.setTextBoxStyle (juce::Slider::TextEntryBoxPosition::TextBoxBelow, true, 100, 50);
         osc1_gain.setTextValueSuffix (" gain (dB)");
         osc1_gain.setRange(-100, 10);
+        osc1_gain.setSkewFactorFromMidPoint(0);
         
         osc2_gain.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
         osc2_gain.setTextBoxStyle (juce::Slider::TextEntryBoxPosition::TextBoxBelow, true, 100, 50);
         osc2_gain.setTextValueSuffix (" gain (dB)");
         osc2_gain.setRange(-100, 10);
+        osc2_gain.setSkewFactorFromMidPoint(0);
         
         osc3_gain.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
         osc3_gain.setTextBoxStyle (juce::Slider::TextEntryBoxPosition::TextBoxBelow, true, 100, 50);
         osc3_gain.setTextValueSuffix (" gain (dB)");
         osc3_gain.setRange(-100, 10);
+        osc3_gain.setSkewFactorFromMidPoint(0);
         
         
         //add child components
@@ -574,22 +577,24 @@ public:
         filter1_cuttoff_freq.setTextBoxStyle (juce::Slider::TextEntryBoxPosition::TextBoxBelow, true, 100, 50);
         filter1_cuttoff_freq.setTextValueSuffix (" Cutoff Freq (Hz)");
         filter1_cuttoff_freq.setRange(20, 20000);
+        filter1_cuttoff_freq.setSkewFactorFromMidPoint (1000);
         
         filter2_cuttoff_freq.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
         filter2_cuttoff_freq.setTextBoxStyle (juce::Slider::TextEntryBoxPosition::TextBoxBelow, true, 100, 50);
         filter2_cuttoff_freq.setTextValueSuffix (" Cutoff Freq (Hz)");
         filter2_cuttoff_freq.setRange(20, 20000);
+        filter2_cuttoff_freq.setSkewFactorFromMidPoint (1000);
         
         //set cuttoff freq slider settings
         filter1_resonance.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
         filter1_resonance.setTextBoxStyle (juce::Slider::TextEntryBoxPosition::TextBoxBelow, true, 100, 50);
         filter1_resonance.setTextValueSuffix (" Resonance");
-        filter1_resonance.setRange(0, 50);
+        filter1_resonance.setRange(0, 1);
         
         filter2_resonance.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
         filter2_resonance.setTextBoxStyle (juce::Slider::TextEntryBoxPosition::TextBoxBelow, true, 100, 50);
         filter2_resonance.setTextValueSuffix (" Resonance");
-        filter2_resonance.setRange(0, 50);
+        filter2_resonance.setRange(0, 1);
         
         //set asdr slider settings
         filter_attack.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);

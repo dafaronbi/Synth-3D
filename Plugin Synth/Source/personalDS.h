@@ -14,6 +14,9 @@ struct synth_parameters {
     int osc1_wavShape = 1;
     int osc2_wavShape = 1;
     int osc3_wavShape = 1;
+    float osc1_freqOff = 0;
+    float osc2_freqOff = 0;
+    float osc3_freqOff = 0;
     float osc1_gain = 0;
     float osc2_gain = 0;
     float osc3_gain = 0;

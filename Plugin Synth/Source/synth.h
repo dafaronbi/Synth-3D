@@ -44,6 +44,14 @@ public:
         
     }
     
+    float cent_offset(float note, float cent){
+        
+        //calulate the frequency offset from note from the cent value
+        auto offset = std::pow(2, cent /1200);
+        
+        return note*offset;
+    }
+    
     //oscillator functions
     static float osc_sin(float x){
         return std::sin (x);
@@ -100,6 +108,7 @@ public:
         updateFilter1Values();
         updateFilter2Values();
         updateEnvelopes();
+        updateFreqOff();
         
         //only update oscillator if waveshape changed
         if(prevShape1 != synth_param.osc1_wavShape || prevShape2 != synth_param.osc2_wavShape ||   prevShape3 != synth_param.osc3_wavShape ){
@@ -117,6 +126,18 @@ public:
         loadHRTF(synth_param.osc2_az,2);
         loadHRTF(synth_param.osc3_az,3);
         
+    }
+    
+    void updateFreqOff(){
+        
+        //set oscilator frequency
+        auto& osc_ob1 = osc1.template get<oscIndex>();
+        auto& osc_ob2 = osc2.template get<oscIndex>();
+        auto& osc_ob3 = osc3.template get<oscIndex>();
+        
+        osc_ob1.setFrequency(cent_offset(currentFrequency, synth_param.osc1_freqOff), false);
+        osc_ob2.setFrequency(cent_offset(currentFrequency, synth_param.osc2_freqOff), false);
+        osc_ob3.setFrequency(cent_offset(currentFrequency, synth_param.osc3_freqOff), false);
     }
     
     void updateOscillators(){
@@ -227,9 +248,9 @@ public:
             auto& osc_ob2 = osc2.template get<oscIndex>();
             auto& osc_ob3 = osc3.template get<oscIndex>();
             
-            osc_ob1.setFrequency(currentFrequency, false);
-            osc_ob2.setFrequency(currentFrequency, false);
-            osc_ob3.setFrequency(currentFrequency, false);
+            osc_ob1.setFrequency(cent_offset(currentFrequency, synth_param.osc1_freqOff), false);
+            osc_ob2.setFrequency(cent_offset(currentFrequency, synth_param.osc2_freqOff), false);
+            osc_ob3.setFrequency(cent_offset(currentFrequency, synth_param.osc3_freqOff), false);
             
             //start ADSRs
             f_adsr.noteOn();
@@ -293,15 +314,17 @@ public:
                 
                 combined.clear();
                 
-                
+                //generate oscillator 1
                 juce::dsp::AudioBlock<float> block1(osc1_buf);
                 juce::dsp::ProcessContextReplacing<float> context1 (block1);
                 osc1.process(context1);
                 
+                //generate oscillator 2
                 juce::dsp::AudioBlock<float> block2(osc2_buf);
                 juce::dsp::ProcessContextReplacing<float> context2 (block2);
                 osc2.process(context2);
                 
+                //generate oscillator 3
                 juce::dsp::AudioBlock<float> block3(osc3_buf);
                 juce::dsp::ProcessContextReplacing<float> context3 (block3);
                 osc3.process(context3);
@@ -312,6 +335,11 @@ public:
                     combined.addFrom(chan, 0, osc2_buf, chan, 0, numSamples);
                     combined.addFrom(chan, 0, osc3_buf, chan, 0, numSamples);
                 }
+                
+                //apply filter and gain
+                juce::dsp::AudioBlock<float> blockComb(combined);
+                juce::dsp::ProcessContextReplacing<float> contextComb (blockComb);
+                filter_gain.process(contextComb);
 
                 //apply adsr
                 a_adsr.applyEnvelopeToBuffer(combined, 0, numSamples);
@@ -422,7 +450,7 @@ public:
     
 private:
     //frequency variabls
-    double currentAngle = 0.0, angleDelta = 0.0, level = 0.0, tailOff = 0.0, currentFrequency = 0.0, currentSample =0.0;
+    double currentFrequency = 0.0;
     
     //loaded in synth parameters
     synth_parameters synth_param;
@@ -466,7 +494,7 @@ private:
     //enum to get each processor chain value
     enum{
         filter1Index,
-        filter12Index,
+        filter2Index,
         totalGainIndex
     };
     

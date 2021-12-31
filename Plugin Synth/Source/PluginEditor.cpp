@@ -70,6 +70,10 @@ void PluginSynthAudioProcessorEditor::updateParameters(synth_parameters p)
     oMenu.osc2_wav_shape.setSelectedId(param.osc2_wavShape);
     oMenu.osc3_wav_shape.setSelectedId(param.osc3_wavShape);
     
+    oMenu.osc1_frequency.setValue(param.osc1_freqOff);
+    oMenu.osc2_frequency.setValue(param.osc2_freqOff);
+    oMenu.osc3_frequency.setValue(param.osc3_freqOff);
+    
     oMenu.osc1_gain.setValue(param.osc1_gain);
     oMenu.osc2_gain.setValue(param.osc2_gain);
     oMenu.osc3_gain.setValue(param.osc3_gain);
@@ -155,6 +159,10 @@ void PluginSynthAudioProcessorEditor::changeListenerCallback(juce::ChangeBroadca
             param.osc1_wavShape = oMenu.osc1_wav_shape.getSelectedId();
             param.osc2_wavShape = oMenu.osc2_wav_shape.getSelectedId();
             param.osc3_wavShape = oMenu.osc3_wav_shape.getSelectedId();
+            
+            param.osc1_freqOff = oMenu.osc1_frequency.getValue();
+            param.osc2_freqOff = oMenu.osc2_frequency.getValue();
+            param.osc3_freqOff = oMenu.osc3_frequency.getValue();
             
             param.osc1_gain = oMenu.osc1_gain.getValue();
             param.osc2_gain = oMenu.osc2_gain.getValue();
