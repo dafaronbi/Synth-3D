@@ -23,6 +23,7 @@ public:
     ~PluginSynthAudioProcessor() override;
 
     //==============================================================================
+    void addVSTParam();
     void prepareToPlay (double sampleRate, int samplesPerBlock) override;
     void releaseResources() override;
 
@@ -58,11 +59,16 @@ public:
     //==============================================================================
     //Update synth paramters from gui thread
     void updateSyntheParameters(synth_parameters);
+    synth_parameters getParams();
     
 
 private:
-    
+    //synthesizer class
     juce::Synthesiser synth;
+    
+    //synth parameter values
+    synth_parameters param;
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PluginSynthAudioProcessor)
+    
 };

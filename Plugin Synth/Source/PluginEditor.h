@@ -24,6 +24,7 @@ public:
     ~PluginSynthAudioProcessorEditor() override;
 
     //==============================================================================
+    void updateParameters(synth_parameters param);
     void paint (juce::Graphics&) override;
     void resized() override;
     void changeListenerCallback(juce::ChangeBroadcaster* source) override;
@@ -101,9 +102,6 @@ private:
     //ASDRs
     juce::ADSR f_adsr;
     juce::ADSR a_adsr;
-    
-    //synth parameter values
-    synth_parameters param;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PluginSynthAudioProcessorEditor)
 };
