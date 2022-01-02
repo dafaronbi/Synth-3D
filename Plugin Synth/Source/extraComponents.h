@@ -600,12 +600,12 @@ public:
         filter_attack.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
         filter_attack.setTextBoxStyle (juce::Slider::TextEntryBoxPosition::TextBoxBelow, true, 100, 50);
         filter_attack.setTextValueSuffix (" Attack Time (s)");
-        filter_attack.setRange(0, 0.5);
+        filter_attack.setRange(0, 5);
         
         filter_decay.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
         filter_decay.setTextBoxStyle (juce::Slider::TextEntryBoxPosition::TextBoxBelow, true, 100, 50);
         filter_decay.setTextValueSuffix (" Decay Time (s)");
-        filter_decay.setRange(0, 0.5);
+        filter_decay.setRange(0, 5);
         
         filter_sustain.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
         filter_sustain.setTextBoxStyle (juce::Slider::TextEntryBoxPosition::TextBoxBelow, true, 100, 50);
@@ -616,7 +616,7 @@ public:
         filter_release.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
         filter_release.setTextBoxStyle (juce::Slider::TextEntryBoxPosition::TextBoxBelow, true, 100, 50);
         filter_release.setTextValueSuffix (" Release Time (s)");
-        filter_release.setRange(0, 1);
+        filter_release.setRange(0, 5);
         
         //set sustain level to be 1
         filter_sustain.setValue(1);
@@ -790,6 +790,7 @@ public:
         amp_total_gain.setTextBoxStyle (juce::Slider::TextEntryBoxPosition::TextBoxBelow, true, 100, 50);
         amp_total_gain.setTextValueSuffix (" Total Gain (dB)");
         amp_total_gain.setRange(-100, 10);
+        amp_total_gain.setSkewFactorFromMidPoint (0);
         
         //set asdr slider settings
         amp_attack.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);

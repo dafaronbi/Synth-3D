@@ -60,50 +60,47 @@ PluginSynthAudioProcessorEditor::~PluginSynthAudioProcessorEditor()
     aMenu.removeChangeListener(this);
 }
 
-void PluginSynthAudioProcessorEditor::updateParameters(synth_parameters p)
+void PluginSynthAudioProcessorEditor::updateParameters(synth_parameters param)
 {
-    //set parameters equalto to audio processor parameters
-    param = p;
-    
     //set oscillator values
-    oMenu.osc1_wav_shape.setSelectedId(param.osc1_wavShape);
-    oMenu.osc2_wav_shape.setSelectedId(param.osc2_wavShape);
-    oMenu.osc3_wav_shape.setSelectedId(param.osc3_wavShape);
+    oMenu.osc1_wav_shape.setSelectedId(*param.osc1_wavShape);
+    oMenu.osc2_wav_shape.setSelectedId(*param.osc2_wavShape);
+    oMenu.osc3_wav_shape.setSelectedId(*param.osc3_wavShape);
     
-    oMenu.osc1_frequency.setValue(param.osc1_freqOff);
-    oMenu.osc2_frequency.setValue(param.osc2_freqOff);
-    oMenu.osc3_frequency.setValue(param.osc3_freqOff);
+    oMenu.osc1_frequency.setValue(*param.osc1_freqOff);
+    oMenu.osc2_frequency.setValue(*param.osc2_freqOff);
+    oMenu.osc3_frequency.setValue(*param.osc3_freqOff);
     
-    oMenu.osc1_gain.setValue(param.osc1_gain);
-    oMenu.osc2_gain.setValue(param.osc2_gain);
-    oMenu.osc3_gain.setValue(param.osc3_gain);
+    oMenu.osc1_gain.setValue(*param.osc1_gain);
+    oMenu.osc2_gain.setValue(*param.osc2_gain);
+    oMenu.osc3_gain.setValue(*param.osc3_gain);
     
-    oMenu.osc1_pan.setPosition(param.osc1_az, param.osc1_distance);
-    oMenu.osc2_pan.setPosition(param.osc2_az, param.osc2_distance);
-    oMenu.osc3_pan.setPosition(param.osc3_az, param.osc3_distance);
+    oMenu.osc1_pan.setPosition(*param.osc1_az, *param.osc1_distance);
+    oMenu.osc2_pan.setPosition(*param.osc2_az, *param.osc2_distance);
+    oMenu.osc3_pan.setPosition(*param.osc3_az, *param.osc3_distance);
     
     //set filter values
-    fMenu.filter1_type.setSelectedId(param.filter1_type);
-    fMenu.filter2_type.setSelectedId(param.filter2_type);
+    fMenu.filter1_type.setSelectedId(*param.filter1_type);
+    fMenu.filter2_type.setSelectedId(*param.filter2_type);
     
-    fMenu.filter1_cuttoff_freq.setValue(param.filter1_cuttoff);
-    fMenu.filter2_cuttoff_freq.setValue(param.filter2_cuttoff);
+    fMenu.filter1_cuttoff_freq.setValue(*param.filter1_cuttoff);
+    fMenu.filter2_cuttoff_freq.setValue(*param.filter2_cuttoff);
     
-    fMenu.filter1_resonance.setValue(param.filter1_resonance);
-    fMenu.filter2_resonance.setValue(param.filter2_resonance);
+    fMenu.filter1_resonance.setValue(*param.filter1_resonance);
+    fMenu.filter2_resonance.setValue(*param.filter2_resonance);
     
-    fMenu.filter_attack.setValue(param.filter_attack);
-    fMenu.filter_decay.setValue(param.filter_decay);
-    fMenu.filter_sustain.setValue(param.filter_sustain);
-    fMenu.filter_release.setValue(param.filter_release);
+    fMenu.filter_attack.setValue(*param.filter_attack);
+    fMenu.filter_decay.setValue(*param.filter_decay);
+    fMenu.filter_sustain.setValue(*param.filter_sustain);
+    fMenu.filter_release.setValue(*param.filter_release);
     
     //set amplifier values
-    aMenu.amp_total_gain.setValue(param.total_gain);
+    aMenu.amp_total_gain.setValue(*param.total_gain);
     
-    aMenu.amp_attack.setValue(param.amp_attack);
-    aMenu.amp_decay.setValue(param.amp_decay);
-    aMenu.amp_sustain.setValue(param.amp_sustain);
-    aMenu.amp_release.setValue(param.amp_release);
+    aMenu.amp_attack.setValue(*param.amp_attack);
+    aMenu.amp_decay.setValue(*param.amp_decay);
+    aMenu.amp_sustain.setValue(*param.amp_sustain);
+    aMenu.amp_release.setValue(*param.amp_release);
     
 }
 
@@ -152,58 +149,60 @@ void PluginSynthAudioProcessorEditor::changeListenerCallback(juce::ChangeBroadca
             repaint();
         }
     
+        synth_parameters param = audioProcessor.getParams();
+    
 
         //set parameters to be passed into synth
         if(source == &oMenu){
             
-            param.osc1_wavShape = oMenu.osc1_wav_shape.getSelectedId();
-            param.osc2_wavShape = oMenu.osc2_wav_shape.getSelectedId();
-            param.osc3_wavShape = oMenu.osc3_wav_shape.getSelectedId();
+            *param.osc1_wavShape = oMenu.osc1_wav_shape.getSelectedId();
+            *param.osc2_wavShape = oMenu.osc2_wav_shape.getSelectedId();
+            *param.osc3_wavShape = oMenu.osc3_wav_shape.getSelectedId();
             
-            param.osc1_freqOff = oMenu.osc1_frequency.getValue();
-            param.osc2_freqOff = oMenu.osc2_frequency.getValue();
-            param.osc3_freqOff = oMenu.osc3_frequency.getValue();
+            *param.osc1_freqOff = oMenu.osc1_frequency.getValue();
+            *param.osc2_freqOff = oMenu.osc2_frequency.getValue();
+            *param.osc3_freqOff = oMenu.osc3_frequency.getValue();
             
-            param.osc1_gain = oMenu.osc1_gain.getValue();
-            param.osc2_gain = oMenu.osc2_gain.getValue();
-            param.osc3_gain =  oMenu.osc3_gain.getValue();
+            *param.osc1_gain = oMenu.osc1_gain.getValue();
+            *param.osc2_gain = oMenu.osc2_gain.getValue();
+            *param.osc3_gain =  oMenu.osc3_gain.getValue();
             
-            param.osc1_az = oMenu.osc1_pan.getAzimuth();
-            param.osc2_az = oMenu.osc2_pan.getAzimuth();
-            param.osc3_az = oMenu.osc3_pan.getAzimuth();
+            *param.osc1_az = oMenu.osc1_pan.getAzimuth();
+            *param.osc2_az = oMenu.osc2_pan.getAzimuth();
+            *param.osc3_az = oMenu.osc3_pan.getAzimuth();
             
-            param.osc1_distance = oMenu.osc1_pan.getDistance();
-            param.osc2_distance = oMenu.osc2_pan.getDistance();
-            param.osc3_distance = oMenu.osc3_pan.getDistance();
+            *param.osc1_distance = oMenu.osc1_pan.getDistance();
+            *param.osc2_distance = oMenu.osc2_pan.getDistance();
+            *param.osc3_distance = oMenu.osc3_pan.getDistance();
             
             
         }
         
         if(source == &fMenu){
         
-            param.filter1_type = fMenu.filter1_type.getSelectedId();
-            param.filter2_type = fMenu.filter2_type.getSelectedId();
+            *param.filter1_type = fMenu.filter1_type.getSelectedId();
+            *param.filter2_type = fMenu.filter2_type.getSelectedId();
             
-            param.filter1_cuttoff = fMenu.filter1_cuttoff_freq.getValue();
-            param.filter2_cuttoff = fMenu.filter2_cuttoff_freq.getValue();
+            *param.filter1_cuttoff = fMenu.filter1_cuttoff_freq.getValue();
+            *param.filter2_cuttoff = fMenu.filter2_cuttoff_freq.getValue();
             
-            param.filter1_resonance = fMenu.filter1_resonance.getValue();
-            param.filter2_resonance  = fMenu.filter2_resonance.getValue();
+            *param.filter1_resonance = fMenu.filter1_resonance.getValue();
+            *param.filter2_resonance  = fMenu.filter2_resonance.getValue();
             
-            param.filter_attack = fMenu.filter_attack.getValue();
-            param.filter_decay = fMenu.filter_decay.getValue();
-            param.filter_sustain = fMenu.filter_sustain.getValue();
-            param.filter_release = fMenu.filter_release.getValue();
+            *param.filter_attack = fMenu.filter_attack.getValue();
+            *param.filter_decay = fMenu.filter_decay.getValue();
+            *param.filter_sustain = fMenu.filter_sustain.getValue();
+            *param.filter_release = fMenu.filter_release.getValue();
         }
         
         if(source == &aMenu){
             
-            param.total_gain  = aMenu.amp_total_gain.getValue();
+            *param.total_gain  = aMenu.amp_total_gain.getValue();
             
-            param.amp_attack = aMenu.amp_attack.getValue();
-            param.amp_decay = aMenu.amp_decay.getValue();
-            param.amp_sustain = aMenu.amp_sustain.getValue();
-            param.amp_release = aMenu.amp_release.getValue();
+            *param.amp_attack = aMenu.amp_attack.getValue();
+            *param.amp_decay = aMenu.amp_decay.getValue();
+            *param.amp_sustain = aMenu.amp_sustain.getValue();
+            *param.amp_release = aMenu.amp_release.getValue();
             
         }
     

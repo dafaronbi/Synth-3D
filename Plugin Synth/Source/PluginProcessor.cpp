@@ -22,13 +22,16 @@ PluginSynthAudioProcessor::PluginSynthAudioProcessor()
                        )
                 #endif
 {
-    for (auto i = 0; i < 4; ++i)                // [1]
-        synth.addVoice (new synthVoice());
-
-    synth.addSound (new synthSound());
     
     //add all parameters as available for vst
     addVSTParam();
+    
+    //initialize synth voices and sound
+    for (auto i = 0; i < 4; ++i)
+        synth.addVoice (new synthVoice(param));
+
+    synth.addSound (new synthSound());
+    
     
 }
 
@@ -38,7 +41,53 @@ PluginSynthAudioProcessor::~PluginSynthAudioProcessor()
 
 void PluginSynthAudioProcessor::addVSTParam()
 {
-//    addParameter(<#AudioProcessorParameter *#>)
+    //choices to pass in when initializing variables
+    auto wavChoices = {"Sin", "Saw", "Square", "Triangle", "Noise"};
+    auto filterChoices = {"LowPass", "HighPass", "BandPass", "BandReject"};
+    
+    addParameter(param.osc1_wavShape =  new juce::AudioParameterChoice("osc1wavShape", "Oscillator 1 Wav Shape", wavChoices, 1));
+    addParameter(param.osc2_wavShape =  new juce::AudioParameterChoice("osc2wavShape", "Oscillator 2 Wav Shape", wavChoices, 1));
+    addParameter(param.osc3_wavShape =  new juce::AudioParameterChoice("osc3wavShape", "Oscillator 3 Wav Shape", wavChoices, 1));
+    
+    addParameter(param.osc1_freqOff =  new juce::AudioParameterFloat("osc1freqOff", "Oscillator 1 Frequency Offset", juce::NormalisableRange<float> (-100.0f, 100.0f), 0));
+    addParameter(param.osc2_freqOff =  new juce::AudioParameterFloat("osc2freqOff", "Oscillator 2 Frequency Offset", juce::NormalisableRange<float> (-100.0f, 100.0f), 0));
+    addParameter(param.osc3_freqOff =  new juce::AudioParameterFloat("osc3freqOff", "Oscillator 3 Frequency Offset", juce::NormalisableRange<float> (-100.0f, 100.0f), 0));
+    
+    addParameter(param.osc1_gain =  new juce::AudioParameterFloat("osc1gain", "Oscillator 1 Gain", juce::NormalisableRange<float> (-100.0f, 10.0f), 0));
+    addParameter(param.osc2_gain =  new juce::AudioParameterFloat("osc2gain", "Oscillator 2 Gain", juce::NormalisableRange<float> (-100.0f, 10.0f), 0));
+    addParameter(param.osc3_gain =  new juce::AudioParameterFloat("osc3gain", "Oscillator 3 Gain", juce::NormalisableRange<float> (-100.0f, 10.0f), 0));
+    
+    addParameter(param.osc1_az =  new juce::AudioParameterInt("osc1az", "Oscillator 1 Azimuth", 0, 359, 0));
+    addParameter(param.osc2_az =  new juce::AudioParameterInt("osc2az", "Oscillator 2 Azimuth", 0, 359, 0));
+    addParameter(param.osc3_az =  new juce::AudioParameterInt("osc3az", "Oscillator 3 Azimuth", 0, 359, 0));
+    
+    addParameter(param.osc1_distance =  new juce::AudioParameterFloat("osc1dist", "Oscillator 1 Distance", juce::NormalisableRange<float> (0.0f, 1.0f), 0));
+    addParameter(param.osc2_distance =  new juce::AudioParameterFloat("osc2dist", "Oscillator 2 Distance", juce::NormalisableRange<float> (0.0f, 1.0f), 0));
+    addParameter(param.osc3_distance =  new juce::AudioParameterFloat("osc3dist", "Oscillator 3 Distance", juce::NormalisableRange<float> (0.0f, 1.0f), 0));
+    
+    addParameter(param.filter1_type =  new juce::AudioParameterChoice("filter1type", "Filter 1 Type", filterChoices, 1));
+    addParameter(param.filter2_type =  new juce::AudioParameterChoice("filter2type", "Filter 2 Type", filterChoices, 1));
+    
+    addParameter(param.filter1_cuttoff =  new juce::AudioParameterFloat("filter1cuttoff", "Filter 1 Cuttoff Frequency", juce::NormalisableRange<float> (20.0f, 20000.0f), 20000.0f));
+    addParameter(param.filter2_cuttoff =  new juce::AudioParameterFloat("filter2cuttoff", "Filter 2 Cuttoff Frequency", juce::NormalisableRange<float> (20.0f, 20000.0f), 20000.0f));
+    
+    addParameter(param.filter1_resonance =  new juce::AudioParameterFloat("filter1resonance", "Filter 1 Resonance", juce::NormalisableRange<float> (0.0f, 1.0f), 0));
+    addParameter(param.filter2_resonance =  new juce::AudioParameterFloat("filter2resonance", "Filter 2 Resonance", juce::NormalisableRange<float> (0.0f, 1.0f), 0));
+    
+    addParameter(param.filter_attack =  new juce::AudioParameterFloat("filterAttack", "Filter Attack", juce::NormalisableRange<float> (0.0f, 5.0f), 0));
+    addParameter(param.filter_decay =  new juce::AudioParameterFloat("filterDecay", "Filter Decay", juce::NormalisableRange<float> (0.0f, 5.0f), 0));
+    addParameter(param.filter_sustain =  new juce::AudioParameterFloat("filterSustain", "Filter Sustain", juce::NormalisableRange<float> (0.0f, 1.0f), 1));
+    addParameter(param.filter_release =  new juce::AudioParameterFloat("filterRelease", "Filter Release", juce::NormalisableRange<float> (0.0f, 5.0f), 0));
+    
+    addParameter(param.amp_attack =  new juce::AudioParameterFloat("ampAttack", "Amplifier Attack", juce::NormalisableRange<float> (0.0f, 5.0f), 0));
+    addParameter(param.amp_decay =  new juce::AudioParameterFloat("ampDecay", "Amplifier Decay", juce::NormalisableRange<float> (0.0f, 5.0f), 0));
+    addParameter(param.amp_sustain =  new juce::AudioParameterFloat("ampSustain", "Amplifier Sustain", juce::NormalisableRange<float> (0.0f, 1.0f), 1));
+    addParameter(param.amp_release =  new juce::AudioParameterFloat("ampRelease", "Amplifier Release", juce::NormalisableRange<float> (0.0f, 5.0f), 0));
+    
+    addParameter(param.total_gain =  new juce::AudioParameterFloat("totalGain", "total Gain", juce::NormalisableRange<float> (-100.0f, 10.0f), 0));
+    
+    DBG(std::to_string(*param.osc1_wavShape));
+    DBG("hi");
 }
 
 //==============================================================================
