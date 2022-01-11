@@ -2,7 +2,7 @@
 3D Audio Final Project
 
 ## Install
-To install, simply download the VST plugin from this repository. It is available in the VST folder in component and VST3 format. Once it is downloaded, place it in the approprriate folder.
+To install, simply download the VST plugin from this repository. It is available in the VST folder in component and VST3 format. Once it is downloaded, place it in the appropriate folder.
 
 For Mac, this folder is usually in "/Library/Audio/Plug-Ins/Components" or "/Library/Audio/Plug-Ins/VST".
 
