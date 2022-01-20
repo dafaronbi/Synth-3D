@@ -563,13 +563,11 @@ public:
         filter1_type.addItem("Low Pass",1);
         filter1_type.addItem("High Pass",2);
         filter1_type.addItem("Band Pass",3);
-        filter1_type.addItem("Band Reject",4);
         filter1_type.setSelectedId(1);
         
         filter2_type.addItem("Low Pass",1);
         filter2_type.addItem("High Pass",2);
         filter2_type.addItem("Band Pass",3);
-        filter2_type.addItem("Band Reject",4);
         filter2_type.setSelectedId(1);
         
         //set cuttoff freq slider settings

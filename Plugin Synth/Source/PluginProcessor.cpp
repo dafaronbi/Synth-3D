@@ -42,7 +42,7 @@ PluginSynthAudioProcessor::~PluginSynthAudioProcessor()
 void PluginSynthAudioProcessor::addVSTParam()
 {
     //choices to pass in when initializing variables
-    auto wavChoices = {"Sin", "Saw", "Square", "Triangle", "Noise"};
+    auto wavChoices = {"","Sin", "Saw", "Square", "Triangle", "Noise"};
     auto filterChoices = {"LowPass", "HighPass", "BandPass", "BandReject"};
     
     addParameter(param.osc1_wavShape =  new juce::AudioParameterChoice("osc1wavShape", "Oscillator 1 Wav Shape", wavChoices, 1));
@@ -86,8 +86,7 @@ void PluginSynthAudioProcessor::addVSTParam()
     
     addParameter(param.total_gain =  new juce::AudioParameterFloat("totalGain", "total Gain", juce::NormalisableRange<float> (-100.0f, 10.0f), 0));
     
-    DBG(std::to_string(*param.osc1_wavShape));
-    DBG("hi");
+
 }
 
 //==============================================================================

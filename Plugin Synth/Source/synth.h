@@ -45,7 +45,7 @@ public:
         //set default values
         updateParameters(synth_param);
         
-        filter_gain.template setBypassed<filter1Index>(true);
+//        filter_gain.template setBypassed<filter1Index>(true);
         
     }
     
@@ -150,7 +150,7 @@ public:
         auto& osc_ob1 = osc1.template get<oscIndex>();
         auto& osc_ob2 = osc2.template get<oscIndex>();
         auto& osc_ob3 = osc3.template get<oscIndex>();
-        
+        DBG(std::to_string(*synth_param.osc1_wavShape));
         switch(*synth_param.osc1_wavShape){
             case 1:
                 osc_ob1.initialise(osc_sin, 128);
@@ -350,7 +350,7 @@ public:
     void updateFilter2Values(){
         
         //get filter from processor chain
-        auto& filter2_ob = filter_gain.template get<filter1Index>();
+        auto& filter2_ob = filter_gain.template get<filter2Index>();
         
         //select filter type and get coefficients
         switch(*synth_param.filter2_type){
@@ -386,7 +386,7 @@ public:
         
         //make parameter objects  with new parameter values
         juce::ADSR::Parameters fParams(*synth_param.amp_attack,*synth_param.amp_decay, *synth_param.amp_sustain,*synth_param.amp_release);
-        juce::ADSR::Parameters aParams(*synth_param.amp_attack,*synth_param.amp_decay, *synth_param.amp_sustain,*synth_param.amp_release);
+        juce::ADSR::Parameters aParams(*synth_param.amp_attack,*synth_param.amp_decay, *synth_param.amp_sustain,*synth_param.amp_release*0.01);
         
         f_adsr.setParameters(fParams);
         a_adsr.setParameters(aParams);
@@ -434,25 +434,6 @@ public:
                     combined.addFrom(chan, 0, osc3_buf, chan, 0, numSamples);
                 }
                 
-                //apply filter and gain
-                juce::dsp::AudioBlock<float> blockComb(combined);
-                juce::dsp::ProcessContextReplacing<float> contextComb (blockComb);
-                filter_gain.process(contextComb);
-
-                //apply adsr
-                a_adsr.applyEnvelopeToBuffer(combined, 0, numSamples);
-                
-                for(auto samp = 0; samp < numSamples; samp++){
-
-                    //add sample for each channel
-                    for (auto chan = outputBuffer.getNumChannels(); --chan >= 0;){
-
-                        //add to output buffer
-                        outputBuffer.addSample (chan, samp, combined.getSample(chan,samp));
-                    }
-
-                }
-                
                 //get filter adsr next value
                 auto next_f_adsr = f_adsr.getNextSample();
                 auto f1_new_cuttoff = next_f_adsr**synth_param.filter1_cuttoff;
@@ -464,11 +445,28 @@ public:
                 
                 //get filter from processor chain
                 auto& filter1_ob = filter_gain.template get<filter1Index>();
-                auto& filter2_ob = filter_gain.template get<filter1Index>();
+                auto& filter2_ob = filter_gain.template get<filter2Index>();
                 
                 //set cuttoff frequency from adsr
                 filter1_ob.setCutoffFrequencyHz(f1_new_cuttoff);
                 filter2_ob.setCutoffFrequencyHz(f2_new_cuttoff);
+                
+                //apply filter and gain
+                juce::dsp::AudioBlock<float> blockComb(combined);
+                juce::dsp::ProcessContextReplacing<float> contextComb (blockComb);
+                filter_gain.process(contextComb);
+
+                //apply adsr
+                a_adsr.applyEnvelopeToBuffer(combined, 0, numSamples);
+
+                //add sample for each channel
+                for (auto chan = outputBuffer.getNumChannels(); --chan >= 0;){
+
+                    //add to output buffer
+                    outputBuffer.addFrom(chan, startSample, combined, chan, 0, numSamples);
+                }
+
+                
             }
     
 
