@@ -283,6 +283,7 @@ public:
     juce::Slider osc1_frequency;
     gain_slider osc1_gain;
     pan_3d osc1_pan;
+    juce::Label osc1_bi_pan_label;
     
     //create components for oscillator 2
     juce::Label osc2_wav_shape_label;
@@ -290,6 +291,7 @@ public:
     juce::Slider osc2_frequency;
     gain_slider  osc2_gain;
     pan_3d osc2_pan;
+    juce::Label osc2_bi_pan_label;
     
     //create components for oscillator 3
     juce::Label osc3_wav_shape_label;
@@ -297,6 +299,7 @@ public:
     juce::Slider osc3_frequency;
     gain_slider  osc3_gain;
     pan_3d osc3_pan;
+    juce::Label osc3_bi_pan_label;
     
     //==============================================================================
     Oscillator_Menu()
@@ -363,6 +366,11 @@ public:
         osc3_gain.setRange(-100, 10);
         osc3_gain.setSkewFactorFromMidPoint(0);
         
+        //set labels text
+        osc1_bi_pan_label.setText("Osc 1 Azimuth", juce::dontSendNotification);
+        osc2_bi_pan_label.setText("Osc 2 Azimuth", juce::dontSendNotification);
+        osc3_bi_pan_label.setText("Osc 3 Azimuth", juce::dontSendNotification);
+        
         
         //add child components
         addAndMakeVisible(osc1_wav_shape_label);
@@ -370,18 +378,21 @@ public:
         addAndMakeVisible(osc1_frequency);
         addAndMakeVisible(osc1_gain);
         addAndMakeVisible(osc1_pan);
+        addAndMakeVisible(osc1_bi_pan_label);
         
         addAndMakeVisible(osc2_wav_shape_label);
         addAndMakeVisible(osc2_wav_shape);
         addAndMakeVisible(osc2_frequency);
         addAndMakeVisible(osc2_gain);
         addAndMakeVisible(osc2_pan);
+        addAndMakeVisible(osc2_bi_pan_label);
         
         addAndMakeVisible(osc3_wav_shape_label);
         addAndMakeVisible(osc3_wav_shape);
         addAndMakeVisible(osc3_frequency);
         addAndMakeVisible(osc3_gain);
         addAndMakeVisible(osc3_pan);
+        addAndMakeVisible(osc3_bi_pan_label);
         
         
         //add listeners to object
@@ -465,7 +476,7 @@ public:
         row2.alignContent = juce::FlexBox::AlignContent::flexStart;
         row3.alignContent = juce::FlexBox::AlignContent::flexStart;
         
-        auto osc_label_height = area.getHeight()/10;
+        auto osc_label_height = area.getHeight()/30;
         auto osc_type_height = area.getHeight()/10;
         auto osc_slider_height = 3*area.getHeight()/10;
         auto osc_knob_height = 3*area.getHeight()/10;
@@ -477,6 +488,7 @@ public:
         row1.items.add(juce::FlexItem(osc1_frequency).withMinWidth(area.getWidth()/3 ).withMinHeight(osc_slider_height));
         row1.items.add(juce::FlexItem(osc1_gain).withMinWidth(area.getWidth()/3 ).withMinHeight(osc_knob_height));
         row1.items.add(juce::FlexItem(osc1_pan).withMinWidth(area.getWidth()/3 ).withMinHeight(osc_pan_height));
+        row1.items.add(juce::FlexItem(osc1_bi_pan_label).withMinWidth(area.getWidth()/3).withMinHeight(osc_label_height));
         
         //add items to row2
         row2.items.add(juce::FlexItem(osc2_wav_shape_label).withMinWidth(area.getWidth()/3).withMinHeight(osc_label_height));
@@ -484,6 +496,7 @@ public:
         row2.items.add(juce::FlexItem(osc2_frequency).withMinWidth(area.getWidth()/3 ).withMinHeight(osc_slider_height));
         row2.items.add(juce::FlexItem(osc2_gain).withMinWidth(area.getWidth()/3 ).withMinHeight(osc_knob_height));
         row2.items.add(juce::FlexItem(osc2_pan).withMinWidth(area.getWidth()/3 ).withMinHeight(osc_pan_height));
+        row2.items.add(juce::FlexItem(osc2_bi_pan_label).withMinWidth(area.getWidth()/3).withMinHeight(osc_label_height));
         
         //add items to rown3
         row3.items.add(juce::FlexItem(osc3_wav_shape_label).withMinWidth(area.getWidth()/3).withMinHeight(osc_label_height));
@@ -491,6 +504,7 @@ public:
         row3.items.add(juce::FlexItem(osc3_frequency).withMinWidth(area.getWidth()/3 ).withMinHeight(osc_slider_height));
         row3.items.add(juce::FlexItem(osc3_gain).withMinWidth(area.getWidth()/3 ).withMinHeight(osc_knob_height));
         row3.items.add(juce::FlexItem(osc3_pan).withMinWidth(area.getWidth()/3 ).withMinHeight(osc_pan_height));
+        row3.items.add(juce::FlexItem(osc3_bi_pan_label).withMinWidth(area.getWidth()/3).withMinHeight(osc_label_height));
         
         
         //add items to main flex box
@@ -516,10 +530,10 @@ public:
     }
     
     void changeListenerCallback(juce::ChangeBroadcaster* source) override
-        {
-            //send a mesage that pan has changed
-            sendChangeMessage();
-        }
+    {
+        //send a mesage that pan has changed
+        sendChangeMessage();
+    }
     
     
 
@@ -603,7 +617,7 @@ public:
         filter_decay.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
         filter_decay.setTextBoxStyle (juce::Slider::TextEntryBoxPosition::TextBoxBelow, true, 100, 50);
         filter_decay.setTextValueSuffix (" Decay Time (s)");
-        filter_decay.setRange(0, 5);
+        filter_decay.setRange(0, 1);
         
         filter_sustain.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
         filter_sustain.setTextBoxStyle (juce::Slider::TextEntryBoxPosition::TextBoxBelow, true, 100, 50);
@@ -799,7 +813,7 @@ public:
         amp_decay.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
         amp_decay.setTextBoxStyle (juce::Slider::TextEntryBoxPosition::TextBoxBelow, true, 100,50);
         amp_decay.setTextValueSuffix (" Decay Time (s)");
-        amp_decay.setRange(0, 5);
+        amp_decay.setRange(0, 1);
         
         amp_sustain.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
         amp_sustain.setTextBoxStyle (juce::Slider::TextEntryBoxPosition::TextBoxBelow, true, 100, 50);
