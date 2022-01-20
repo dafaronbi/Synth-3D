@@ -150,7 +150,7 @@ public:
         auto& osc_ob1 = osc1.template get<oscIndex>();
         auto& osc_ob2 = osc2.template get<oscIndex>();
         auto& osc_ob3 = osc3.template get<oscIndex>();
-        DBG(std::to_string(*synth_param.osc1_wavShape));
+
         switch(*synth_param.osc1_wavShape){
             case 1:
                 osc_ob1.initialise(osc_sin, 128);
@@ -385,7 +385,7 @@ public:
     void updateEnvelopes(){
         
         //make parameter objects  with new parameter values
-        juce::ADSR::Parameters fParams(*synth_param.amp_attack,*synth_param.amp_decay, *synth_param.amp_sustain,*synth_param.amp_release);
+        juce::ADSR::Parameters fParams(*synth_param.filter_attack,*synth_param.filter_decay, *synth_param.filter_sustain,*synth_param.filter_release);
         juce::ADSR::Parameters aParams(*synth_param.amp_attack,*synth_param.amp_decay, *synth_param.amp_sustain,*synth_param.amp_release*0.01);
         
         f_adsr.setParameters(fParams);
@@ -436,8 +436,9 @@ public:
                 
                 //get filter adsr next value
                 auto next_f_adsr = f_adsr.getNextSample();
-                auto f1_new_cuttoff = next_f_adsr**synth_param.filter1_cuttoff;
-                auto f2_new_cuttoff = next_f_adsr**synth_param.filter2_cuttoff;
+                
+                auto f1_new_cuttoff = next_f_adsr * (*synth_param.filter1_cuttoff);
+                auto f2_new_cuttoff = next_f_adsr * (*synth_param.filter2_cuttoff);
  
                 //make sure cuttoff frequency is at least 20 hz
                 f1_new_cuttoff = std::fmax(f1_new_cuttoff,20);
@@ -446,7 +447,7 @@ public:
                 //get filter from processor chain
                 auto& filter1_ob = filter_gain.template get<filter1Index>();
                 auto& filter2_ob = filter_gain.template get<filter2Index>();
-                
+                DBG(f1_new_cuttoff);
                 //set cuttoff frequency from adsr
                 filter1_ob.setCutoffFrequencyHz(f1_new_cuttoff);
                 filter2_ob.setCutoffFrequencyHz(f2_new_cuttoff);
