@@ -28,7 +28,7 @@ class synthVoice : public juce::SamplerVoice
 {
 public:
     
-    synthVoice(synth_parameters p){
+    synthVoice(juce::AudioProcessorValueTreeState *p){
         
         //get preset synth parameters
         synth_param = p;
@@ -103,7 +103,7 @@ public:
         a_adsr.setSampleRate(getSampleRate());
     }
     
-    void updateParameters(synth_parameters param){
+    void updateParameters(juce::AudioProcessorValueTreeState *param){
         
         //set  class parameter variable
         synth_param = param;
@@ -116,12 +116,12 @@ public:
         updateFreqOff();
         
         //only update oscillator if waveshape changed
-        if(prevShape1 != *synth_param.osc1_wavShape || prevShape2 != *synth_param.osc2_wavShape ||   prevShape3 != *synth_param.osc3_wavShape ){
+        if(prevShape1 != *synth_param->getRawParameterValue("osc1wavShape") || prevShape2 != *synth_param->getRawParameterValue("osc2wavShape") ||   prevShape3 != *synth_param->getRawParameterValue("osc3wavShape") ){
             
             //set new previous shapes
-            prevShape1 = *synth_param.osc1_wavShape;
-            prevShape2 = *synth_param.osc2_wavShape;
-            prevShape3 = *synth_param.osc3_wavShape;
+            prevShape1 = *synth_param->getRawParameterValue("osc1wavShape");
+            prevShape2 = *synth_param->getRawParameterValue("osc2wavShape");
+            prevShape3 = *synth_param->getRawParameterValue("osc3wavShape");
             
             //update oscillator shapes
             updateOscillators();
@@ -477,7 +477,7 @@ private:
     double currentFrequency = 0.0;
     
     //loaded in synth parameters
-    synth_parameters synth_param;
+    juce::AudioProcessorValueTreeState *synth_param;
     
     //IIR filter variables
     juce::IIRFilter filter1;

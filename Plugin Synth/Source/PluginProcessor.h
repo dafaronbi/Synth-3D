@@ -66,8 +66,8 @@ private:
     //synthesizer class
     juce::Synthesiser synth;
     
-    //synth parameter values
-    synth_parameters param;
+    //audio value tree parameters
+    juce::AudioProcessorValueTreeState param;
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PluginSynthAudioProcessor)
     

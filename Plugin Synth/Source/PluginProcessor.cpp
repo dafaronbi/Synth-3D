@@ -19,12 +19,11 @@ PluginSynthAudioProcessor::PluginSynthAudioProcessor()
                       #endif
                        .withOutput ("Output", juce::AudioChannelSet::stereo(), true)
                      #endif
-                       )
-                #endif
+                       ), parameters(*this, nullptr, "Parameters", addVSTParam())
 {
     
     //add all parameters as available for vst
-    addVSTParam();
+//    addVSTParam();
     
     //initialize synth voices and sound
     for (auto i = 0; i < 4; ++i)
@@ -45,47 +44,50 @@ void PluginSynthAudioProcessor::addVSTParam()
     auto wavChoices = {"","Sin", "Saw", "Square", "Triangle", "Noise"};
     auto filterChoices = {"LowPass", "HighPass", "BandPass", "BandReject"};
     
-    addParameter(param.osc1_wavShape =  new juce::AudioParameterChoice("osc1wavShape", "Oscillator 1 Wav Shape", wavChoices, 1));
-    addParameter(param.osc2_wavShape =  new juce::AudioParameterChoice("osc2wavShape", "Oscillator 2 Wav Shape", wavChoices, 1));
-    addParameter(param.osc3_wavShape =  new juce::AudioParameterChoice("osc3wavShape", "Oscillator 3 Wav Shape", wavChoices, 1));
+    std::vector<std::unique_ptr<juce::RangedAudioParameter>> parameters;
     
-    addParameter(param.osc1_freqOff =  new juce::AudioParameterFloat("osc1freqOff", "Oscillator 1 Frequency Offset", juce::NormalisableRange<float> (-100.0f, 100.0f), 0));
-    addParameter(param.osc2_freqOff =  new juce::AudioParameterFloat("osc2freqOff", "Oscillator 2 Frequency Offset", juce::NormalisableRange<float> (-100.0f, 100.0f), 0));
-    addParameter(param.osc3_freqOff =  new juce::AudioParameterFloat("osc3freqOff", "Oscillator 3 Frequency Offset", juce::NormalisableRange<float> (-100.0f, 100.0f), 0));
+    parameters.push_back( new juce::AudioParameterChoice("osc1wavShape", "Oscillator 1 Wav Shape", wavChoices, 1));
+    parameters.push_back( new juce::AudioParameterChoice("osc2wavShape", "Oscillator 2 Wav Shape", wavChoices, 1));
+    parameters.push_back( new juce::AudioParameterChoice("osc3wavShape", "Oscillator 3 Wav Shape", wavChoices, 1));
     
-    addParameter(param.osc1_gain =  new juce::AudioParameterFloat("osc1gain", "Oscillator 1 Gain", juce::NormalisableRange<float> (-100.0f, 10.0f), 0));
-    addParameter(param.osc2_gain =  new juce::AudioParameterFloat("osc2gain", "Oscillator 2 Gain", juce::NormalisableRange<float> (-100.0f, 10.0f), 0));
-    addParameter(param.osc3_gain =  new juce::AudioParameterFloat("osc3gain", "Oscillator 3 Gain", juce::NormalisableRange<float> (-100.0f, 10.0f), 0));
+    parameters.push_back( new juce::AudioParameterFloat("osc1freqOff", "Oscillator 1 Frequency Offset", juce::NormalisableRange<float> (-100.0f, 100.0f), 0));
+    parameters.push_back( new juce::AudioParameterFloat("osc2freqOff", "Oscillator 2 Frequency Offset", juce::NormalisableRange<float> (-100.0f, 100.0f), 0));
+    parameters.push_back( new juce::AudioParameterFloat("osc3freqOff", "Oscillator 3 Frequency Offset", juce::NormalisableRange<float> (-100.0f, 100.0f), 0));
     
-    addParameter(param.osc1_az =  new juce::AudioParameterInt("osc1az", "Oscillator 1 Azimuth", 0, 359, 0));
-    addParameter(param.osc2_az =  new juce::AudioParameterInt("osc2az", "Oscillator 2 Azimuth", 0, 359, 0));
-    addParameter(param.osc3_az =  new juce::AudioParameterInt("osc3az", "Oscillator 3 Azimuth", 0, 359, 0));
+    parameters.push_back( new juce::AudioParameterFloat("osc1gain", "Oscillator 1 Gain", juce::NormalisableRange<float> (-100.0f, 10.0f), 0));
+    parameters.pushback( new juce::AudioParameterFloat("osc2gain", "Oscillator 2 Gain", juce::NormalisableRange<float> (-100.0f, 10.0f), 0));
+    parameters.pushback( new juce::AudioParameterFloat("osc3gain", "Oscillator 3 Gain", juce::NormalisableRange<float> (-100.0f, 10.0f), 0));
     
-    addParameter(param.osc1_distance =  new juce::AudioParameterFloat("osc1dist", "Oscillator 1 Distance", juce::NormalisableRange<float> (0.0f, 1.0f), 0));
-    addParameter(param.osc2_distance =  new juce::AudioParameterFloat("osc2dist", "Oscillator 2 Distance", juce::NormalisableRange<float> (0.0f, 1.0f), 0));
-    addParameter(param.osc3_distance =  new juce::AudioParameterFloat("osc3dist", "Oscillator 3 Distance", juce::NormalisableRange<float> (0.0f, 1.0f), 0));
+    parameters.push_back( new juce::AudioParameterInt("osc1az", "Oscillator 1 Azimuth", 0, 359, 0));
+    parameters.push_back( new juce::AudioParameterInt("osc2az", "Oscillator 2 Azimuth", 0, 359, 0));
+    parameters.push_back( new juce::AudioParameterInt("osc3az", "Oscillator 3 Azimuth", 0, 359, 0));
     
-    addParameter(param.filter1_type =  new juce::AudioParameterChoice("filter1type", "Filter 1 Type", filterChoices, 1));
-    addParameter(param.filter2_type =  new juce::AudioParameterChoice("filter2type", "Filter 2 Type", filterChoices, 1));
+    parameters.push_back( new juce::AudioParameterFloat("osc1dist", "Oscillator 1 Distance", juce::NormalisableRange<float> (0.0f, 1.0f), 0));
+    parameters.push_back( new juce::AudioParameterFloat("osc2dist", "Oscillator 2 Distance", juce::NormalisableRange<float> (0.0f, 1.0f), 0));
+    parameters.pushback( new juce::AudioParameterFloat("osc3dist", "Oscillator 3 Distance", juce::NormalisableRange<float> (0.0f, 1.0f), 0));
     
-    addParameter(param.filter1_cuttoff =  new juce::AudioParameterFloat("filter1cuttoff", "Filter 1 Cuttoff Frequency", juce::NormalisableRange<float> (20.0f, 20000.0f), 20000.0f));
-    addParameter(param.filter2_cuttoff =  new juce::AudioParameterFloat("filter2cuttoff", "Filter 2 Cuttoff Frequency", juce::NormalisableRange<float> (20.0f, 20000.0f), 20000.0f));
+    parameters.push_back( new juce::AudioParameterChoice("filter1type", "Filter 1 Type", filterChoices, 1));
+    parameters.push_back( new juce::AudioParameterChoice("filter2type", "Filter 2 Type", filterChoices, 1));
     
-    addParameter(param.filter1_resonance =  new juce::AudioParameterFloat("filter1resonance", "Filter 1 Resonance", juce::NormalisableRange<float> (0.0f, 1.0f), 0));
-    addParameter(param.filter2_resonance =  new juce::AudioParameterFloat("filter2resonance", "Filter 2 Resonance", juce::NormalisableRange<float> (0.0f, 1.0f), 0));
+    parameters.push_back( new juce::AudioParameterFloat("filter1cuttoff", "Filter 1 Cuttoff Frequency", juce::NormalisableRange<float> (20.0f, 20000.0f), 20000.0f));
+    parameters.push_back( new juce::AudioParameterFloat("filter2cuttoff", "Filter 2 Cuttoff Frequency", juce::NormalisableRange<float> (20.0f, 20000.0f), 20000.0f));
     
-    addParameter(param.filter_attack =  new juce::AudioParameterFloat("filterAttack", "Filter Attack", juce::NormalisableRange<float> (0.0f, 5.0f), 0));
-    addParameter(param.filter_decay =  new juce::AudioParameterFloat("filterDecay", "Filter Decay", juce::NormalisableRange<float> (0.0f, 5.0f), 0));
-    addParameter(param.filter_sustain =  new juce::AudioParameterFloat("filterSustain", "Filter Sustain", juce::NormalisableRange<float> (0.0f, 1.0f), 1));
-    addParameter(param.filter_release =  new juce::AudioParameterFloat("filterRelease", "Filter Release", juce::NormalisableRange<float> (0.0f, 5.0f), 0));
+    parameters.push_back( new juce::AudioParameterFloat("filter1resonance", "Filter 1 Resonance", juce::NormalisableRange<float> (0.0f, 1.0f), 0));
+    parameters.push_back( new juce::AudioParameterFloat("filter2resonance", "Filter 2 Resonance", juce::NormalisableRange<float> (0.0f, 1.0f), 0));
     
-    addParameter(param.amp_attack =  new juce::AudioParameterFloat("ampAttack", "Amplifier Attack", juce::NormalisableRange<float> (0.0f, 5.0f), 0));
-    addParameter(param.amp_decay =  new juce::AudioParameterFloat("ampDecay", "Amplifier Decay", juce::NormalisableRange<float> (0.0f, 5.0f), 0));
-    addParameter(param.amp_sustain =  new juce::AudioParameterFloat("ampSustain", "Amplifier Sustain", juce::NormalisableRange<float> (0.0f, 1.0f), 1));
-    addParameter(param.amp_release =  new juce::AudioParameterFloat("ampRelease", "Amplifier Release", juce::NormalisableRange<float> (0.0f, 5.0f), 0));
+    parameters.push_back( new juce::AudioParameterFloat("filterAttack", "Filter Attack", juce::NormalisableRange<float> (0.0f, 5.0f), 0));
+    parameters.push_back( new juce::AudioParameterFloat("filterDecay", "Filter Decay", juce::NormalisableRange<float> (0.0f, 5.0f), 0));
+    parameters.push_back( new juce::AudioParameterFloat("filterSustain", "Filter Sustain", juce::NormalisableRange<float> (0.0f, 1.0f), 1));
+    parameters.push_back( new juce::AudioParameterFloat("filterRelease", "Filter Release", juce::NormalisableRange<float> (0.0f, 5.0f), 0));
     
-    addParameter(param.total_gain =  new juce::AudioParameterFloat("totalGain", "total Gain", juce::NormalisableRange<float> (-100.0f, 10.0f), 0));
+    parameters.push_back( new juce::AudioParameterFloat("ampAttack", "Amplifier Attack", juce::NormalisableRange<float> (0.0f, 5.0f), 0));
+    parameters.push_back( new juce::AudioParameterFloat("ampDecay", "Amplifier Decay", juce::NormalisableRange<float> (0.0f, 5.0f), 0));
+    parameters.push_back( new juce::AudioParameterFloat("ampSustain", "Amplifier Sustain", juce::NormalisableRange<float> (0.0f, 1.0f), 1));
+    parameters.push_back( new juce::AudioParameterFloat("ampRelease", "Amplifier Release", juce::NormalisableRange<float> (0.0f, 5.0f), 0));
     
+    parameters.push_back( new juce::AudioParameterFloat("totalGain", "total Gain", juce::NormalisableRange<float> (-100.0f, 10.0f), 0));
+    
+    return {parameters.begin(), parameters.end()};
 
 }
 
@@ -140,6 +142,7 @@ int PluginSynthAudioProcessor::getCurrentProgram()
 
 void PluginSynthAudioProcessor::setCurrentProgram (int index)
 {
+    
 }
 
 const juce::String PluginSynthAudioProcessor::getProgramName (int index)
@@ -253,12 +256,84 @@ void PluginSynthAudioProcessor::getStateInformation (juce::MemoryBlock& destData
     // You should use this method to store your parameters in the memory block.
     // You could do that either as raw data, or use the XML or ValueTree classes
     // as intermediaries to make it easy to save and load complex data.
+    
+    std::unique_ptr<juce::XmlElement> xml (new juce::XmlElement ("ParamTutorial"));
+    xml->setAttribute ("osc1_wavShape", (int) *param.osc1_wavShape);
+    xml->setAttribute ("osc2_wavShape", (int) *param.osc2_wavShape);
+    xml->setAttribute ("osc3_wavShape", (int) *param.osc3_wavShape);
+    xml->setAttribute ("osc1_freqOff", (float) *param.osc1_freqOff);
+    xml->setAttribute ("osc2_freqOff", (float) *param.osc2_freqOff);
+    xml->setAttribute ("osc3_freqOff", (float) *param.osc3_freqOff);
+    xml->setAttribute ("osc1_gain", (float) *param.osc1_gain);
+    xml->setAttribute ("osc2_gain", (float) *param.osc2_gain);
+    xml->setAttribute ("osc3_gain", (float) *param.osc3_gain);
+    xml->setAttribute ("osc1_az", (float) *param.osc1_az);
+    xml->setAttribute ("osc2_az", (float) *param.osc2_az);
+    xml->setAttribute ("osc3_az", (float) *param.osc3_az);
+    xml->setAttribute ("osc1_distance", (float) *param.osc1_distance);
+    xml->setAttribute ("osc2_distance", (float) *param.osc2_distance);
+    xml->setAttribute ("osc3_distance", (float) *param.osc3_distance);
+    xml->setAttribute ("filter1_type", (int) *param.filter1_type);
+    xml->setAttribute ("filter2_type", (int) *param.filter2_type);
+    xml->setAttribute ("filter1_cuttoff", (float) *param.filter1_cuttoff);
+    xml->setAttribute ("filter2_cuttoff", (float) *param.filter2_cuttoff);
+    xml->setAttribute ("filter1_resonance", (float) *param.filter1_resonance);
+    xml->setAttribute ("filter2_resonance", (float) *param.filter2_resonance);
+    xml->setAttribute ("filter_attack", (float) *param.filter_attack);
+    xml->setAttribute ("filter_decay", (float) *param.filter_decay);
+    xml->setAttribute ("filter_sustain", (float) *param.filter_sustain);
+    xml->setAttribute ("filter_release", (float) *param.filter_release);
+    xml->setAttribute ("amp_attack", (float) *param.amp_attack);
+    xml->setAttribute ("amp_decay", (float) *param.amp_decay);
+    xml->setAttribute ("amp_sustain", (float) *param.amp_sustain);
+    xml->setAttribute ("amp_release", (float) *param.amp_release);
+    xml->setAttribute ("total_gain", (float) *param.total_gain);
+    copyXmlToBinary (*xml, destData);
 }
 
 void PluginSynthAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
 {
     // You should use this method to restore your parameters from this memory block,
     // whose contents will have been created by the getStateInformation() call.
+    
+    std::unique_ptr<juce::XmlElement> xmlState (getXmlFromBinary (data, sizeInBytes));
+     
+            if (xmlState.get() != nullptr)
+            {
+                if (xmlState->hasTagName ("ParamTutorial"))
+                {
+                    xmlState->getIntAttribute ("osc1_wavShape", 1);
+                    xmlState->getIntAttribute ("osc2_wavShape", 1);
+                    xmlState->getIntAttribute ("osc3_wavShape", 1);
+                    xmlState->getDoubleAttribute ("osc1_freqOff", 0);
+                    xmlState->getDoubleAttribute ("osc2_freqOff", 0);
+                    xmlState->getDoubleAttribute ("osc3_freqOff", 0);
+                    xmlState->getDoubleAttribute ("osc1_gain", 0);
+                    xmlState->getDoubleAttribute ("osc2_gain", 0);
+                    xmlState->getDoubleAttribute ("osc3_gain", 0);
+                    xmlState->getDoubleAttribute ("osc1_az", 0);
+                    xmlState->getDoubleAttribute ("osc2_az", 0);
+                    xmlState->getDoubleAttribute ("osc3_az", 0);
+                    xmlState->getDoubleAttribute ("osc1_distance", 0);
+                    xmlState->getDoubleAttribute ("osc2_distance", 0);
+                    xmlState->getDoubleAttribute ("osc3_distance", 0);
+                    xmlState->getIntAttribute ("filter1_type", 0);
+                    xmlState->getIntAttribute ("filter2_type", 0);
+                    xmlState->getDoubleAttribute ("filter1_cuttoff", 1);
+                    xmlState->getDoubleAttribute ("filter2_cuttoff", 1);
+                    xmlState->getDoubleAttribute ("filter1_resonance", 0);
+                    xmlState->getDoubleAttribute ("filter2_resonance", 0);
+                    xmlState->getDoubleAttribute ("filter_attack", 0);
+                    xmlState->getDoubleAttribute ("filter_decay", 0);
+                    xmlState->getDoubleAttribute ("filter_sustain", 1);
+                    xmlState->getDoubleAttribute ("filter_release", 0);
+                    xmlState->getDoubleAttribute ("amp_attack", 0);
+                    xmlState->getDoubleAttribute ("amp_decay", 0);
+                    xmlState->getDoubleAttribute ("amp_sustain", 1);
+                    xmlState->getDoubleAttribute ("amp_release", 0);
+                    xmlState->getDoubleAttribute ("total_gain", 0);
+                }
+            }
 }
 
 void PluginSynthAudioProcessor::updateSyntheParameters(synth_parameters p)
