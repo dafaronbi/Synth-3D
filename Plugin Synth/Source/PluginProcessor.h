@@ -58,16 +58,17 @@ public:
     
     //==============================================================================
     //Update synth paramters from gui thread
-    void updateSyntheParameters(synth_parameters);
+    void updateSyntheParameters(juce::AudioProcessorValueTreeState*);
     synth_parameters getParams();
+    
+    //audio value tree parameters
+    juce::AudioProcessorValueTreeState param;
     
 
 private:
     //synthesizer class
     juce::Synthesiser synth;
     
-    //audio value tree parameters
-    juce::AudioProcessorValueTreeState param;
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PluginSynthAudioProcessor)
     
