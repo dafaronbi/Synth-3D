@@ -127,9 +127,9 @@ public:
             updateOscillators();
         }
         
-        loadHRTF(*synth_param.osc1_az,1);
-        loadHRTF(*synth_param.osc2_az,2);
-        loadHRTF(*synth_param.osc3_az,3);
+        loadHRTF(*synth_param->getRawParameterValue("osc1az"),1);
+        loadHRTF(*synth_param->getRawParameterValue("osc2az"),2);
+        loadHRTF(*synth_param->getRawParameterValue("osc3az"),3);
         
     }
     
@@ -140,9 +140,9 @@ public:
         auto& osc_ob2 = osc2.template get<oscIndex>();
         auto& osc_ob3 = osc3.template get<oscIndex>();
         
-        osc_ob1.setFrequency(cent_offset(currentFrequency, *synth_param.osc1_freqOff), false);
-        osc_ob2.setFrequency(cent_offset(currentFrequency, *synth_param.osc2_freqOff), false);
-        osc_ob3.setFrequency(cent_offset(currentFrequency, *synth_param.osc3_freqOff), false);
+        osc_ob1.setFrequency(cent_offset(currentFrequency, *synth_param->getRawParameterValue("osc1freqOff")), false);
+        osc_ob2.setFrequency(cent_offset(currentFrequency, *synth_param->getRawParameterValue("osc2freqOff")), false);
+        osc_ob3.setFrequency(cent_offset(currentFrequency, *synth_param->getRawParameterValue("osc3freqOff")), false);
     }
     
     void updateOscillators(){
@@ -151,7 +151,7 @@ public:
         auto& osc_ob2 = osc2.template get<oscIndex>();
         auto& osc_ob3 = osc3.template get<oscIndex>();
 
-        switch(*synth_param.osc1_wavShape){
+        switch((int)*synth_param->getRawParameterValue("osc1wavShape")){
             case 1:
                 osc_ob1.initialise(osc_sin, 128);
                 break;
@@ -169,7 +169,7 @@ public:
                 break;
         }
     
-        switch(*synth_param.osc2_wavShape){
+        switch((int)*synth_param->getRawParameterValue("osc2wavShape")){
             case 1:
                 osc_ob2.initialise(osc_sin, 128);
                 break;
@@ -187,7 +187,7 @@ public:
                 break;
         }
     
-        switch(*synth_param.osc3_wavShape){
+        switch((int)*synth_param->getRawParameterValue("osc3wavShape")){
             case 1:
                 osc_ob3.initialise(osc_sin, 128);
                 break;
@@ -220,20 +220,20 @@ public:
         auto& dis_ob3 = osc3.template get<disIndex>();
         
         //set knob gain
-        gain_ob1.setGainDecibels(*synth_param.osc1_gain);
-        gain_ob2.setGainDecibels(*synth_param.osc2_gain);
-        gain_ob3.setGainDecibels(*synth_param.osc3_gain);
+        gain_ob1.setGainDecibels(*synth_param->getRawParameterValue("osc1gain"));
+        gain_ob2.setGainDecibels(*synth_param->getRawParameterValue("osc2gain"));
+        gain_ob3.setGainDecibels(*synth_param->getRawParameterValue("osc3gain"));
 
         //set distance gain
-        dis_ob1.setGainLinear((1-*synth_param.osc1_distance)/2 + 0.5);
-        dis_ob2.setGainLinear((1-*synth_param.osc1_distance)/2 + 0.5);
-        dis_ob3.setGainLinear((1-*synth_param.osc1_distance)/2 + 0.5);
+        dis_ob1.setGainLinear((1-*synth_param->getRawParameterValue("osc1_distance"))/2 + 0.5);
+        dis_ob2.setGainLinear((1-*synth_param->getRawParameterValue("osc1distance"))/2 + 0.5);
+        dis_ob3.setGainLinear((1-*synth_param->getRawParameterValue("osc1_distance"))/2 + 0.5);
         
         //get totalgain from processor chain
         auto& totalGain_ob = filter_gain.template get<totalGainIndex>();
         
         //set total gain
-        totalGain_ob.setGainDecibels(*synth_param.total_gain);
+        totalGain_ob.setGainDecibels(*synth_param->getRawParameterValue("totalgain"));
         
     }
     
@@ -253,9 +253,9 @@ public:
             auto& osc_ob2 = osc2.template get<oscIndex>();
             auto& osc_ob3 = osc3.template get<oscIndex>();
             
-            osc_ob1.setFrequency(cent_offset(currentFrequency, *synth_param.osc1_freqOff), false);
-            osc_ob2.setFrequency(cent_offset(currentFrequency, *synth_param.osc2_freqOff), false);
-            osc_ob3.setFrequency(cent_offset(currentFrequency, *synth_param.osc3_freqOff), false);
+            osc_ob1.setFrequency(cent_offset(currentFrequency, *synth_param->getRawParameterValue("osc1freqOff")), false);
+            osc_ob2.setFrequency(cent_offset(currentFrequency, *synth_param->getRawParameterValue("osc2freqOff")), false);
+            osc_ob3.setFrequency(cent_offset(currentFrequency, *synth_param->getRawParameterValue("osc3freqOff")), false);
             
             //start ADSRs
             f_adsr.noteOn();
@@ -317,32 +317,32 @@ public:
         
         
         //select filter type and get coefficients
-        switch(*synth_param.filter1_type){
+        switch((int)*synth_param->getRawParameterValue("filter1type")){
             case 1:
                 filter1_ob.setMode(juce::dsp::LadderFilterMode::LPF12);
-                filter1.setCoefficients(juce::IIRCoefficients::makeLowPass(getSampleRate(), *synth_param.filter1_cuttoff));
+                filter1.setCoefficients(juce::IIRCoefficients::makeLowPass(getSampleRate(), *synth_param->getRawParameterValue("filter1cuttoff")));
                 break;
             case 2:
                 filter1_ob.setMode(juce::dsp::LadderFilterMode::HPF12);
-                filter1.setCoefficients(juce::IIRCoefficients::makeHighPass(getSampleRate(), *synth_param.filter1_cuttoff));
+                filter1.setCoefficients(juce::IIRCoefficients::makeHighPass(getSampleRate(), *synth_param->getRawParameterValue("filter1cuttoff")));
                 break;
             case 3:
                 filter1_ob.setMode(juce::dsp::LadderFilterMode::BPF12);
-                filter1.setCoefficients(juce::IIRCoefficients::makeBandPass(getSampleRate(), *synth_param.filter1_cuttoff));
+                filter1.setCoefficients(juce::IIRCoefficients::makeBandPass(getSampleRate(), *synth_param->getRawParameterValue("filter1cuttoff")));
                 break;
             case 4:
                 filter1_ob.setMode(juce::dsp::LadderFilterMode::BPF12);
-                filter1.setCoefficients(juce::IIRCoefficients::makeNotchFilter(getSampleRate(), *synth_param.filter1_cuttoff));
+                filter1.setCoefficients(juce::IIRCoefficients::makeNotchFilter(getSampleRate(), *synth_param->getRawParameterValue("filter1cuttoff")));
                 break;
             default:
                 filter1_ob.setMode(juce::dsp::LadderFilterMode::LPF12);
-                filter1.setCoefficients(juce::IIRCoefficients::makeLowPass(getSampleRate(), *synth_param.filter1_cuttoff));
+                filter1.setCoefficients(juce::IIRCoefficients::makeLowPass(getSampleRate(), *synth_param->getRawParameterValue("filter1cuttoff")));
             
         }
         
         //set cuttoff frequency and resonance
 //        filter1_ob.setCutoffFrequencyHz(*synth_param.filter1_cuttoff);
-        filter1_ob.setResonance(*synth_param.filter1_resonance);
+        filter1_ob.setResonance(*synth_param->getRawParameterValue("filter1resonance"));
         
         filter1.reset();
     }
@@ -353,31 +353,31 @@ public:
         auto& filter2_ob = filter_gain.template get<filter2Index>();
         
         //select filter type and get coefficients
-        switch(*synth_param.filter2_type){
+        switch((int)*synth_param->getRawParameterValue("filter2type")){
             case 1:
                 filter2_ob.setMode(juce::dsp::LadderFilterMode::LPF12);
-                filter2.setCoefficients(juce::IIRCoefficients::makeLowPass(getSampleRate(), *synth_param.filter2_cuttoff));
+                filter2.setCoefficients(juce::IIRCoefficients::makeLowPass(getSampleRate(), *synth_param->getRawParameterValue("filter2cuttoff")));
                 break;
             case 2:
                 filter2_ob.setMode(juce::dsp::LadderFilterMode::HPF12);
-                filter2.setCoefficients(juce::IIRCoefficients::makeHighPass(getSampleRate(), *synth_param.filter2_cuttoff));
+                filter2.setCoefficients(juce::IIRCoefficients::makeHighPass(getSampleRate(), *synth_param->getRawParameterValue("filter2cuttoff")));
                 break;
             case 3:
                 filter2_ob.setMode(juce::dsp::LadderFilterMode::BPF12);
-                filter2.setCoefficients(juce::IIRCoefficients::makeBandPass(getSampleRate(), *synth_param.filter2_cuttoff));
+                filter2.setCoefficients(juce::IIRCoefficients::makeBandPass(getSampleRate(), *synth_param->getRawParameterValue("filter2cuttoff")));
                 break;
             case 4:
                 filter2_ob.setMode(juce::dsp::LadderFilterMode::LPF12);
-                filter2.setCoefficients(juce::IIRCoefficients::makeNotchFilter(getSampleRate(), *synth_param.filter2_cuttoff));
+                filter2.setCoefficients(juce::IIRCoefficients::makeNotchFilter(getSampleRate(), *synth_param->getRawParameterValue("filter2cuttoff")));
                 break;
             default:
                 filter2_ob.setMode(juce::dsp::LadderFilterMode::LPF12);
-                filter2.setCoefficients(juce::IIRCoefficients::makeLowPass(getSampleRate(), *synth_param.filter2_cuttoff));
+                filter2.setCoefficients(juce::IIRCoefficients::makeLowPass(getSampleRate(), *synth_param->getRawParameterValue("filter2cuttoff")));
         }
         
         //set cuttoff frequency and resonance
 //        filter2_ob.setCutoffFrequencyHz(*synth_param.filter2_cuttoff);
-        filter2_ob.setResonance(*synth_param.filter2_resonance);
+        filter2_ob.setResonance(*synth_param->getRawParameterValue("filter2resonance"));
             
         filter2.reset();
     }
@@ -385,8 +385,9 @@ public:
     void updateEnvelopes(){
         
         //make parameter objects  with new parameter values
-        juce::ADSR::Parameters fParams(*synth_param.filter_attack,*synth_param.filter_decay, *synth_param.filter_sustain,*synth_param.filter_release);
-        juce::ADSR::Parameters aParams(*synth_param.amp_attack,*synth_param.amp_decay, *synth_param.amp_sustain,*synth_param.amp_release*0.01);
+        juce::ADSR::Parameters fParams(*synth_param->getRawParameterValue("filterAttack"),*synth_param->getRawParameterValue("filterDecay"), *synth_param->getRawParameterValue("filterSustain"),*synth_param->getRawParameterValue("filterRelease"));
+                                       
+        juce::ADSR::Parameters aParams(*synth_param->getRawParameterValue("ampAttack"),*synth_param->getRawParameterValue("ampDecay"), *synth_param->getRawParameterValue("ampSustain"),*synth_param->getRawParameterValue("ampRelease")*0.01);
         
         f_adsr.setParameters(fParams);
         a_adsr.setParameters(aParams);
@@ -437,8 +438,8 @@ public:
                 //get filter adsr next value
                 auto next_f_adsr = f_adsr.getNextSample();
                 
-                auto f1_new_cuttoff = next_f_adsr * (*synth_param.filter1_cuttoff);
-                auto f2_new_cuttoff = next_f_adsr * (*synth_param.filter2_cuttoff);
+                auto f1_new_cuttoff = next_f_adsr * (*synth_param->getRawParameterValue("filter1cuttoff"));
+                auto f2_new_cuttoff = next_f_adsr * (*synth_param->getRawParameterValue("filter2cuttoff"));
  
                 //make sure cuttoff frequency is at least 20 hz
                 f1_new_cuttoff = std::fmax(f1_new_cuttoff,20);
