@@ -23,7 +23,7 @@ public:
     ~PluginSynthAudioProcessor() override;
 
     //==============================================================================
-    void addVSTParam();
+    juce::AudioProcessorValueTreeState::ParameterLayout addVSTParam();
     void prepareToPlay (double sampleRate, int samplesPerBlock) override;
     void releaseResources() override;
 
@@ -58,8 +58,7 @@ public:
     
     //==============================================================================
     //Update synth paramters from gui thread
-    void updateSyntheParameters(juce::AudioProcessorValueTreeState*);
-    synth_parameters getParams();
+    void updateSyntheParameters();
     
     //audio value tree parameters
     juce::AudioProcessorValueTreeState param;

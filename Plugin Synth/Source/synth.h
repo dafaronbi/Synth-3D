@@ -43,7 +43,7 @@ public:
         osc_ob3.initialise(osc_sin, 128);
         
         //set default values
-        updateParameters(synth_param);
+        updateParameters();
         
 //        filter_gain.template setBypassed<filter1Index>(true);
         
@@ -103,10 +103,7 @@ public:
         a_adsr.setSampleRate(getSampleRate());
     }
     
-    void updateParameters(juce::AudioProcessorValueTreeState *param){
-        
-        //set  class parameter variable
-        synth_param = param;
+    void updateParameters(){
         
         //update parameters
         updateGain();
@@ -225,9 +222,9 @@ public:
         gain_ob3.setGainDecibels(*synth_param->getRawParameterValue("osc3gain"));
 
         //set distance gain
-        dis_ob1.setGainLinear((1-*synth_param->getRawParameterValue("osc1_distance"))/2 + 0.5);
-        dis_ob2.setGainLinear((1-*synth_param->getRawParameterValue("osc1distance"))/2 + 0.5);
-        dis_ob3.setGainLinear((1-*synth_param->getRawParameterValue("osc1_distance"))/2 + 0.5);
+        dis_ob1.setGainLinear((1-*synth_param->getRawParameterValue("osc1distance"))/2 + 0.5);
+        dis_ob2.setGainLinear((1-*synth_param->getRawParameterValue("osc2distance"))/2 + 0.5);
+        dis_ob3.setGainLinear((1-*synth_param->getRawParameterValue("osc3distance"))/2 + 0.5);
         
         //get totalgain from processor chain
         auto& totalGain_ob = filter_gain.template get<totalGainIndex>();

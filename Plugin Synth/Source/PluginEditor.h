@@ -17,18 +17,17 @@
 //==============================================================================
 /**
 */
-class PluginSynthAudioProcessorEditor  : public juce::AudioProcessorEditor, public juce::ChangeListener, public juce::Button::Listener
+class PluginSynthAudioProcessorEditor  : public juce::AudioProcessorEditor, public juce::ChangeListener
 {
 public:
     PluginSynthAudioProcessorEditor (PluginSynthAudioProcessor&);
     ~PluginSynthAudioProcessorEditor() override;
 
     //==============================================================================
-    void updateParameters(synth_parameters param);
+    void updateParameters(juce::AudioProcessorValueTreeState* param);
     void paint (juce::Graphics&) override;
     void resized() override;
     void changeListenerCallback(juce::ChangeBroadcaster* source) override;
-    void buttonClicked (juce::Button* button) override;
     void updateAngle1Delta();
     void updateAngle2Delta();
     void updateAngle3Delta();

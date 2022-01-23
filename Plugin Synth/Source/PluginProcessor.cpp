@@ -29,7 +29,7 @@ PluginSynthAudioProcessor::PluginSynthAudioProcessor()
     
     //initialize synth voices and sound
     for (auto i = 0; i < 4; ++i)
-        synth.addVoice (new synthVoice(param));
+        synth.addVoice (new synthVoice(&param));
 
     synth.addSound (new synthSound());
     
@@ -64,9 +64,9 @@ juce::AudioProcessorValueTreeState::ParameterLayout PluginSynthAudioProcessor::a
     parameters.add( std::make_unique<juce::AudioParameterInt>("osc2az", "Oscillator 2 Azimuth", 0, 359, 0));
     parameters.add( std::make_unique<juce::AudioParameterInt>("osc3az", "Oscillator 3 Azimuth", 0, 359, 0));
     
-    parameters.add( std::make_unique<juce::AudioParameterFloat>("osc1dist", "Oscillator 1 Distance", juce::NormalisableRange<float> (0.0f, 1.0f), 0));
-    parameters.add( std::make_unique<juce::AudioParameterFloat>("osc2dist", "Oscillator 2 Distance", juce::NormalisableRange<float> (0.0f, 1.0f), 0));
-    parameters.add( std::make_unique<juce::AudioParameterFloat>("osc3dist", "Oscillator 3 Distance", juce::NormalisableRange<float> (0.0f, 1.0f), 0));
+    parameters.add( std::make_unique<juce::AudioParameterFloat>("osc1distance", "Oscillator 1 Distance", juce::NormalisableRange<float> (0.0f, 1.0f), 0));
+    parameters.add( std::make_unique<juce::AudioParameterFloat>("osc2distance", "Oscillator 2 Distance", juce::NormalisableRange<float> (0.0f, 1.0f), 0));
+    parameters.add( std::make_unique<juce::AudioParameterFloat>("osc3distance", "Oscillator 3 Distance", juce::NormalisableRange<float> (0.0f, 1.0f), 0));
     
     parameters.add( std::make_unique<juce::AudioParameterChoice>("filter1type", "Filter 1 Type", filterChoices, 1));
     parameters.add( std::make_unique<juce::AudioParameterChoice>("filter2type", "Filter 2 Type", filterChoices, 1));
@@ -276,21 +276,14 @@ void PluginSynthAudioProcessor::setStateInformation (const void* data, int sizeI
                     param.replaceState (juce::ValueTree::fromXml (*xmlState));
 }
 
-void PluginSynthAudioProcessor::updateSyntheParameters(juce::AudioProcessorValueTreeState* p)
+void PluginSynthAudioProcessor::updateSyntheParameters()
 {
-    //set synth parameters
-    param.replaceState(p->copyState());
     
     //update parameters for each synthesizer voice
     for (auto i = 0; i < 4; ++i){
         auto voice = (synthVoice*)synth.getVoice(i);
-        voice->updateParameters(&param);
+        voice->updateParameters();
     }
-}
-
-synth_parameters PluginSynthAudioProcessor::getParams()
-{
-    return param;
 }
 
 

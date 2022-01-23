@@ -3,7 +3,8 @@
 <JUCERPROJECT id="DyliU0" name="Plugin Synth" projectType="audioplug" useAppConfig="0"
               addUsingNamespaceToJuceHeader="0" displaySplashScreen="1" jucerFormatVersion="1"
               pluginCharacteristicsValue="pluginIsSynth,pluginProducesMidiOut,pluginWantsMidiIn"
-              pluginName="Binaural Synthesizer" pluginManufacturer="3D Audio Group">
+              pluginName="Synth 3D" pluginManufacturer="immersonic" aaxIdentifier="com.immersonic.synth3d"
+              pluginAUExportPrefix="synth3d" bundleIdentifier="com.immersonic.synth3d">
   <MAINGROUP id="ECYH89" name="Plugin Synth">
     <GROUP id="{3C9C8077-9041-ECCE-669B-016B9F7AF9B2}" name="Source">
       <FILE id="TKtaiq" name="personalDS.h" compile="0" resource="0" file="Source/personalDS.h"/>
