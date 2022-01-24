@@ -17,14 +17,15 @@
 //==============================================================================
 /**
 */
-class PluginSynthAudioProcessorEditor  : public juce::AudioProcessorEditor, public juce::ChangeListener
+class PluginSynthAudioProcessorEditor  : public juce::AudioProcessorEditor, public juce::ChangeListener, public juce::Timer
 {
 public:
     PluginSynthAudioProcessorEditor (PluginSynthAudioProcessor&);
     ~PluginSynthAudioProcessorEditor() override;
+    
 
     //==============================================================================
-    void updateParameters(juce::AudioProcessorValueTreeState* param);
+    void updateParameters();
     void paint (juce::Graphics&) override;
     void resized() override;
     void changeListenerCallback(juce::ChangeBroadcaster* source) override;
@@ -40,6 +41,9 @@ public:
     float osc();
 
 private:
+    void timerCallback () override;
+    
+    
     //access the processor object that created it.
     PluginSynthAudioProcessor& audioProcessor;
     

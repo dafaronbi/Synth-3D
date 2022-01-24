@@ -36,7 +36,10 @@ PluginSynthAudioProcessorEditor::PluginSynthAudioProcessorEditor (PluginSynthAud
     setResizable(false, false);
     
     //update components  based on parameter values
-    updateParameters(&p.param);
+    updateParameters();
+    
+    //timer call back every tenth of a second
+    startTimer (10);
 
 
     //initialize filter variables
@@ -48,8 +51,16 @@ PluginSynthAudioProcessorEditor::PluginSynthAudioProcessorEditor (PluginSynthAud
     f_decay = fMenu.filter_decay.getValue();
     f_sustain = fMenu.filter_sustain.getValue();
     f_release = fMenu.filter_release.getValue();
+    
 
+}
 
+void  PluginSynthAudioProcessorEditor::timerCallback (){
+    
+    //update components  based on parameter values
+    updateParameters();
+    audioProcessor.updateSyntheParameters();
+    
 }
 
 PluginSynthAudioProcessorEditor::~PluginSynthAudioProcessorEditor()
@@ -60,8 +71,11 @@ PluginSynthAudioProcessorEditor::~PluginSynthAudioProcessorEditor()
     aMenu.removeChangeListener(this);
 }
 
-void PluginSynthAudioProcessorEditor::updateParameters(juce::AudioProcessorValueTreeState* param)
+void PluginSynthAudioProcessorEditor::updateParameters()
 {
+    //get the parameters from the audio processor
+    juce::AudioProcessorValueTreeState* param = &audioProcessor.param;
+    
     //set oscillator values
     oMenu.osc1_wav_shape.setSelectedId(*param->getRawParameterValue("osc1wavShape"));
     oMenu.osc2_wav_shape.setSelectedId(*param->getRawParameterValue("osc2wavShape"));
