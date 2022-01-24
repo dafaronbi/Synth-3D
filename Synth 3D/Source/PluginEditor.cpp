@@ -63,7 +63,7 @@ PluginSynthAudioProcessorEditor::~PluginSynthAudioProcessorEditor()
 void PluginSynthAudioProcessorEditor::updateParameters(juce::AudioProcessorValueTreeState* param)
 {
     //set oscillator values
-    oMenu.osc1_wav_shape.setSelectedId(*param->getRawParameterValue("osc1wavShap"));
+    oMenu.osc1_wav_shape.setSelectedId(*param->getRawParameterValue("osc1wavShape"));
     oMenu.osc2_wav_shape.setSelectedId(*param->getRawParameterValue("osc2wavShape"));
     oMenu.osc3_wav_shape.setSelectedId(*param->getRawParameterValue("osc3wavShape"));
     
@@ -166,7 +166,7 @@ void PluginSynthAudioProcessorEditor::changeListenerCallback(juce::ChangeBroadca
             
             *param->getRawParameterValue("osc1gain") = oMenu.osc1_gain.getValue();
             *param->getRawParameterValue("osc2gain") = oMenu.osc2_gain.getValue();
-            *param->getRawParameterValue("osc3_gain") =  oMenu.osc3_gain.getValue();
+            *param->getRawParameterValue("osc3gain") =  oMenu.osc3_gain.getValue();
             
             *param->getRawParameterValue("osc1az") = oMenu.osc1_pan.getAzimuth();
             *param->getRawParameterValue("osc2az") = oMenu.osc2_pan.getAzimuth();

@@ -230,7 +230,7 @@ public:
         auto& totalGain_ob = filter_gain.template get<totalGainIndex>();
         
         //set total gain
-        totalGain_ob.setGainDecibels(*synth_param->getRawParameterValue("totalgain"));
+        totalGain_ob.setGainDecibels(*synth_param->getRawParameterValue("totalGain"));
         
     }
     
@@ -445,7 +445,7 @@ public:
                 //get filter from processor chain
                 auto& filter1_ob = filter_gain.template get<filter1Index>();
                 auto& filter2_ob = filter_gain.template get<filter2Index>();
-                DBG(f1_new_cuttoff);
+
                 //set cuttoff frequency from adsr
                 filter1_ob.setCutoffFrequencyHz(f1_new_cuttoff);
                 filter2_ob.setCutoffFrequencyHz(f2_new_cuttoff);

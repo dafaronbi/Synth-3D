@@ -1,0 +1,800 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<JUCERPROJECT id="Per8Hj" name="Synth 3D" projectType="audioplug" useAppConfig="0"
+              addUsingNamespaceToJuceHeader="0" displaySplashScreen="1" jucerFormatVersion="1"
+              pluginManufacturer="Immersonic" pluginVST3Category="Instrument"
+              pluginCharacteristicsValue="pluginIsSynth,pluginProducesMidiOut,pluginWantsMidiIn">
+  <MAINGROUP id="nhNHdr" name="Synth 3D">
+    <GROUP id="{2F12153D-23D8-AA6D-BFC3-97EAFFCFF15E}" name="HRIRs">
+      <FILE id="Au3Fol" name="0azi_0,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/0azi_0,0_ele_0,0.wav"/>
+      <FILE id="ErDTaB" name="1azi_1,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/1azi_1,0_ele_0,0.wav"/>
+      <FILE id="Ng4MsL" name="2azi_2,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/2azi_2,0_ele_0,0.wav"/>
+      <FILE id="oxXGW2" name="3azi_3,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/3azi_3,0_ele_0,0.wav"/>
+      <FILE id="RL80QS" name="4azi_4,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/4azi_4,0_ele_0,0.wav"/>
+      <FILE id="dWyzMv" name="5azi_5,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/5azi_5,0_ele_0,0.wav"/>
+      <FILE id="eghy2T" name="6azi_6,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/6azi_6,0_ele_0,0.wav"/>
+      <FILE id="v0rMKo" name="7azi_7,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/7azi_7,0_ele_0,0.wav"/>
+      <FILE id="lErcsL" name="8azi_8,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/8azi_8,0_ele_0,0.wav"/>
+      <FILE id="p1kNym" name="9azi_9,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/9azi_9,0_ele_0,0.wav"/>
+      <FILE id="WoPg1F" name="10azi_10,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/10azi_10,0_ele_0,0.wav"/>
+      <FILE id="yxeMRC" name="11azi_11,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/11azi_11,0_ele_0,0.wav"/>
+      <FILE id="mSbCnx" name="12azi_12,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/12azi_12,0_ele_0,0.wav"/>
+      <FILE id="C4qIGB" name="13azi_13,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/13azi_13,0_ele_0,0.wav"/>
+      <FILE id="hkzQAd" name="14azi_14,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/14azi_14,0_ele_0,0.wav"/>
+      <FILE id="hw2vj8" name="15azi_15,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/15azi_15,0_ele_0,0.wav"/>
+      <FILE id="AE5FNl" name="16azi_16,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/16azi_16,0_ele_0,0.wav"/>
+      <FILE id="O5x8WI" name="17azi_17,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/17azi_17,0_ele_0,0.wav"/>
+      <FILE id="vSJ7Yz" name="18azi_18,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/18azi_18,0_ele_0,0.wav"/>
+      <FILE id="Qg49wJ" name="19azi_19,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/19azi_19,0_ele_0,0.wav"/>
+      <FILE id="oxlUHY" name="20azi_20,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/20azi_20,0_ele_0,0.wav"/>
+      <FILE id="CzkjGv" name="21azi_21,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/21azi_21,0_ele_0,0.wav"/>
+      <FILE id="rk2I0K" name="22azi_22,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/22azi_22,0_ele_0,0.wav"/>
+      <FILE id="WcbJF6" name="23azi_23,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/23azi_23,0_ele_0,0.wav"/>
+      <FILE id="HQ0NKM" name="24azi_24,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/24azi_24,0_ele_0,0.wav"/>
+      <FILE id="Sdf9yj" name="25azi_25,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/25azi_25,0_ele_0,0.wav"/>
+      <FILE id="k915sC" name="26azi_26,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/26azi_26,0_ele_0,0.wav"/>
+      <FILE id="AVD7Jm" name="27azi_27,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/27azi_27,0_ele_0,0.wav"/>
+      <FILE id="yCZp9M" name="28azi_28,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/28azi_28,0_ele_0,0.wav"/>
+      <FILE id="ncJ3Za" name="29azi_29,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/29azi_29,0_ele_0,0.wav"/>
+      <FILE id="GyTeoi" name="30azi_30,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/30azi_30,0_ele_0,0.wav"/>
+      <FILE id="jDkd5D" name="31azi_31,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/31azi_31,0_ele_0,0.wav"/>
+      <FILE id="Sjs5rS" name="32azi_32,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/32azi_32,0_ele_0,0.wav"/>
+      <FILE id="ttaOfR" name="33azi_33,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/33azi_33,0_ele_0,0.wav"/>
+      <FILE id="iPfcrt" name="34azi_34,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/34azi_34,0_ele_0,0.wav"/>
+      <FILE id="NXSwxW" name="35azi_35,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/35azi_35,0_ele_0,0.wav"/>
+      <FILE id="aRYTlv" name="36azi_36,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/36azi_36,0_ele_0,0.wav"/>
+      <FILE id="npnHXx" name="37azi_37,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/37azi_37,0_ele_0,0.wav"/>
+      <FILE id="D1JqwO" name="38azi_38,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/38azi_38,0_ele_0,0.wav"/>
+      <FILE id="vwWYYl" name="39azi_39,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/39azi_39,0_ele_0,0.wav"/>
+      <FILE id="E8nZ7d" name="40azi_40,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/40azi_40,0_ele_0,0.wav"/>
+      <FILE id="cFDU9X" name="41azi_41,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/41azi_41,0_ele_0,0.wav"/>
+      <FILE id="SyipLd" name="42azi_42,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/42azi_42,0_ele_0,0.wav"/>
+      <FILE id="NayMKv" name="43azi_43,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/43azi_43,0_ele_0,0.wav"/>
+      <FILE id="byLxmq" name="44azi_44,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/44azi_44,0_ele_0,0.wav"/>
+      <FILE id="KikvwM" name="45azi_45,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/45azi_45,0_ele_0,0.wav"/>
+      <FILE id="yKOkGZ" name="46azi_46,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/46azi_46,0_ele_0,0.wav"/>
+      <FILE id="DRBBiV" name="47azi_47,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/47azi_47,0_ele_0,0.wav"/>
+      <FILE id="fWj99Q" name="48azi_48,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/48azi_48,0_ele_0,0.wav"/>
+      <FILE id="ZGc3Xg" name="49azi_49,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/49azi_49,0_ele_0,0.wav"/>
+      <FILE id="vMUtpa" name="50azi_50,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/50azi_50,0_ele_0,0.wav"/>
+      <FILE id="Fjef6n" name="51azi_51,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/51azi_51,0_ele_0,0.wav"/>
+      <FILE id="MMi81S" name="52azi_52,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/52azi_52,0_ele_0,0.wav"/>
+      <FILE id="kmUavF" name="53azi_53,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/53azi_53,0_ele_0,0.wav"/>
+      <FILE id="gStJy3" name="54azi_54,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/54azi_54,0_ele_0,0.wav"/>
+      <FILE id="S3sm1G" name="55azi_55,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/55azi_55,0_ele_0,0.wav"/>
+      <FILE id="QFmzsl" name="56azi_56,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/56azi_56,0_ele_0,0.wav"/>
+      <FILE id="xXds48" name="57azi_57,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/57azi_57,0_ele_0,0.wav"/>
+      <FILE id="HDzCKq" name="58azi_58,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/58azi_58,0_ele_0,0.wav"/>
+      <FILE id="g9txLV" name="59azi_59,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/59azi_59,0_ele_0,0.wav"/>
+      <FILE id="p5eCum" name="60azi_60,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/60azi_60,0_ele_0,0.wav"/>
+      <FILE id="ucdrFk" name="61azi_61,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/61azi_61,0_ele_0,0.wav"/>
+      <FILE id="qWKCxA" name="62azi_62,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/62azi_62,0_ele_0,0.wav"/>
+      <FILE id="u4h96P" name="63azi_63,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/63azi_63,0_ele_0,0.wav"/>
+      <FILE id="znLuKY" name="64azi_64,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/64azi_64,0_ele_0,0.wav"/>
+      <FILE id="UiK5vA" name="65azi_65,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/65azi_65,0_ele_0,0.wav"/>
+      <FILE id="zPoKh6" name="66azi_66,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/66azi_66,0_ele_0,0.wav"/>
+      <FILE id="l3HBQ5" name="67azi_67,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/67azi_67,0_ele_0,0.wav"/>
+      <FILE id="SGlwy7" name="68azi_68,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/68azi_68,0_ele_0,0.wav"/>
+      <FILE id="niC8IK" name="69azi_69,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/69azi_69,0_ele_0,0.wav"/>
+      <FILE id="JVIJNn" name="70azi_70,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/70azi_70,0_ele_0,0.wav"/>
+      <FILE id="XPrOlW" name="71azi_71,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/71azi_71,0_ele_0,0.wav"/>
+      <FILE id="GEocy6" name="72azi_72,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/72azi_72,0_ele_0,0.wav"/>
+      <FILE id="NpBWuo" name="73azi_73,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/73azi_73,0_ele_0,0.wav"/>
+      <FILE id="N94Qcb" name="74azi_74,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/74azi_74,0_ele_0,0.wav"/>
+      <FILE id="ORPe6y" name="75azi_75,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/75azi_75,0_ele_0,0.wav"/>
+      <FILE id="ox1Km1" name="76azi_76,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/76azi_76,0_ele_0,0.wav"/>
+      <FILE id="aDBaS8" name="77azi_77,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/77azi_77,0_ele_0,0.wav"/>
+      <FILE id="kcr7ai" name="78azi_78,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/78azi_78,0_ele_0,0.wav"/>
+      <FILE id="JhSHV0" name="79azi_79,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/79azi_79,0_ele_0,0.wav"/>
+      <FILE id="wtltZP" name="80azi_80,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/80azi_80,0_ele_0,0.wav"/>
+      <FILE id="Byjy4v" name="81azi_81,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/81azi_81,0_ele_0,0.wav"/>
+      <FILE id="XYr2hb" name="82azi_82,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/82azi_82,0_ele_0,0.wav"/>
+      <FILE id="CM8TEl" name="83azi_83,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/83azi_83,0_ele_0,0.wav"/>
+      <FILE id="XxEkoq" name="84azi_84,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/84azi_84,0_ele_0,0.wav"/>
+      <FILE id="o3KQHh" name="85azi_85,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/85azi_85,0_ele_0,0.wav"/>
+      <FILE id="Iv8Nxf" name="86azi_86,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/86azi_86,0_ele_0,0.wav"/>
+      <FILE id="xmSR2o" name="87azi_87,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/87azi_87,0_ele_0,0.wav"/>
+      <FILE id="NKSmKJ" name="88azi_88,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/88azi_88,0_ele_0,0.wav"/>
+      <FILE id="ExVYdv" name="89azi_89,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/89azi_89,0_ele_0,0.wav"/>
+      <FILE id="RGYxLw" name="90azi_90,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/90azi_90,0_ele_0,0.wav"/>
+      <FILE id="h6r9Or" name="91azi_91,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/91azi_91,0_ele_0,0.wav"/>
+      <FILE id="BKNxXU" name="92azi_92,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/92azi_92,0_ele_0,0.wav"/>
+      <FILE id="qLKtq5" name="93azi_93,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/93azi_93,0_ele_0,0.wav"/>
+      <FILE id="jM2PtU" name="94azi_94,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/94azi_94,0_ele_0,0.wav"/>
+      <FILE id="SQZGdG" name="95azi_95,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/95azi_95,0_ele_0,0.wav"/>
+      <FILE id="CiD85i" name="96azi_96,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/96azi_96,0_ele_0,0.wav"/>
+      <FILE id="F7cRgF" name="97azi_97,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/97azi_97,0_ele_0,0.wav"/>
+      <FILE id="a3P01M" name="98azi_98,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/98azi_98,0_ele_0,0.wav"/>
+      <FILE id="gXUW94" name="99azi_99,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/99azi_99,0_ele_0,0.wav"/>
+      <FILE id="j9VjKl" name="100azi_100,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/100azi_100,0_ele_0,0.wav"/>
+      <FILE id="Q2MfXx" name="101azi_101,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/101azi_101,0_ele_0,0.wav"/>
+      <FILE id="d0dZvF" name="102azi_102,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/102azi_102,0_ele_0,0.wav"/>
+      <FILE id="xl5279" name="103azi_103,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/103azi_103,0_ele_0,0.wav"/>
+      <FILE id="tapUI9" name="104azi_104,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/104azi_104,0_ele_0,0.wav"/>
+      <FILE id="gRpi1h" name="105azi_105,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/105azi_105,0_ele_0,0.wav"/>
+      <FILE id="L1mdAH" name="106azi_106,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/106azi_106,0_ele_0,0.wav"/>
+      <FILE id="wOMskY" name="107azi_107,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/107azi_107,0_ele_0,0.wav"/>
+      <FILE id="wMRQGJ" name="108azi_108,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/108azi_108,0_ele_0,0.wav"/>
+      <FILE id="EccUx3" name="109azi_109,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/109azi_109,0_ele_0,0.wav"/>
+      <FILE id="X7w3jd" name="110azi_110,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/110azi_110,0_ele_0,0.wav"/>
+      <FILE id="chMaDS" name="111azi_111,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/111azi_111,0_ele_0,0.wav"/>
+      <FILE id="uiDqYB" name="112azi_112,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/112azi_112,0_ele_0,0.wav"/>
+      <FILE id="HA5fPf" name="113azi_113,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/113azi_113,0_ele_0,0.wav"/>
+      <FILE id="BohkX2" name="114azi_114,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/114azi_114,0_ele_0,0.wav"/>
+      <FILE id="IdYkFo" name="115azi_115,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/115azi_115,0_ele_0,0.wav"/>
+      <FILE id="RCylRt" name="116azi_116,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/116azi_116,0_ele_0,0.wav"/>
+      <FILE id="cuxzDp" name="117azi_117,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/117azi_117,0_ele_0,0.wav"/>
+      <FILE id="oo2L0c" name="118azi_118,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/118azi_118,0_ele_0,0.wav"/>
+      <FILE id="a8tACb" name="119azi_119,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/119azi_119,0_ele_0,0.wav"/>
+      <FILE id="eav9E0" name="120azi_120,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/120azi_120,0_ele_0,0.wav"/>
+      <FILE id="hocb1d" name="121azi_121,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/121azi_121,0_ele_0,0.wav"/>
+      <FILE id="n4iCXf" name="122azi_122,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/122azi_122,0_ele_0,0.wav"/>
+      <FILE id="RvorL4" name="123azi_123,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/123azi_123,0_ele_0,0.wav"/>
+      <FILE id="P44ZBx" name="124azi_124,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/124azi_124,0_ele_0,0.wav"/>
+      <FILE id="iDSBZU" name="125azi_125,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/125azi_125,0_ele_0,0.wav"/>
+      <FILE id="mxXYv7" name="126azi_126,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/126azi_126,0_ele_0,0.wav"/>
+      <FILE id="L9I2nF" name="127azi_127,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/127azi_127,0_ele_0,0.wav"/>
+      <FILE id="WUQkzU" name="128azi_128,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/128azi_128,0_ele_0,0.wav"/>
+      <FILE id="dx97k4" name="129azi_129,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/129azi_129,0_ele_0,0.wav"/>
+      <FILE id="UdO6qe" name="130azi_130,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/130azi_130,0_ele_0,0.wav"/>
+      <FILE id="narpLF" name="131azi_131,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/131azi_131,0_ele_0,0.wav"/>
+      <FILE id="DSe2yw" name="132azi_132,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/132azi_132,0_ele_0,0.wav"/>
+      <FILE id="ok00DK" name="133azi_133,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/133azi_133,0_ele_0,0.wav"/>
+      <FILE id="anr67o" name="134azi_134,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/134azi_134,0_ele_0,0.wav"/>
+      <FILE id="YTkOfr" name="135azi_135,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/135azi_135,0_ele_0,0.wav"/>
+      <FILE id="gXIxnY" name="136azi_136,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/136azi_136,0_ele_0,0.wav"/>
+      <FILE id="nMQXe5" name="137azi_137,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/137azi_137,0_ele_0,0.wav"/>
+      <FILE id="RaaLz1" name="138azi_138,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/138azi_138,0_ele_0,0.wav"/>
+      <FILE id="eKtjsh" name="139azi_139,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/139azi_139,0_ele_0,0.wav"/>
+      <FILE id="ArBrH4" name="140azi_140,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/140azi_140,0_ele_0,0.wav"/>
+      <FILE id="zhNtbx" name="141azi_141,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/141azi_141,0_ele_0,0.wav"/>
+      <FILE id="muYyfb" name="142azi_142,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/142azi_142,0_ele_0,0.wav"/>
+      <FILE id="W2PkTV" name="143azi_143,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/143azi_143,0_ele_0,0.wav"/>
+      <FILE id="SHfUON" name="144azi_144,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/144azi_144,0_ele_0,0.wav"/>
+      <FILE id="uIeGEZ" name="145azi_145,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/145azi_145,0_ele_0,0.wav"/>
+      <FILE id="GXizxa" name="146azi_146,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/146azi_146,0_ele_0,0.wav"/>
+      <FILE id="ludL6B" name="147azi_147,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/147azi_147,0_ele_0,0.wav"/>
+      <FILE id="gUIxLg" name="148azi_148,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/148azi_148,0_ele_0,0.wav"/>
+      <FILE id="kzs81h" name="149azi_149,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/149azi_149,0_ele_0,0.wav"/>
+      <FILE id="n7Vthg" name="150azi_150,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/150azi_150,0_ele_0,0.wav"/>
+      <FILE id="U9QNJI" name="151azi_151,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/151azi_151,0_ele_0,0.wav"/>
+      <FILE id="QNSnsY" name="152azi_152,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/152azi_152,0_ele_0,0.wav"/>
+      <FILE id="GBIQEI" name="153azi_153,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/153azi_153,0_ele_0,0.wav"/>
+      <FILE id="m8Jnv5" name="154azi_154,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/154azi_154,0_ele_0,0.wav"/>
+      <FILE id="TrZHs1" name="155azi_155,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/155azi_155,0_ele_0,0.wav"/>
+      <FILE id="JmqL7T" name="156azi_156,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/156azi_156,0_ele_0,0.wav"/>
+      <FILE id="Y849Bu" name="157azi_157,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/157azi_157,0_ele_0,0.wav"/>
+      <FILE id="Na8hNM" name="158azi_158,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/158azi_158,0_ele_0,0.wav"/>
+      <FILE id="KZsHro" name="159azi_159,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/159azi_159,0_ele_0,0.wav"/>
+      <FILE id="FM8d5j" name="160azi_160,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/160azi_160,0_ele_0,0.wav"/>
+      <FILE id="DLOIQn" name="161azi_161,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/161azi_161,0_ele_0,0.wav"/>
+      <FILE id="AUQQOY" name="162azi_162,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/162azi_162,0_ele_0,0.wav"/>
+      <FILE id="tF4mr7" name="163azi_163,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/163azi_163,0_ele_0,0.wav"/>
+      <FILE id="ioaepZ" name="164azi_164,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/164azi_164,0_ele_0,0.wav"/>
+      <FILE id="e8hWJn" name="165azi_165,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/165azi_165,0_ele_0,0.wav"/>
+      <FILE id="RKph7Y" name="166azi_166,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/166azi_166,0_ele_0,0.wav"/>
+      <FILE id="zknnas" name="167azi_167,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/167azi_167,0_ele_0,0.wav"/>
+      <FILE id="lbUFVD" name="168azi_168,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/168azi_168,0_ele_0,0.wav"/>
+      <FILE id="XPX5Ng" name="169azi_169,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/169azi_169,0_ele_0,0.wav"/>
+      <FILE id="pu01hU" name="170azi_170,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/170azi_170,0_ele_0,0.wav"/>
+      <FILE id="rNhcfh" name="171azi_171,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/171azi_171,0_ele_0,0.wav"/>
+      <FILE id="u5YHUe" name="172azi_172,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/172azi_172,0_ele_0,0.wav"/>
+      <FILE id="kiQ9pv" name="173azi_173,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/173azi_173,0_ele_0,0.wav"/>
+      <FILE id="mjTNMT" name="174azi_174,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/174azi_174,0_ele_0,0.wav"/>
+      <FILE id="X46rtQ" name="175azi_175,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/175azi_175,0_ele_0,0.wav"/>
+      <FILE id="AzVfud" name="176azi_176,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/176azi_176,0_ele_0,0.wav"/>
+      <FILE id="cRiBW5" name="177azi_177,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/177azi_177,0_ele_0,0.wav"/>
+      <FILE id="l8ZYmA" name="178azi_178,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/178azi_178,0_ele_0,0.wav"/>
+      <FILE id="H8FeJb" name="179azi_179,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/179azi_179,0_ele_0,0.wav"/>
+      <FILE id="o8no6m" name="180azi_180,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/180azi_180,0_ele_0,0.wav"/>
+      <FILE id="VPPcc9" name="181azi_181,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/181azi_181,0_ele_0,0.wav"/>
+      <FILE id="KLLdf9" name="182azi_182,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/182azi_182,0_ele_0,0.wav"/>
+      <FILE id="GG7Pmz" name="183azi_183,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/183azi_183,0_ele_0,0.wav"/>
+      <FILE id="o15NjM" name="184azi_184,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/184azi_184,0_ele_0,0.wav"/>
+      <FILE id="ziyzAT" name="185azi_185,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/185azi_185,0_ele_0,0.wav"/>
+      <FILE id="oRvstG" name="186azi_186,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/186azi_186,0_ele_0,0.wav"/>
+      <FILE id="R1Djfj" name="187azi_187,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/187azi_187,0_ele_0,0.wav"/>
+      <FILE id="j3PthV" name="188azi_188,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/188azi_188,0_ele_0,0.wav"/>
+      <FILE id="Ueigxz" name="189azi_189,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/189azi_189,0_ele_0,0.wav"/>
+      <FILE id="IiuT9p" name="190azi_190,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/190azi_190,0_ele_0,0.wav"/>
+      <FILE id="ookIQl" name="191azi_191,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/191azi_191,0_ele_0,0.wav"/>
+      <FILE id="Pdv48O" name="192azi_192,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/192azi_192,0_ele_0,0.wav"/>
+      <FILE id="opzoef" name="193azi_193,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/193azi_193,0_ele_0,0.wav"/>
+      <FILE id="zapATa" name="194azi_194,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/194azi_194,0_ele_0,0.wav"/>
+      <FILE id="wCBFAP" name="195azi_195,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/195azi_195,0_ele_0,0.wav"/>
+      <FILE id="iqiQwj" name="196azi_196,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/196azi_196,0_ele_0,0.wav"/>
+      <FILE id="aio1V9" name="197azi_197,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/197azi_197,0_ele_0,0.wav"/>
+      <FILE id="XfWWuF" name="198azi_198,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/198azi_198,0_ele_0,0.wav"/>
+      <FILE id="kxoMj5" name="199azi_199,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/199azi_199,0_ele_0,0.wav"/>
+      <FILE id="ObPbC5" name="200azi_200,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/200azi_200,0_ele_0,0.wav"/>
+      <FILE id="c7SYFF" name="201azi_201,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/201azi_201,0_ele_0,0.wav"/>
+      <FILE id="z7UVmm" name="202azi_202,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/202azi_202,0_ele_0,0.wav"/>
+      <FILE id="Hn0fQD" name="203azi_203,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/203azi_203,0_ele_0,0.wav"/>
+      <FILE id="npL1Jd" name="204azi_204,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/204azi_204,0_ele_0,0.wav"/>
+      <FILE id="gtC5WK" name="205azi_205,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/205azi_205,0_ele_0,0.wav"/>
+      <FILE id="UXK9tq" name="206azi_206,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/206azi_206,0_ele_0,0.wav"/>
+      <FILE id="QzAgmb" name="207azi_207,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/207azi_207,0_ele_0,0.wav"/>
+      <FILE id="S7OrDk" name="208azi_208,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/208azi_208,0_ele_0,0.wav"/>
+      <FILE id="FkqOeu" name="209azi_209,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/209azi_209,0_ele_0,0.wav"/>
+      <FILE id="hpokrQ" name="210azi_210,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/210azi_210,0_ele_0,0.wav"/>
+      <FILE id="SMYmmZ" name="211azi_211,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/211azi_211,0_ele_0,0.wav"/>
+      <FILE id="ZU9OKL" name="212azi_212,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/212azi_212,0_ele_0,0.wav"/>
+      <FILE id="R8Lb2z" name="213azi_213,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/213azi_213,0_ele_0,0.wav"/>
+      <FILE id="QaAKIT" name="214azi_214,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/214azi_214,0_ele_0,0.wav"/>
+      <FILE id="e3v5l7" name="215azi_215,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/215azi_215,0_ele_0,0.wav"/>
+      <FILE id="rpXTMQ" name="216azi_216,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/216azi_216,0_ele_0,0.wav"/>
+      <FILE id="qUWoDC" name="217azi_217,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/217azi_217,0_ele_0,0.wav"/>
+      <FILE id="T8dwOf" name="218azi_218,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/218azi_218,0_ele_0,0.wav"/>
+      <FILE id="qNLDWs" name="219azi_219,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/219azi_219,0_ele_0,0.wav"/>
+      <FILE id="HnlkDI" name="220azi_220,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/220azi_220,0_ele_0,0.wav"/>
+      <FILE id="xguD4k" name="221azi_221,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/221azi_221,0_ele_0,0.wav"/>
+      <FILE id="mNYY2z" name="222azi_222,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/222azi_222,0_ele_0,0.wav"/>
+      <FILE id="IzZ7p3" name="223azi_223,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/223azi_223,0_ele_0,0.wav"/>
+      <FILE id="Y5GOsW" name="224azi_224,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/224azi_224,0_ele_0,0.wav"/>
+      <FILE id="yNh02d" name="225azi_225,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/225azi_225,0_ele_0,0.wav"/>
+      <FILE id="wwn7u3" name="226azi_226,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/226azi_226,0_ele_0,0.wav"/>
+      <FILE id="MlPybn" name="227azi_227,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/227azi_227,0_ele_0,0.wav"/>
+      <FILE id="Fs5aX0" name="228azi_228,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/228azi_228,0_ele_0,0.wav"/>
+      <FILE id="NzOETQ" name="229azi_229,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/229azi_229,0_ele_0,0.wav"/>
+      <FILE id="sl2w62" name="230azi_230,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/230azi_230,0_ele_0,0.wav"/>
+      <FILE id="nOD2Nh" name="231azi_231,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/231azi_231,0_ele_0,0.wav"/>
+      <FILE id="FTL8vz" name="232azi_232,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/232azi_232,0_ele_0,0.wav"/>
+      <FILE id="k6Aoyn" name="233azi_233,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/233azi_233,0_ele_0,0.wav"/>
+      <FILE id="mn0sPz" name="234azi_234,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/234azi_234,0_ele_0,0.wav"/>
+      <FILE id="WHLMAn" name="235azi_235,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/235azi_235,0_ele_0,0.wav"/>
+      <FILE id="cF7Nwn" name="236azi_236,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/236azi_236,0_ele_0,0.wav"/>
+      <FILE id="SXJUus" name="237azi_237,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/237azi_237,0_ele_0,0.wav"/>
+      <FILE id="IBRx0R" name="238azi_238,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/238azi_238,0_ele_0,0.wav"/>
+      <FILE id="PU1CKm" name="239azi_239,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/239azi_239,0_ele_0,0.wav"/>
+      <FILE id="ycWn75" name="240azi_240,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/240azi_240,0_ele_0,0.wav"/>
+      <FILE id="LxaGEY" name="241azi_241,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/241azi_241,0_ele_0,0.wav"/>
+      <FILE id="IUOsZA" name="242azi_242,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/242azi_242,0_ele_0,0.wav"/>
+      <FILE id="tBaHGy" name="243azi_243,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/243azi_243,0_ele_0,0.wav"/>
+      <FILE id="vLtHSx" name="244azi_244,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/244azi_244,0_ele_0,0.wav"/>
+      <FILE id="PN2XX4" name="245azi_245,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/245azi_245,0_ele_0,0.wav"/>
+      <FILE id="Jjlp6n" name="246azi_246,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/246azi_246,0_ele_0,0.wav"/>
+      <FILE id="ualHuW" name="247azi_247,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/247azi_247,0_ele_0,0.wav"/>
+      <FILE id="gViI0z" name="248azi_248,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/248azi_248,0_ele_0,0.wav"/>
+      <FILE id="EY0oW9" name="249azi_249,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/249azi_249,0_ele_0,0.wav"/>
+      <FILE id="BKxWJV" name="250azi_250,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/250azi_250,0_ele_0,0.wav"/>
+      <FILE id="Z0baoy" name="251azi_251,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/251azi_251,0_ele_0,0.wav"/>
+      <FILE id="kNWu6g" name="252azi_252,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/252azi_252,0_ele_0,0.wav"/>
+      <FILE id="mgdttz" name="253azi_253,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/253azi_253,0_ele_0,0.wav"/>
+      <FILE id="Tb5INV" name="254azi_254,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/254azi_254,0_ele_0,0.wav"/>
+      <FILE id="np9oHR" name="255azi_255,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/255azi_255,0_ele_0,0.wav"/>
+      <FILE id="AYqqFc" name="256azi_256,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/256azi_256,0_ele_0,0.wav"/>
+      <FILE id="w5kut9" name="257azi_257,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/257azi_257,0_ele_0,0.wav"/>
+      <FILE id="QD3FSY" name="258azi_258,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/258azi_258,0_ele_0,0.wav"/>
+      <FILE id="iJSab6" name="259azi_259,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/259azi_259,0_ele_0,0.wav"/>
+      <FILE id="skPc0w" name="260azi_260,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/260azi_260,0_ele_0,0.wav"/>
+      <FILE id="UWDrSt" name="261azi_261,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/261azi_261,0_ele_0,0.wav"/>
+      <FILE id="vtcbZJ" name="262azi_262,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/262azi_262,0_ele_0,0.wav"/>
+      <FILE id="e5mWIs" name="263azi_263,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/263azi_263,0_ele_0,0.wav"/>
+      <FILE id="Eapjmj" name="264azi_264,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/264azi_264,0_ele_0,0.wav"/>
+      <FILE id="duI9Pe" name="265azi_265,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/265azi_265,0_ele_0,0.wav"/>
+      <FILE id="OGlda7" name="266azi_266,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/266azi_266,0_ele_0,0.wav"/>
+      <FILE id="rBVnRf" name="267azi_267,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/267azi_267,0_ele_0,0.wav"/>
+      <FILE id="JqA5wT" name="268azi_268,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/268azi_268,0_ele_0,0.wav"/>
+      <FILE id="ip9IG1" name="269azi_269,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/269azi_269,0_ele_0,0.wav"/>
+      <FILE id="FapBlH" name="270azi_270,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/270azi_270,0_ele_0,0.wav"/>
+      <FILE id="kc4flb" name="271azi_271,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/271azi_271,0_ele_0,0.wav"/>
+      <FILE id="GzwEQK" name="272azi_272,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/272azi_272,0_ele_0,0.wav"/>
+      <FILE id="NpiFvg" name="273azi_273,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/273azi_273,0_ele_0,0.wav"/>
+      <FILE id="SWdkEp" name="274azi_274,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/274azi_274,0_ele_0,0.wav"/>
+      <FILE id="vTGSOb" name="275azi_275,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/275azi_275,0_ele_0,0.wav"/>
+      <FILE id="eURby2" name="276azi_276,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/276azi_276,0_ele_0,0.wav"/>
+      <FILE id="aljWtM" name="277azi_277,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/277azi_277,0_ele_0,0.wav"/>
+      <FILE id="KM2N1M" name="278azi_278,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/278azi_278,0_ele_0,0.wav"/>
+      <FILE id="Hd5Lub" name="279azi_279,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/279azi_279,0_ele_0,0.wav"/>
+      <FILE id="URYAtG" name="280azi_280,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/280azi_280,0_ele_0,0.wav"/>
+      <FILE id="nt25M0" name="281azi_281,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/281azi_281,0_ele_0,0.wav"/>
+      <FILE id="rAnUUY" name="282azi_282,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/282azi_282,0_ele_0,0.wav"/>
+      <FILE id="qbj8EY" name="283azi_283,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/283azi_283,0_ele_0,0.wav"/>
+      <FILE id="Mj8GYK" name="284azi_284,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/284azi_284,0_ele_0,0.wav"/>
+      <FILE id="AfXn7h" name="285azi_285,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/285azi_285,0_ele_0,0.wav"/>
+      <FILE id="PhsxLA" name="286azi_286,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/286azi_286,0_ele_0,0.wav"/>
+      <FILE id="zORCuM" name="287azi_287,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/287azi_287,0_ele_0,0.wav"/>
+      <FILE id="R2D2eh" name="288azi_288,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/288azi_288,0_ele_0,0.wav"/>
+      <FILE id="mGhsVt" name="289azi_289,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/289azi_289,0_ele_0,0.wav"/>
+      <FILE id="ykwbXZ" name="290azi_290,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/290azi_290,0_ele_0,0.wav"/>
+      <FILE id="l7sGE8" name="291azi_291,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/291azi_291,0_ele_0,0.wav"/>
+      <FILE id="OvZduZ" name="292azi_292,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/292azi_292,0_ele_0,0.wav"/>
+      <FILE id="hBAJnt" name="293azi_293,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/293azi_293,0_ele_0,0.wav"/>
+      <FILE id="kRUY6O" name="294azi_294,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/294azi_294,0_ele_0,0.wav"/>
+      <FILE id="JGnt15" name="295azi_295,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/295azi_295,0_ele_0,0.wav"/>
+      <FILE id="h27rXy" name="296azi_296,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/296azi_296,0_ele_0,0.wav"/>
+      <FILE id="Eg2Nny" name="297azi_297,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/297azi_297,0_ele_0,0.wav"/>
+      <FILE id="H9Uj3C" name="298azi_298,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/298azi_298,0_ele_0,0.wav"/>
+      <FILE id="a7MC7J" name="299azi_299,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/299azi_299,0_ele_0,0.wav"/>
+      <FILE id="yPcoJA" name="300azi_300,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/300azi_300,0_ele_0,0.wav"/>
+      <FILE id="d5MUTh" name="301azi_301,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/301azi_301,0_ele_0,0.wav"/>
+      <FILE id="o0fATp" name="302azi_302,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/302azi_302,0_ele_0,0.wav"/>
+      <FILE id="RKeGvF" name="303azi_303,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/303azi_303,0_ele_0,0.wav"/>
+      <FILE id="yUQWY2" name="304azi_304,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/304azi_304,0_ele_0,0.wav"/>
+      <FILE id="cucJjj" name="305azi_305,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/305azi_305,0_ele_0,0.wav"/>
+      <FILE id="rfZeKU" name="306azi_306,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/306azi_306,0_ele_0,0.wav"/>
+      <FILE id="pQhpx9" name="307azi_307,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/307azi_307,0_ele_0,0.wav"/>
+      <FILE id="s7Kd1U" name="308azi_308,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/308azi_308,0_ele_0,0.wav"/>
+      <FILE id="vZ29eR" name="309azi_309,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/309azi_309,0_ele_0,0.wav"/>
+      <FILE id="ebuD9h" name="310azi_310,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/310azi_310,0_ele_0,0.wav"/>
+      <FILE id="QKihRY" name="311azi_311,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/311azi_311,0_ele_0,0.wav"/>
+      <FILE id="W7PZKJ" name="312azi_312,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/312azi_312,0_ele_0,0.wav"/>
+      <FILE id="Ani5yV" name="313azi_313,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/313azi_313,0_ele_0,0.wav"/>
+      <FILE id="wMhrre" name="314azi_314,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/314azi_314,0_ele_0,0.wav"/>
+      <FILE id="ChuOnz" name="315azi_315,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/315azi_315,0_ele_0,0.wav"/>
+      <FILE id="vP6da5" name="316azi_316,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/316azi_316,0_ele_0,0.wav"/>
+      <FILE id="KhundY" name="317azi_317,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/317azi_317,0_ele_0,0.wav"/>
+      <FILE id="mgIpv7" name="318azi_318,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/318azi_318,0_ele_0,0.wav"/>
+      <FILE id="ibVGYZ" name="319azi_319,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/319azi_319,0_ele_0,0.wav"/>
+      <FILE id="Tjv5yY" name="320azi_320,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/320azi_320,0_ele_0,0.wav"/>
+      <FILE id="Yv8E12" name="321azi_321,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/321azi_321,0_ele_0,0.wav"/>
+      <FILE id="sjmtZO" name="322azi_322,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/322azi_322,0_ele_0,0.wav"/>
+      <FILE id="RfJRTg" name="323azi_323,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/323azi_323,0_ele_0,0.wav"/>
+      <FILE id="SRzPaJ" name="324azi_324,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/324azi_324,0_ele_0,0.wav"/>
+      <FILE id="psl500" name="325azi_325,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/325azi_325,0_ele_0,0.wav"/>
+      <FILE id="Zd1Ak2" name="326azi_326,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/326azi_326,0_ele_0,0.wav"/>
+      <FILE id="CyJWWq" name="327azi_327,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/327azi_327,0_ele_0,0.wav"/>
+      <FILE id="FbbB7M" name="328azi_328,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/328azi_328,0_ele_0,0.wav"/>
+      <FILE id="Oy7KwT" name="329azi_329,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/329azi_329,0_ele_0,0.wav"/>
+      <FILE id="TOHuto" name="330azi_330,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/330azi_330,0_ele_0,0.wav"/>
+      <FILE id="fmQy5l" name="331azi_331,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/331azi_331,0_ele_0,0.wav"/>
+      <FILE id="esjWfp" name="332azi_332,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/332azi_332,0_ele_0,0.wav"/>
+      <FILE id="TOSNsK" name="333azi_333,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/333azi_333,0_ele_0,0.wav"/>
+      <FILE id="prk1UL" name="334azi_334,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/334azi_334,0_ele_0,0.wav"/>
+      <FILE id="nFNsdK" name="335azi_335,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/335azi_335,0_ele_0,0.wav"/>
+      <FILE id="wduqcd" name="336azi_336,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/336azi_336,0_ele_0,0.wav"/>
+      <FILE id="ppcmC3" name="337azi_337,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/337azi_337,0_ele_0,0.wav"/>
+      <FILE id="qbCRda" name="338azi_338,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/338azi_338,0_ele_0,0.wav"/>
+      <FILE id="drDmm3" name="339azi_339,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/339azi_339,0_ele_0,0.wav"/>
+      <FILE id="FQxyL4" name="340azi_340,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/340azi_340,0_ele_0,0.wav"/>
+      <FILE id="gfpUDx" name="341azi_341,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/341azi_341,0_ele_0,0.wav"/>
+      <FILE id="FwZtii" name="342azi_342,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/342azi_342,0_ele_0,0.wav"/>
+      <FILE id="Wl2m0Z" name="343azi_343,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/343azi_343,0_ele_0,0.wav"/>
+      <FILE id="rgST69" name="344azi_344,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/344azi_344,0_ele_0,0.wav"/>
+      <FILE id="Vb0SMk" name="345azi_345,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/345azi_345,0_ele_0,0.wav"/>
+      <FILE id="D16h7A" name="346azi_346,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/346azi_346,0_ele_0,0.wav"/>
+      <FILE id="CZxs1p" name="347azi_347,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/347azi_347,0_ele_0,0.wav"/>
+      <FILE id="MZn0fV" name="348azi_348,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/348azi_348,0_ele_0,0.wav"/>
+      <FILE id="lUKjU2" name="349azi_349,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/349azi_349,0_ele_0,0.wav"/>
+      <FILE id="Eqc0u1" name="350azi_350,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/350azi_350,0_ele_0,0.wav"/>
+      <FILE id="fhX1aF" name="351azi_351,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/351azi_351,0_ele_0,0.wav"/>
+      <FILE id="FakSS2" name="352azi_352,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/352azi_352,0_ele_0,0.wav"/>
+      <FILE id="Uxot1o" name="353azi_353,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/353azi_353,0_ele_0,0.wav"/>
+      <FILE id="P1RBB3" name="354azi_354,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/354azi_354,0_ele_0,0.wav"/>
+      <FILE id="XFctfk" name="355azi_355,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/355azi_355,0_ele_0,0.wav"/>
+      <FILE id="OTAsUI" name="356azi_356,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/356azi_356,0_ele_0,0.wav"/>
+      <FILE id="dmxQaz" name="357azi_357,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/357azi_357,0_ele_0,0.wav"/>
+      <FILE id="PDwdIl" name="358azi_358,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/358azi_358,0_ele_0,0.wav"/>
+      <FILE id="TlBdxX" name="359azi_359,0_ele_0,0.wav" compile="0" resource="1"
+            file="HRIRs/359azi_359,0_ele_0,0.wav"/>
+    </GROUP>
+    <GROUP id="{A0F55D3C-F272-D4E3-1BAF-ACCF2E169668}" name="img">
+      <FILE id="Qfe7dC" name="amp.png" compile="0" resource="1" file="img/amp.png"/>
+      <FILE id="Oek5Pf" name="amp_clicked.png" compile="0" resource="1" file="img/amp_clicked.png"/>
+      <FILE id="OMpeYq" name="amp_hover.png" compile="0" resource="1" file="img/amp_hover.png"/>
+      <FILE id="T9cJ4J" name="filt.png" compile="0" resource="1" file="img/filt.png"/>
+      <FILE id="BzK4IT" name="filt_clicked.png" compile="0" resource="1"
+            file="img/filt_clicked.png"/>
+      <FILE id="gL4NjL" name="filt_hover.png" compile="0" resource="1" file="img/filt_hover.png"/>
+      <FILE id="Gglnw0" name="filter.png" compile="0" resource="1" file="img/filter.png"/>
+      <FILE id="d5Yg2T" name="osc.png" compile="0" resource="1" file="img/osc.png"/>
+      <FILE id="gFPomR" name="osc_clicked.png" compile="0" resource="1" file="img/osc_clicked.png"/>
+      <FILE id="Fk5TG8" name="osc_hover.png" compile="0" resource="1" file="img/osc_hover.png"/>
+      <FILE id="yeHnhD" name="speaker.jpeg" compile="0" resource="1" file="img/speaker.jpeg"/>
+      <FILE id="n7s8oC" name="wave.jpeg" compile="0" resource="1" file="img/wave.jpeg"/>
+    </GROUP>
+    <GROUP id="{D12A61D2-7AA2-B5EB-F715-C88781C12983}" name="Source">
+      <FILE id="C7uw6P" name="extraComponents.h" compile="0" resource="0"
+            file="Source/extraComponents.h"/>
+      <FILE id="knmACG" name="personalDS.h" compile="0" resource="0" file="Source/personalDS.h"/>
+      <FILE id="KZXzpM" name="sliders.h" compile="0" resource="0" file="Source/sliders.h"/>
+      <FILE id="FPDjDV" name="synth.h" compile="0" resource="0" file="Source/synth.h"/>
+      <FILE id="rH8Qz2" name="PluginProcessor.cpp" compile="1" resource="0"
+            file="Source/PluginProcessor.cpp"/>
+      <FILE id="xm33hI" name="PluginProcessor.h" compile="0" resource="0"
+            file="Source/PluginProcessor.h"/>
+      <FILE id="Gh6lsb" name="PluginEditor.cpp" compile="1" resource="0"
+            file="Source/PluginEditor.cpp"/>
+      <FILE id="XVnhDM" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
+    </GROUP>
+  </MAINGROUP>
+  <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1" JUCE_VST3_CAN_REPLACE_VST2="0"/>
+  <EXPORTFORMATS>
+    <XCODE_MAC targetFolder="Builds/MacOSX">
+      <CONFIGURATIONS>
+        <CONFIGURATION isDebug="1" name="Debug" targetName="Synth 3D"/>
+        <CONFIGURATION isDebug="0" name="Release" targetName="Synth 3D"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_audio_basics" path="../../../../../../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="../../../../../../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="../../../../../../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_plugin_client" path="../../../../../../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="../../../../../../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_audio_utils" path="../../../../../../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_core" path="../../../../../../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_data_structures" path="../../../../../../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_dsp" path="../../../../../../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_events" path="../../../../../../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_graphics" path="../../../../../../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="../../../../../../../../../Applications/JUCE/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="../../../../../../../../../Applications/JUCE/modules"/>
+      </MODULEPATHS>
+    </XCODE_MAC>
+  </EXPORTFORMATS>
+  <MODULES>
+    <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_devices" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_formats" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_plugin_client" showAllCode="1" useLocalCopy="0"
+            useGlobalPath="1"/>
+    <MODULE id="juce_audio_processors" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_utils" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_core" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_dsp" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_events" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+  </MODULES>
+</JUCERPROJECT>

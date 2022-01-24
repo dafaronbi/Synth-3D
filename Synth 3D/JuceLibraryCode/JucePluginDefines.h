@@ -41,10 +41,10 @@
  #define JucePlugin_Name                   "Synth 3D"
 #endif
 #ifndef  JucePlugin_Desc
- #define JucePlugin_Desc                   "Plugin Synth"
+ #define JucePlugin_Desc                   "Synth 3D"
 #endif
 #ifndef  JucePlugin_Manufacturer
- #define JucePlugin_Manufacturer           "immersonic"
+ #define JucePlugin_Manufacturer           "Immersonic"
 #endif
 #ifndef  JucePlugin_ManufacturerWebsite
  #define JucePlugin_ManufacturerWebsite    ""
@@ -56,7 +56,7 @@
  #define JucePlugin_ManufacturerCode       0x4d616e75
 #endif
 #ifndef  JucePlugin_PluginCode
- #define JucePlugin_PluginCode             0x44796c69
+ #define JucePlugin_PluginCode             0x50657238
 #endif
 #ifndef  JucePlugin_IsSynth
  #define JucePlugin_IsSynth                1
@@ -89,7 +89,7 @@
  #define JucePlugin_VSTCategory            kPlugCategSynth
 #endif
 #ifndef  JucePlugin_Vst3Category
- #define JucePlugin_Vst3Category           "Instrument|Synth"
+ #define JucePlugin_Vst3Category           "Instrument"
 #endif
 #ifndef  JucePlugin_AUMainType
  #define JucePlugin_AUMainType             'aumu'
@@ -98,16 +98,16 @@
  #define JucePlugin_AUSubType              JucePlugin_PluginCode
 #endif
 #ifndef  JucePlugin_AUExportPrefix
- #define JucePlugin_AUExportPrefix         synth3d
+ #define JucePlugin_AUExportPrefix         Synth3DAU
 #endif
 #ifndef  JucePlugin_AUExportPrefixQuoted
- #define JucePlugin_AUExportPrefixQuoted   "synth3d"
+ #define JucePlugin_AUExportPrefixQuoted   "Synth3DAU"
 #endif
 #ifndef  JucePlugin_AUManufacturerCode
  #define JucePlugin_AUManufacturerCode     JucePlugin_ManufacturerCode
 #endif
 #ifndef  JucePlugin_CFBundleIdentifier
- #define JucePlugin_CFBundleIdentifier     com.immersonic.synth3d
+ #define JucePlugin_CFBundleIdentifier     com.yourcompany.Synth3D
 #endif
 #ifndef  JucePlugin_RTASCategory
  #define JucePlugin_RTASCategory           2048
@@ -125,7 +125,7 @@
  #define JucePlugin_RTASDisableMultiMono   0
 #endif
 #ifndef  JucePlugin_AAXIdentifier
- #define JucePlugin_AAXIdentifier          com.immersonic.synth3d
+ #define JucePlugin_AAXIdentifier          com.yourcompany.Synth3D
 #endif
 #ifndef  JucePlugin_AAXManufacturerCode
  #define JucePlugin_AAXManufacturerCode    JucePlugin_ManufacturerCode
@@ -149,7 +149,7 @@
  #define JucePlugin_IAASubType             JucePlugin_PluginCode
 #endif
 #ifndef  JucePlugin_IAAName
- #define JucePlugin_IAAName                "immersonic: Synth 3D"
+ #define JucePlugin_IAAName                "Immersonic: Synth 3D"
 #endif
 #ifndef  JucePlugin_VSTNumMidiInputs
  #define JucePlugin_VSTNumMidiInputs       16
