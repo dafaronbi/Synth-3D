@@ -44,7 +44,7 @@
  #define JucePlugin_Desc                   "Synth 3D"
 #endif
 #ifndef  JucePlugin_Manufacturer
- #define JucePlugin_Manufacturer           "Immersonic"
+ #define JucePlugin_Manufacturer           "Virtualsonic"
 #endif
 #ifndef  JucePlugin_ManufacturerWebsite
  #define JucePlugin_ManufacturerWebsite    ""
@@ -149,7 +149,7 @@
  #define JucePlugin_IAASubType             JucePlugin_PluginCode
 #endif
 #ifndef  JucePlugin_IAAName
- #define JucePlugin_IAAName                "Immersonic: Synth 3D"
+ #define JucePlugin_IAAName                "Virtualsonic: Synth 3D"
 #endif
 #ifndef  JucePlugin_VSTNumMidiInputs
  #define JucePlugin_VSTNumMidiInputs       16

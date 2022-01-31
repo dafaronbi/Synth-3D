@@ -89,6 +89,7 @@ void PluginSynthAudioProcessorEditor::updateParameters()
     oMenu.osc2_gain.setValue(*param->getRawParameterValue("osc2gain"));
     oMenu.osc3_gain.setValue(*param->getRawParameterValue("osc3gain"));
     
+
     oMenu.osc1_pan.setPosition(*param->getRawParameterValue("osc1az"), *param->getRawParameterValue("osc1distance"));
     oMenu.osc2_pan.setPosition(*param->getRawParameterValue("osc2az"), *param->getRawParameterValue("osc2distance"));
     oMenu.osc3_pan.setPosition(*param->getRawParameterValue("osc3az"), *param->getRawParameterValue("osc3distance"));
@@ -182,13 +183,52 @@ void PluginSynthAudioProcessorEditor::changeListenerCallback(juce::ChangeBroadca
             *param->getRawParameterValue("osc2gain") = oMenu.osc2_gain.getValue();
             *param->getRawParameterValue("osc3gain") =  oMenu.osc3_gain.getValue();
             
-            *param->getRawParameterValue("osc1az") = oMenu.osc1_pan.getAzimuth();
-            *param->getRawParameterValue("osc2az") = oMenu.osc2_pan.getAzimuth();
-            *param->getRawParameterValue("osc3az") = oMenu.osc3_pan.getAzimuth();
+//            *param->getRawParameterValue("osc1az") = oMenu.osc1_pan.getAzimuth();
+//            *param->getRawParameterValue("osc2az") = oMenu.osc2_pan.getAzimuth();
+//            *param->getRawParameterValue("osc3az") = oMenu.osc3_pan.getAzimuth();
+//
+//            *param->getRawParameterValue("osc1distance") = oMenu.osc1_pan.getDistance();
+//            *param->getRawParameterValue("osc2distance") = oMenu.osc2_pan.getDistance();
+//            *param->getRawParameterValue("osc3distance") = oMenu.osc3_pan.getDistance();
             
-            *param->getRawParameterValue("osc1distance") = oMenu.osc1_pan.getDistance();
-            *param->getRawParameterValue("osc2distance") = oMenu.osc2_pan.getDistance();
-            *param->getRawParameterValue("osc3distance") = oMenu.osc3_pan.getDistance();
+            
+            
+            //only update parameters if the change is significant
+            if(oMenu.get_selected_pan() == 1){
+                if(std::fabs(last_o1az - oMenu.osc1_pan.getAzimuth())  > 1){
+                    last_o1az = oMenu.osc1_pan.getAzimuth();
+                    *param->getRawParameterValue("osc1az") = oMenu.osc1_pan.getAzimuth();
+                }
+                    
+                if(std::fabs(last_o1dis - oMenu.osc1_pan.getDistance())  > 0.05){
+                    last_o1dis = oMenu.osc1_pan.getDistance();
+                    *param->getRawParameterValue("osc1distance") = oMenu.osc1_pan.getDistance();
+                }
+            }
+            
+            if(oMenu.get_selected_pan() == 2){
+                if(std::fabs(last_o2az - oMenu.osc2_pan.getAzimuth()) > 1){
+                    last_o2az = oMenu.osc2_pan.getAzimuth();
+                    *param->getRawParameterValue("osc2az") = oMenu.osc2_pan.getAzimuth();
+                }
+                
+                if(std::fabs(last_o2dis - oMenu.osc2_pan.getDistance()) > 0.05){
+                    last_o2dis = oMenu.osc2_pan.getDistance();
+                    *param->getRawParameterValue("osc2distance") = oMenu.osc2_pan.getDistance();
+                }
+            }
+            
+            if(oMenu.get_selected_pan() == 3){
+                if(std::fabs(last_o3az - oMenu.osc3_pan.getAzimuth()) > 1){
+                    last_o3az = oMenu.osc3_pan.getAzimuth();
+                    *param->getRawParameterValue("osc3az") = oMenu.osc3_pan.getAzimuth();
+                }
+                    
+                if(std::fabs(last_o3dis - oMenu.osc3_pan.getDistance())  > 0.05){
+                    last_o3dis = oMenu.osc3_pan.getDistance();
+                    *param->getRawParameterValue("osc3distance") = oMenu.osc3_pan.getDistance();
+                }
+            }
             
             
         }

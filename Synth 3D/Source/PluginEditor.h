@@ -105,6 +105,14 @@ private:
     //ASDRs
     juce::ADSR f_adsr;
     juce::ADSR a_adsr;
+    
+    //variables to store changes in panner
+    float last_o1az = 0;
+    float last_o2az = 0;
+    float last_o3az = 0;
+    float last_o1dis = 0;
+    float last_o2dis = 0;
+    float last_o3dis = 0;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PluginSynthAudioProcessorEditor)
 };

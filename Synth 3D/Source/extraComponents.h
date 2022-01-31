@@ -14,7 +14,7 @@
 #include "sliders.h"
 
 //Gui for 3d panner
-class pan_3d : public juce::AnimatedAppComponent, public juce::ChangeBroadcaster{
+class pan_3d : public juce::Component, public juce::ChangeBroadcaster{
 public:
     pan_3d(){
     }
@@ -23,11 +23,6 @@ public:
         
     }
     
-    void update() override
-    {
-        // This function is called at the frequency specified by the setFramesPerSecond() call
-        // in the constructor. You can use it to update counters, animate values, etc.
-    }
 
     void paint (juce::Graphics& g) override
     {
@@ -70,9 +65,8 @@ public:
                 pan_x = x;
                 pan_y = y;
                 repaint();
+                sendChangeMessage();
             }
-            
-            sendChangeMessage();
             
         }
     
@@ -131,10 +125,16 @@ public:
         float d_x = -distance*std::cos(r_angle);
         float d_y = distance*std::sin(r_angle);
         
-        //set pan_x and pan_y
-        pan_x = d_x + center_x;
-        pan_y = d_y + center_y;
-        repaint();
+        //calculate distance from center
+        auto d_from_center = std::sqrt(std::pow(d_x,2) + std::pow(d_y,2));
+        
+        //only edit pan if within circle
+        if(d_from_center < (getHeight()-getHeight()/5)/2){
+            //set pan_x and pan_y
+            pan_x = d_x + center_x;
+            pan_y = d_y + center_y;
+            repaint();
+        }
         
     }
     
@@ -520,6 +520,7 @@ public:
         
         //send a message  that slider value is changed
         sendChangeMessage();
+        selected_pan = 0;
         
     }
     
@@ -527,18 +528,36 @@ public:
         
         //send a message  that slider value is changed
         sendChangeMessage();
+        selected_pan = 0;
     }
     
     void changeListenerCallback(juce::ChangeBroadcaster* source) override
     {
         //send a mesage that pan has changed
         sendChangeMessage();
+        
+        if(source == &osc1_pan){
+            selected_pan = 1;
+        }
+        
+        if(source == &osc2_pan){
+            selected_pan = 2;
+        }
+        
+        if(source == &osc3_pan){
+            selected_pan = 3;
+        }
+    }
+    
+    int get_selected_pan(){
+        
+        return selected_pan;
     }
     
     
 
 private:
-    
+    int selected_pan = 0;
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Oscillator_Menu)
 };

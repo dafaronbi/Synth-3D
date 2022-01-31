@@ -2,7 +2,7 @@
 
 <JUCERPROJECT id="Per8Hj" name="Synth 3D" projectType="audioplug" useAppConfig="0"
               addUsingNamespaceToJuceHeader="0" displaySplashScreen="1" jucerFormatVersion="1"
-              pluginManufacturer="Immersonic" pluginVST3Category="Instrument"
+              pluginManufacturer="Virtualsonic" pluginVST3Category="Instrument"
               pluginCharacteristicsValue="pluginIsSynth,pluginProducesMidiOut,pluginWantsMidiIn">
   <MAINGROUP id="nhNHdr" name="Synth 3D">
     <GROUP id="{2F12153D-23D8-AA6D-BFC3-97EAFFCFF15E}" name="HRIRs">
