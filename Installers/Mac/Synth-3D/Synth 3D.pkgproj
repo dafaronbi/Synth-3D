@@ -38,7 +38,7 @@
 									<key>GID</key>
 									<integer>20</integer>
 									<key>PATH</key>
-									<string>/Users/axelborgmo/NYU/Classes/Fall_2021/3D_Audio/Synth 3D/Final version/Synth-3D/Synth 3D/Builds/MacOSX/build/Debug/Synth 3D.app</string>
+									<string>/Users/axelborgmo/NYU/Classes/Fall_2021/3D_Audio/Synth 3D/Synth3DGit/InstallersLocal/Mac/Synth-3D/Standalone/Synth 3D.app</string>
 									<key>PATH_TYPE</key>
 									<integer>0</integer>
 									<key>PERMISSIONS</key>
@@ -566,7 +566,7 @@
 															<key>GID</key>
 															<integer>20</integer>
 															<key>PATH</key>
-															<string>/Users/axelborgmo/NYU/Classes/Fall_2021/3D_Audio/Synth 3D/Final version/Synth-3D/VST/Mac/Binaural Synth.component</string>
+															<string>/Users/axelborgmo/NYU/Classes/Fall_2021/3D_Audio/Synth 3D/Synth3DGit/InstallersLocal/Mac/Synth-3D/VST/Synth 3D.component</string>
 															<key>PATH_TYPE</key>
 															<integer>0</integer>
 															<key>PERMISSIONS</key>
@@ -1118,7 +1118,7 @@
 															<key>GID</key>
 															<integer>20</integer>
 															<key>PATH</key>
-															<string>/Users/axelborgmo/NYU/Classes/Fall_2021/3D_Audio/Synth 3D/Final version/Synth-3D/VST/Mac/Binaural Synth.vst3</string>
+															<string>/Users/axelborgmo/NYU/Classes/Fall_2021/3D_Audio/Synth 3D/Synth3DGit/InstallersLocal/Mac/Synth-3D/VST/Synth 3D.vst3</string>
 															<key>PATH_TYPE</key>
 															<integer>0</integer>
 															<key>PERMISSIONS</key>
@@ -1548,6 +1548,21 @@
 				<key>VERSION</key>
 				<integer>5</integer>
 			</dict>
+			<key>PACKAGE_SCRIPTS</key>
+			<dict>
+				<key>POSTINSTALL_PATH</key>
+				<dict>
+					<key>PATH_TYPE</key>
+					<integer>0</integer>
+				</dict>
+				<key>PREINSTALL_PATH</key>
+				<dict>
+					<key>PATH_TYPE</key>
+					<integer>0</integer>
+				</dict>
+				<key>RESOURCES</key>
+				<array/>
+			</dict>
 			<key>PACKAGE_SETTINGS</key>
 			<dict>
 				<key>AUTHENTICATION</key>
@@ -1594,7 +1609,7 @@
 			<key>BACKGROUND</key>
 			<dict>
 				<key>ALIGNMENT</key>
-				<integer>2</integer>
+				<integer>4</integer>
 				<key>APPAREANCES</key>
 				<dict>
 					<key>DARK_AQUA</key>
@@ -1602,11 +1617,11 @@
 					<key>LIGHT_AQUA</key>
 					<dict>
 						<key>ALIGNMENT</key>
-						<integer>2</integer>
+						<integer>4</integer>
 						<key>BACKGROUND_PATH</key>
 						<dict>
 							<key>PATH</key>
-							<string>/Users/axelborgmo/NYU/Classes/Fall_2021/3D_Audio/Synth 3D/Binaural-Synthesizer/sine-wave-g3e55cb519_1280.png</string>
+							<string>/Users/axelborgmo/NYU/Classes/Fall_2021/3D_Audio/Synth 3D/Synth3DGit/InstallersLocal/Mac/Synth-3D/sine-wave-g3e55cb519_1280.png</string>
 							<key>PATH_TYPE</key>
 							<integer>0</integer>
 						</dict>
@@ -1621,7 +1636,7 @@
 				<key>BACKGROUND_PATH</key>
 				<dict>
 					<key>PATH</key>
-					<string>/Users/axelborgmo/NYU/Classes/Fall_2021/3D_Audio/Synth 3D/Binaural-Synthesizer/sine-wave-g3e55cb519_1280.png</string>
+					<string>/Users/axelborgmo/NYU/Classes/Fall_2021/3D_Audio/Synth 3D/Synth3DGit/InstallersLocal/Mac/Synth-3D/sine-wave-g3e55cb519_1280.png</string>
 					<key>PATH_TYPE</key>
 					<integer>0</integer>
 				</dict>
@@ -1782,7 +1797,7 @@
 						<key>VALUE</key>
 						<dict>
 							<key>PATH</key>
-							<string>/Users/axelborgmo/Synth 3D/Synth 3D/Synth3Dheader.rtfd</string>
+							<string>/Users/axelborgmo/NYU/Classes/Fall_2021/3D_Audio/Synth 3D/Synth3DGit/InstallersLocal/Mac/Synth-3D/Synth3Dheader.rtfd</string>
 							<key>PATH_TYPE</key>
 							<integer>0</integer>
 						</dict>
@@ -1806,7 +1821,7 @@
 						<key>VALUE</key>
 						<dict>
 							<key>PATH</key>
-							<string>/Users/axelborgmo/Synth 3D/Synth 3D/README.rtf</string>
+							<string>/Users/axelborgmo/NYU/Classes/Fall_2021/3D_Audio/Synth 3D/Synth3DGit/InstallersLocal/Mac/Synth-3D/README.rtf</string>
 							<key>PATH_TYPE</key>
 							<integer>0</integer>
 						</dict>
