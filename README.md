@@ -1,12 +1,12 @@
-# Binaural-Synthesizer
-3D Audio Final Project
+#Synth 3D
+VST synthesizer with 3 individual oscillators
+Each oscillator has it's own 3D binaural panner
+Two additional filters with ADSR parameters are included
 
-## Install
-To install, simply download the VST plugin from this repository. It is available in the VST folder in component and VST3 format. Once it is downloaded, place it in the approprriate folder.
+![Synth 3D](https://dafaronbi.github.io/Synth-3D/img/synthGIF.gif)
 
-For Mac, this folder is usually in "/Library/Audio/Plug-Ins/Components" or "/Library/Audio/Plug-Ins/VST".
+## Source Files
+This project was made with [JUCE](https://github.com/juce-framework/JUCE). You must have JUCE installed to tweak our code. The jucer and source files for this project are available in the "Juce Project Files" folder. You can build for Mac (Xcode) and Windows (Visual Studio) with the current juce project configuration or add more platforms if you choose.
 
-On windows, this folder is usually in "C:\Program Files\Common Files\VST3."
-
-## More to come
-We are working on improvements to the software and documentation, so that this project is more flexible.
+## Donwload and install
+Installers for Mac and windows are available under "Downloads". They should install both a standalone version of the plugin and a vst3. The mac istaller will also give you an AU version.
