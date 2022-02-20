@@ -1,4 +1,4 @@
-#Synth 3D
+# Synth 3D
 VST synthesizer with 3 individual oscillators
 Each oscillator has it's own 3D binaural panner
 Two additional filters with ADSR parameters are included
