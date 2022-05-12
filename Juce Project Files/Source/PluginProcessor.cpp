@@ -77,15 +77,15 @@ juce::AudioProcessorValueTreeState::ParameterLayout PluginSynthAudioProcessor::a
     parameters.add( std::make_unique<juce::AudioParameterFloat>("filter1resonance", "Filter 1 Resonance", juce::NormalisableRange<float> (0.0f, 1.0f), 0));
     parameters.add( std::make_unique<juce::AudioParameterFloat>("filter2resonance", "Filter 2 Resonance", juce::NormalisableRange<float> (0.0f, 1.0f), 0));
     
-    parameters.add( std::make_unique<juce::AudioParameterFloat>("filterAttack", "Filter Attack", juce::NormalisableRange<float> (0.0f, 5.0f), 0));
-    parameters.add( std::make_unique<juce::AudioParameterFloat>("filterDecay", "Filter Decay", juce::NormalisableRange<float> (0.0f, 5.0f), 0));
+    parameters.add( std::make_unique<juce::AudioParameterFloat>("filterAttack", "Filter Attack", juce::NormalisableRange<float> (0.0f, 5.0f), 0.1));
+    parameters.add( std::make_unique<juce::AudioParameterFloat>("filterDecay", "Filter Decay", juce::NormalisableRange<float> (0.0f, 5.0f), 0.1));
     parameters.add( std::make_unique<juce::AudioParameterFloat>("filterSustain", "Filter Sustain", juce::NormalisableRange<float> (0.0f, 1.0f), 1));
-    parameters.add( std::make_unique<juce::AudioParameterFloat>("filterRelease", "Filter Release", juce::NormalisableRange<float> (0.0f, 5.0f), 0));
+    parameters.add( std::make_unique<juce::AudioParameterFloat>("filterRelease", "Filter Release", juce::NormalisableRange<float> (0.0f, 5.0f), 0.1));
     
-    parameters.add( std::make_unique<juce::AudioParameterFloat>("ampAttack", "Amplifier Attack", juce::NormalisableRange<float> (0.0f, 5.0f), 0));
-    parameters.add( std::make_unique<juce::AudioParameterFloat>("ampDecay", "Amplifier Decay", juce::NormalisableRange<float> (0.0f, 5.0f), 0));
+    parameters.add( std::make_unique<juce::AudioParameterFloat>("ampAttack", "Amplifier Attack", juce::NormalisableRange<float> (0.0f, 5.0f), 0.1));
+    parameters.add( std::make_unique<juce::AudioParameterFloat>("ampDecay", "Amplifier Decay", juce::NormalisableRange<float> (0.0f, 5.0f), 0.1));
     parameters.add( std::make_unique<juce::AudioParameterFloat>("ampSustain", "Amplifier Sustain", juce::NormalisableRange<float> (0.0f, 1.0f), 1));
-    parameters.add( std::make_unique<juce::AudioParameterFloat>("ampRelease", "Amplifier Release", juce::NormalisableRange<float> (0.0f, 5.0f), 0));
+    parameters.add( std::make_unique<juce::AudioParameterFloat>("ampRelease", "Amplifier Release", juce::NormalisableRange<float> (0.0f, 5.0f), 0.1));
     
     parameters.add( std::make_unique<juce::AudioParameterFloat>("totalGain", "total Gain", juce::NormalisableRange<float> (-100.0f, 10.0f), 0));
     

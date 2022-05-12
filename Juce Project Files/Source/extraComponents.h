@@ -336,16 +336,19 @@ public:
         osc1_frequency.setTextBoxStyle (juce::Slider::TextEntryBoxPosition::TextBoxBelow, true, 100, 50);
         osc1_frequency.setTextValueSuffix (" Frequency Offset (Cents)");
         osc1_frequency.setRange(-100, 100);
+        osc1_frequency.setNumDecimalPlacesToDisplay(2);
         
         osc2_frequency.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
         osc2_frequency.setTextBoxStyle (juce::Slider::TextEntryBoxPosition::TextBoxBelow, true, 100, 50);
         osc2_frequency.setTextValueSuffix (" Frequency Offset (Cents)");
         osc2_frequency.setRange(-100, 100);
+        osc2_frequency.setNumDecimalPlacesToDisplay(2);
         
         osc3_frequency.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
         osc3_frequency.setTextBoxStyle (juce::Slider::TextEntryBoxPosition::TextBoxBelow, true, 100, 50);
         osc3_frequency.setTextValueSuffix (" Frequency Offset (Cents)");
         osc3_frequency.setRange(-100, 100);
+        osc3_frequency.setNumDecimalPlacesToDisplay(2);
         
         //set gain slider settings
         osc1_gain.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
@@ -608,12 +611,14 @@ public:
         filter1_cuttoff_freq.setTextBoxStyle (juce::Slider::TextEntryBoxPosition::TextBoxBelow, true, 100, 50);
         filter1_cuttoff_freq.setTextValueSuffix (" Cutoff Freq (Hz)");
         filter1_cuttoff_freq.setRange(20, 20000);
+        filter1_cuttoff_freq.setNumDecimalPlacesToDisplay(2);
         filter1_cuttoff_freq.setSkewFactorFromMidPoint (1000);
         
         filter2_cuttoff_freq.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
         filter2_cuttoff_freq.setTextBoxStyle (juce::Slider::TextEntryBoxPosition::TextBoxBelow, true, 100, 50);
         filter2_cuttoff_freq.setTextValueSuffix (" Cutoff Freq (Hz)");
         filter2_cuttoff_freq.setRange(20, 20000);
+        filter2_cuttoff_freq.setNumDecimalPlacesToDisplay(2);
         filter2_cuttoff_freq.setSkewFactorFromMidPoint (1000);
         
         //set cuttoff freq slider settings
@@ -621,33 +626,39 @@ public:
         filter1_resonance.setTextBoxStyle (juce::Slider::TextEntryBoxPosition::TextBoxBelow, true, 100, 50);
         filter1_resonance.setTextValueSuffix (" Resonance");
         filter1_resonance.setRange(0, 1);
+        filter1_resonance.setNumDecimalPlacesToDisplay(2);
         
         filter2_resonance.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
         filter2_resonance.setTextBoxStyle (juce::Slider::TextEntryBoxPosition::TextBoxBelow, true, 100, 50);
         filter2_resonance.setTextValueSuffix (" Resonance");
         filter2_resonance.setRange(0, 1);
+        filter2_resonance.setNumDecimalPlacesToDisplay(2);
         
         //set asdr slider settings
         filter_attack.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
         filter_attack.setTextBoxStyle (juce::Slider::TextEntryBoxPosition::TextBoxBelow, true, 100, 50);
         filter_attack.setTextValueSuffix (" Attack Time (s)");
         filter_attack.setRange(0, 5);
+        filter_attack.setNumDecimalPlacesToDisplay(2);
         
         filter_decay.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
         filter_decay.setTextBoxStyle (juce::Slider::TextEntryBoxPosition::TextBoxBelow, true, 100, 50);
         filter_decay.setTextValueSuffix (" Decay Time (s)");
         filter_decay.setRange(0, 1);
+        filter_decay.setNumDecimalPlacesToDisplay(2);
         
         filter_sustain.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
         filter_sustain.setTextBoxStyle (juce::Slider::TextEntryBoxPosition::TextBoxBelow, true, 100, 50);
         filter_sustain.setTextValueSuffix (" Sustain Level (fraction)");
         filter_sustain.setRange(0, 1);
+        filter_sustain.setNumDecimalPlacesToDisplay(2);
         
         
         filter_release.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
         filter_release.setTextBoxStyle (juce::Slider::TextEntryBoxPosition::TextBoxBelow, true, 100, 50);
         filter_release.setTextValueSuffix (" Release Time (s)");
         filter_release.setRange(0, 5);
+        filter_release.setNumDecimalPlacesToDisplay(2);
         
         //set sustain level to be 1
         filter_sustain.setValue(1);
@@ -828,21 +839,25 @@ public:
         amp_attack.setTextBoxStyle (juce::Slider::TextEntryBoxPosition::TextBoxBelow, true, 100, 50);
         amp_attack.setTextValueSuffix (" Attack Time (s)");
         amp_attack.setRange(0, 5);
+        amp_attack.setNumDecimalPlacesToDisplay(2);
         
         amp_decay.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
         amp_decay.setTextBoxStyle (juce::Slider::TextEntryBoxPosition::TextBoxBelow, true, 100,50);
         amp_decay.setTextValueSuffix (" Decay Time (s)");
         amp_decay.setRange(0, 1);
+        amp_decay.setNumDecimalPlacesToDisplay(2);
         
         amp_sustain.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
         amp_sustain.setTextBoxStyle (juce::Slider::TextEntryBoxPosition::TextBoxBelow, true, 100, 50);
         amp_sustain.setTextValueSuffix (" Sustain Level (fraction)");
         amp_sustain.setRange(0, 1);
+        amp_sustain.setNumDecimalPlacesToDisplay(2);
         
         amp_release.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
         amp_release.setTextBoxStyle (juce::Slider::TextEntryBoxPosition::TextBoxBelow, true, 100, 50);
         amp_release.setTextValueSuffix (" Release Time (s)");
         amp_release.setRange(0, 5);
+        amp_release.setNumDecimalPlacesToDisplay(2);
         
         //set sustain level to be 1
         amp_sustain.setValue(1);
